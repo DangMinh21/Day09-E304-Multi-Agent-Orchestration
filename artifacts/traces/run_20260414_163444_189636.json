@@ -6,39 +6,39 @@
   "hitl_triggered": false,
   "retrieved_chunks": [
     {
-      "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
-      "source": "support/sla-p1-2026.pdf",
-      "score": 0.627,
-      "metadata": {
-        "effective_date": "2026-01-15",
-        "section": "Phần 3: Quy trình xử lý sự cố P1",
-        "source": "support/sla-p1-2026.pdf",
-        "access": "internal",
-        "department": "IT"
-      }
-    },
-    {
       "text": "Escalation chỉ áp dụng khi cần thay đổi quyền hệ thống ngoài quy trình thông thường.\nVí dụ: Khẩn cấp trong sự cố P1, cần cấp quyền tạm thời để fix incident.\n\nQuy trình escalation khẩn cấp:\n1. On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.",
       "source": "it/access-control-sop.md",
-      "score": 0.618,
+      "score": 1.0684,
       "metadata": {
-        "department": "IT Security",
-        "access": "internal",
         "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
+        "department": "IT Security",
         "effective_date": "2026-01-01",
+        "access": "internal",
         "source": "it/access-control-sop.md"
       }
     },
     {
       "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
       "source": "it/access-control-sop.md",
-      "score": 0.6109,
+      "score": 0.9117,
       "metadata": {
-        "access": "internal",
         "department": "IT Security",
-        "effective_date": "2026-01-01",
         "source": "it/access-control-sop.md",
-        "section": "Section 3: Quy trình yêu cầu cấp quyền"
+        "section": "Section 3: Quy trình yêu cầu cấp quyền",
+        "access": "internal",
+        "effective_date": "2026-01-01"
+      }
+    },
+    {
+      "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
+      "source": "support/sla-p1-2026.pdf",
+      "score": 0.8267,
+      "metadata": {
+        "section": "Phần 3: Quy trình xử lý sự cố P1",
+        "access": "internal",
+        "effective_date": "2026-01-15",
+        "source": "support/sla-p1-2026.pdf",
+        "department": "IT"
       }
     }
   ],
@@ -55,7 +55,7 @@
       "support/sla-p1-2026.pdf"
     ],
     "policy_version_note": "",
-    "explanation": "Policy hoàn tiền không áp dụng trong trường hợp này vì không có thông tin nào liên quan đến hoàn tiền trong quy trình xử lý sự cố P1 và cấp quyền tạm thời cho contractor.",
+    "explanation": "Policy hoàn tiền không áp dụng trong trường hợp này vì đây là một quy trình cấp quyền tạm thời cho contractor để thực hiện emergency fix, không liên quan đến hoàn tiền.",
     "access_check": {
       "access_level": 2,
       "can_grant": true,
@@ -81,39 +81,39 @@
       "output": {
         "chunks": [
           {
-            "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
-            "source": "support/sla-p1-2026.pdf",
-            "score": 0.627,
-            "metadata": {
-              "effective_date": "2026-01-15",
-              "section": "Phần 3: Quy trình xử lý sự cố P1",
-              "source": "support/sla-p1-2026.pdf",
-              "access": "internal",
-              "department": "IT"
-            }
-          },
-          {
             "text": "Escalation chỉ áp dụng khi cần thay đổi quyền hệ thống ngoài quy trình thông thường.\nVí dụ: Khẩn cấp trong sự cố P1, cần cấp quyền tạm thời để fix incident.\n\nQuy trình escalation khẩn cấp:\n1. On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.",
             "source": "it/access-control-sop.md",
-            "score": 0.618,
+            "score": 1.0684,
             "metadata": {
-              "department": "IT Security",
-              "access": "internal",
               "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
+              "department": "IT Security",
               "effective_date": "2026-01-01",
+              "access": "internal",
               "source": "it/access-control-sop.md"
             }
           },
           {
             "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
             "source": "it/access-control-sop.md",
-            "score": 0.6109,
+            "score": 0.9117,
             "metadata": {
-              "access": "internal",
               "department": "IT Security",
-              "effective_date": "2026-01-01",
               "source": "it/access-control-sop.md",
-              "section": "Section 3: Quy trình yêu cầu cấp quyền"
+              "section": "Section 3: Quy trình yêu cầu cấp quyền",
+              "access": "internal",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
+            "source": "support/sla-p1-2026.pdf",
+            "score": 0.8267,
+            "metadata": {
+              "section": "Phần 3: Quy trình xử lý sự cố P1",
+              "access": "internal",
+              "effective_date": "2026-01-15",
+              "source": "support/sla-p1-2026.pdf",
+              "department": "IT"
             }
           }
         ],
@@ -124,7 +124,7 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T15:36:40.096727"
+      "timestamp": "2026-04-14T16:34:44.431506"
     },
     {
       "tool": "get_ticket_info",
@@ -148,7 +148,7 @@
         ]
       },
       "error": null,
-      "timestamp": "2026-04-14T15:36:41.584073"
+      "timestamp": "2026-04-14T16:34:46.198996"
     },
     {
       "tool": "check_access_permission",
@@ -172,15 +172,15 @@
         "source": "access_control_sop.txt"
       },
       "error": null,
-      "timestamp": "2026-04-14T15:36:41.584143"
+      "timestamp": "2026-04-14T16:34:46.199024"
     }
   ],
-  "final_answer": "Để xử lý Ticket P1 lúc 2am, cần thực hiện hai quy trình sau:\n\n### 1. Quy trình thông báo theo SLA:\n- **Bước 1: Tiếp nhận**: On-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n- **Bước 2: Thông báo**: Gửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n- **Bước 3: Triage và phân công**: Lead Engineer phân công engineer xử lý trong 10 phút.\n- **Bước 4: Xử lý**: Engineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n- **Bước 5: Resolution**: Sau khi khắc phục, viết incident report trong vòng 24 giờ. [1]\n\n### 2. Quy trình cấp Level 2 access tạm thời cho contractor:\n- **Bước 1**: On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n- **Bước 2**: Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n- **Bước 3**: Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit. [2]\n\nLưu ý: Quy trình cấp quyền tạm thời chỉ áp dụng trong trường hợp khẩn cấp như sự cố P1.",
+  "final_answer": "### Quy trình cấp Level 2 access tạm thời cho contractor:\n\n1. **Phê duyệt**: On-call IT Admin cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời [1].\n2. **Ghi log**: Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit [1].\n3. **Ticket chính thức**: Sau 24 giờ, phải có ticket chính thức hoặc quyền sẽ bị thu hồi tự động [1].\n\n### Quy trình notify stakeholders theo SLA cho Ticket P1:\n\n1. **Tiếp nhận**: On-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút [3].\n2. **Thông báo**: Gửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức [3].\n3. **Triage và phân công**: Lead Engineer phân công engineer xử lý trong 10 phút [3].\n4. **Xử lý**: Engineer cập nhật tiến độ lên ticket mỗi 30 phút [3].\n5. **Resolution**: Sau khi khắc phục, viết incident report trong vòng 24 giờ [3].",
   "sources": [
     "it/access-control-sop.md",
     "support/sla-p1-2026.pdf"
   ],
-  "confidence": 0.79,
+  "confidence": 0.95,
   "history": [
     "[supervisor] received task: Ticket P1 lúc 2am. Cần cấp Level 2 access tạm thời cho contractor để thực hiện e",
     "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: High",
@@ -188,15 +188,15 @@
     "[policy_tool_worker] called MCP get_ticket_info",
     "[policy_tool_worker] called MCP check_access_permission",
     "[policy_tool_worker] policy_applies=False, exceptions=0",
-    "[synthesis_worker] answer generated, confidence=0.79, sources=['it/access-control-sop.md', 'support/sla-p1-2026.pdf']",
-    "[graph] completed in 7471ms - Powered by LangGraph!"
+    "[synthesis_worker] answer generated, confidence=0.95, sources=['it/access-control-sop.md', 'support/sla-p1-2026.pdf']",
+    "[graph] completed in 7135ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 7471,
-  "run_id": "run_20260414_153639_226794",
+  "latency_ms": 7135,
+  "run_id": "run_20260414_163444_189636",
   "question_id": "q15"
 }

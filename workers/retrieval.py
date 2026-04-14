@@ -1,74 +1,57 @@
-"""
-workers/retrieval.py — Retrieval Worker
-Sprint 2: Implement retrieval từ ChromaDB, trả về chunks + sources.
-
-Input (từ AgentState):
-    - task: câu hỏi cần retrieve
-    - (optional) retrieved_chunks nếu đã có từ trước
-
-Output (vào AgentState):
-    - retrieved_chunks: list of {"text", "source", "score", "metadata"}
-    - retrieved_sources: list of source filenames
-    - worker_io_log: log input/output của worker này
-
-Gọi độc lập để test:
-    python workers/retrieval.py
-"""
-
 import os
-import sys
+import json
+from typing import List, Dict
 from dotenv import load_dotenv
+
 load_dotenv()
 
-# ─────────────────────────────────────────────
-# Worker Contract (xem contracts/worker_contracts.yaml)
-# Input:  {"task": str, "top_k": int = 3}
-# Output: {"retrieved_chunks": list, "retrieved_sources": list, "error": dict | None}
-# ─────────────────────────────────────────────
-
 WORKER_NAME = "retrieval_worker"
-DEFAULT_TOP_K = 3
+DEFAULT_TOP_K = 5  # Tăng lên để rerank sau đó
 
+# Khởi tạo clients một lần duy nhất (Singleton-ish)
+_COLLECTION = None
+_OPENAI_CLIENT = None
 
-def _get_embedding_fn():
-    """Dùng OpenAI text-embedding-3-small — nhất quán với index đã build từ Day 08."""
-    from openai import OpenAI
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    def embed(text: str) -> list:
-        resp = client.embeddings.create(input=text, model="text-embedding-3-small")
-        return resp.data[0].embedding
-    return embed
-
+def _get_openai_client():
+    global _OPENAI_CLIENT
+    if _OPENAI_CLIENT is None:
+        from openai import OpenAI
+        _OPENAI_CLIENT = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    return _OPENAI_CLIENT
 
 def _get_collection():
-    """
-    Kết nối ChromaDB collection.
-    TODO Sprint 2: Đảm bảo collection đã được build từ Step 3 trong README.
-    """
-    import chromadb
-    client = chromadb.PersistentClient(path="./chroma_db")
-    collection = client.get_collection("rag_lab")
-    return collection
+    global _COLLECTION
+    if _COLLECTION is None:
+        import chromadb
+        client = chromadb.PersistentClient(path="./chroma_db")
+        _COLLECTION = client.get_collection("rag_lab")
+    return _COLLECTION
 
-
-def retrieve_dense(query: str, top_k: int = DEFAULT_TOP_K) -> list:
+def simple_reranker(query: str, chunks: List[Dict]) -> List[Dict]:
     """
-    Dense retrieval: embed query → query ChromaDB → trả về top_k chunks.
-
-    TODO Sprint 2: Implement phần này.
-    - Dùng _get_embedding_fn() để embed query
-    - Query collection với n_results=top_k
-    - Format result thành list of dict
-
-    Returns:
-        list of {"text": str, "source": str, "score": float, "metadata": dict}
+    Hàm tối ưu Confidence: Chấm điểm lại dựa trên sự xuất hiện của từ khóa 
+    quan trọng từ câu hỏi trong chunk.
     """
-    # TODO: Implement dense retrieval
-    embed = _get_embedding_fn()
-    query_embedding = embed(query)
+    query_terms = set(query.lower().split())
+    for chunk in chunks:
+        text_lower = chunk["text"].lower()
+        # Tính bonus point nếu chứa từ khóa chính xác
+        term_matches = sum(1 for term in query_terms if term in text_lower)
+        # Cập nhật score: score gốc (vector) + bonus từ keyword
+        chunk["score"] = round(chunk["score"] + (term_matches * 0.05), 4)
+    
+    # Sắp xếp lại theo score mới
+    return sorted(chunks, key=lambda x: x["score"], reverse=True)
+
+def retrieve_dense(query: str, top_k: int = DEFAULT_TOP_K) -> List[Dict]:
+    client = _get_openai_client()
+    # 1. Embed query
+    resp = client.embeddings.create(input=query, model="text-embedding-3-small")
+    query_embedding = resp.data[0].embedding
 
     try:
         collection = _get_collection()
+        # 2. Query vector db
         results = collection.query(
             query_embeddings=[query_embedding],
             n_results=top_k,
@@ -76,44 +59,36 @@ def retrieve_dense(query: str, top_k: int = DEFAULT_TOP_K) -> list:
         )
 
         chunks = []
-        for i, (doc, dist, meta) in enumerate(zip(
+        for doc, dist, meta in zip(
             results["documents"][0],
             results["distances"][0],
             results["metadatas"][0]
-        )):
+        ):
             chunks.append({
                 "text": doc,
                 "source": meta.get("source", "unknown"),
-                "score": round(1 - dist, 4),  # cosine similarity
+                "score": round(1 - dist, 4), 
                 "metadata": meta,
             })
-        return chunks
+        
+        # 3. Rerank để đẩy độ chính xác lên
+        reranked_chunks = simple_reranker(query, chunks)
+        
+        return reranked_chunks[:3] # Trả về top 3 chất lượng nhất sau rerank
 
     except Exception as e:
-        print(f"⚠️  ChromaDB query failed: {e}")
-        # Fallback: return empty (abstain)
+        print(f"⚠️ Retrieval failed: {e}")
         return []
 
-
 def run(state: dict) -> dict:
-    """
-    Worker entry point — gọi từ graph.py.
-
-    Args:
-        state: AgentState dict
-
-    Returns:
-        Updated AgentState với retrieved_chunks và retrieved_sources
-    """
     task = state.get("task", "")
+    # Ưu tiên lấy top_k từ state (do supervisor quyết định)
     top_k = state.get("retrieval_top_k", DEFAULT_TOP_K)
 
     state.setdefault("workers_called", [])
     state.setdefault("history", [])
-
     state["workers_called"].append(WORKER_NAME)
 
-    # Log worker IO (theo contract)
     worker_io = {
         "worker": WORKER_NAME,
         "input": {"task": task, "top_k": top_k},
@@ -122,32 +97,33 @@ def run(state: dict) -> dict:
     }
 
     try:
+        # Thực hiện tìm kiếm
         chunks = retrieve_dense(task, top_k=top_k)
+        
+        # Nếu score quá thấp (< 0.3), ghi chú vào history để synthesis_worker biết
+        low_confidence = any(c["score"] < 0.35 for c in chunks) if chunks else True
 
         sources = list({c["source"] for c in chunks})
-
         state["retrieved_chunks"] = chunks
         state["retrieved_sources"] = sources
 
         worker_io["output"] = {
             "chunks_count": len(chunks),
             "sources": sources,
+            "low_confidence_flag": low_confidence
         }
+        
+        conf_msg = "LOW CONFIDENCE" if low_confidence else "HIGH CONFIDENCE"
         state["history"].append(
-            f"[{WORKER_NAME}] retrieved {len(chunks)} chunks from {sources}"
+            f"[{WORKER_NAME}] {conf_msg}: retrieved {len(chunks)} chunks"
         )
 
     except Exception as e:
         worker_io["error"] = {"code": "RETRIEVAL_FAILED", "reason": str(e)}
-        state["retrieved_chunks"] = []
-        state["retrieved_sources"] = []
         state["history"].append(f"[{WORKER_NAME}] ERROR: {e}")
 
-    # Ghi worker IO vào state để trace
     state.setdefault("worker_io_logs", []).append(worker_io)
-
     return state
-
 
 # ─────────────────────────────────────────────
 # Test độc lập
