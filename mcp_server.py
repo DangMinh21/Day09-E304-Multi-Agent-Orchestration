@@ -10,6 +10,8 @@ Tools available:
     2. get_ticket_info(ticket_id)        → tra cứu thông tin ticket (mock data)
     3. check_access_permission(level, requester_role)  → kiểm tra quyền truy cập
     4. create_ticket(priority, title, description)     → tạo ticket mới (mock)
+    5. get_leave_process(days, leave_type)             → tra cứu quy trình nghỉ phép
+    6. get_late_penalty(minutes_late)                  → tra cứu mức nhắc nhở đi muộn (mock)
 
 Sử dụng:
     from mcp_server import dispatch_tool, list_tools
@@ -122,6 +124,62 @@ TOOL_SCHEMAS = {
                 "ticket_id": {"type": "string"},
                 "url": {"type": "string"},
                 "created_at": {"type": "string"},
+            },
+        },
+    },
+    "get_leave_process": {
+        "name": "get_leave_process",
+        "description": "Tra cứu quy trình xin nghỉ phép theo chính sách HR nội bộ.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "leave_days": {"type": "integer", "description": "Số ngày nghỉ mong muốn"},
+                "leave_type": {
+                    "type": "string",
+                    "enum": ["annual", "sick", "maternity", "holiday"],
+                    "default": "annual",
+                },
+                "is_emergency": {"type": "boolean", "description": "Trường hợp khẩn cấp", "default": False},
+            },
+            "required": ["leave_days"],
+        },
+        "outputSchema": {
+            "type": "object",
+            "properties": {
+                "leave_type": {"type": "string"},
+                "leave_days": {"type": "integer"},
+                "submission_channel": {"type": "string"},
+                "minimum_notice_days": {"type": "integer"},
+                "approval_sla_working_days": {"type": "integer"},
+                "documents_required": {"type": "array"},
+                "notes": {"type": "array"},
+                "source": {"type": "string"},
+            },
+        },
+    },
+    "get_late_penalty": {
+        "name": "get_late_penalty",
+        "description": "Tra cứu mức nhắc nhở/kỷ luật đi muộn theo policy mô phỏng nội bộ.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "minutes_late": {"type": "integer", "description": "Số phút đi muộn"},
+                "late_count_this_month": {
+                    "type": "integer",
+                    "description": "Số lần đi muộn trong tháng",
+                    "default": 1,
+                },
+            },
+            "required": ["minutes_late"],
+        },
+        "outputSchema": {
+            "type": "object",
+            "properties": {
+                "minutes_late": {"type": "integer"},
+                "late_count_this_month": {"type": "integer"},
+                "level": {"type": "string"},
+                "action": {"type": "string"},
+                "source": {"type": "string"},
             },
         },
     },
@@ -275,6 +333,70 @@ def tool_create_ticket(priority: str, title: str, description: str = "") -> dict
     return ticket
 
 
+def tool_get_leave_process(leave_days: int, leave_type: str = "annual", is_emergency: bool = False) -> dict:
+    """
+    Tra cứu quy trình nghỉ phép theo tài liệu HR nội bộ.
+    """
+    leave_type = (leave_type or "annual").lower()
+    if leave_days <= 0:
+        return {"error": "leave_days phải lớn hơn 0."}
+
+    valid_leave_types = {"annual", "sick", "maternity", "holiday"}
+    if leave_type not in valid_leave_types:
+        return {
+            "error": f"leave_type '{leave_type}' không hợp lệ.",
+            "supported_types": sorted(valid_leave_types),
+        }
+
+    notes = []
+    docs_required = []
+    if leave_type == "sick" and leave_days > 3:
+        docs_required.append("Giấy tờ y tế từ bệnh viện")
+
+    if is_emergency:
+        notes.append("Trường hợp khẩn cấp có thể gửi yêu cầu muộn, cần Line Manager đồng ý trực tiếp.")
+
+    return {
+        "leave_type": leave_type,
+        "leave_days": leave_days,
+        "submission_channel": "HR Portal (https://hr.company.internal)",
+        "minimum_notice_days": 3,
+        "approval_sla_working_days": 1,
+        "documents_required": docs_required,
+        "notes": notes,
+        "source": "hr_leave_policy.txt",
+    }
+
+
+def tool_get_late_penalty(minutes_late: int, late_count_this_month: int = 1) -> dict:
+    """
+    Tra cứu mức nhắc nhở đi muộn (MOCK policy để demo MCP config/tool binding).
+    """
+    if minutes_late < 0:
+        return {"error": "minutes_late không được âm."}
+
+    if minutes_late < 10:
+        level = "L0"
+        action = "Nhắc nhở nhẹ"
+    elif minutes_late < 30:
+        level = "L1"
+        action = "Nhắc nhở chính thức qua email"
+    else:
+        level = "L2"
+        action = "Lập biên bản đi muộn"
+
+    if late_count_this_month >= 4:
+        action += " + chuyển Line Manager review"
+
+    return {
+        "minutes_late": minutes_late,
+        "late_count_this_month": late_count_this_month,
+        "level": level,
+        "action": action,
+        "source": "attendance_policy_mock.txt",
+    }
+
+
 # ─────────────────────────────────────────────
 # Dispatch Layer — MCP server interface
 # ─────────────────────────────────────────────
@@ -284,6 +406,8 @@ TOOL_REGISTRY = {
     "get_ticket_info": tool_get_ticket_info,
     "check_access_permission": tool_check_access_permission,
     "create_ticket": tool_create_ticket,
+    "get_leave_process": tool_get_leave_process,
+    "get_late_penalty": tool_get_late_penalty,
 }
 
 
@@ -373,6 +497,17 @@ if __name__ == "__main__":
     print("\n❌ Test: invalid tool")
     err = dispatch_tool("nonexistent_tool", {})
     print(f"  Error: {err.get('error')}")
+
+    # 6. Test get_leave_process
+    print("\n🏖️  Test: get_leave_process")
+    leave = dispatch_tool("get_leave_process", {"leave_days": 3, "leave_type": "annual", "is_emergency": False})
+    print(f"  leave_days: {leave.get('leave_days')} | notice: {leave.get('minimum_notice_days')} ngày")
+    print(f"  channel: {leave.get('submission_channel')}")
+
+    # 7. Test get_late_penalty
+    print("\n⏰ Test: get_late_penalty")
+    late = dispatch_tool("get_late_penalty", {"minutes_late": 35, "late_count_this_month": 2})
+    print(f"  level: {late.get('level')} | action: {late.get('action')}")
 
     print("\n✅ MCP server test done.")
     print("\nTODO Sprint 3: Implement HTTP server nếu muốn bonus +2.")
