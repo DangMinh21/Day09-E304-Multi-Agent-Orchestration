@@ -10,11 +10,11 @@
       "source": "support/helpdesk-faq.md",
       "score": 0.6279,
       "metadata": {
-        "department": "IT",
         "source": "support/helpdesk-faq.md",
-        "access": "internal",
+        "section": "Section 1: Tài khoản và mật khẩu",
         "effective_date": "2026-01-20",
-        "section": "Section 1: Tài khoản và mật khẩu"
+        "department": "IT",
+        "access": "internal"
       }
     },
     {
@@ -22,11 +22,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.4564,
       "metadata": {
-        "access": "internal",
+        "section": "Section 6: Audit và review định kỳ",
         "department": "IT Security",
         "effective_date": "2026-01-01",
         "source": "it/access-control-sop.md",
-        "section": "Section 6: Audit và review định kỳ"
+        "access": "internal"
       }
     },
     {
@@ -34,9 +34,9 @@
       "source": "support/helpdesk-faq.md",
       "score": 0.4027,
       "metadata": {
-        "effective_date": "2026-01-20",
         "section": "Section 5: Email và lịch",
         "access": "internal",
+        "effective_date": "2026-01-20",
         "source": "support/helpdesk-faq.md",
         "department": "IT"
       }
@@ -59,14 +59,14 @@
     "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
     "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'support/helpdesk-faq.md']",
     "[synthesis_worker] answer generated, confidence=0.68, sources=['it/access-control-sop.md', 'support/helpdesk-faq.md']",
-    "[graph] completed in 1360ms - Powered by LangGraph!"
+    "[graph] completed in 2009ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 1360,
-  "run_id": "run_20260414_153605_743130",
+  "latency_ms": 2009,
+  "run_id": "run_20260414_154413_622093",
   "question_id": "q04"
 }

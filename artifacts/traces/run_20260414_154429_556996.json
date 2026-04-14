@@ -1,43 +1,43 @@
 {
-  "task": "Khách hàng đặt đơn ngày 31/01/2026 và yêu cầu hoàn tiền ngày 07/02/2026. Sản phẩm lỗi nhà sản xuất, chưa kích hoạt, không phải Flash Sale. Được hoàn tiền không?",
+  "task": "Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
   "route_reason": "route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
   "risk_high": false,
   "needs_tool": true,
   "hitl_triggered": false,
   "retrieved_chunks": [
     {
-      "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
+      "text": "- Hoàn tiền qua phương thức thanh toán gốc: áp dụng trong 100% trường hợp đủ điều kiện.\n- Hoàn tiền qua credit nội bộ (store credit): khách hàng có thể chọn nhận store credit thay thế với giá trị 110% so với số tiền hoàn.",
       "source": "policy/refund-v4.pdf",
-      "score": 0.6411,
+      "score": 0.6471,
       "metadata": {
-        "effective_date": "2026-02-01",
-        "access": "internal",
+        "section": "Điều 5: Hình thức hoàn tiền",
         "source": "policy/refund-v4.pdf",
+        "effective_date": "2026-02-01",
         "department": "CS",
-        "section": "Điều 2: Điều kiện được hoàn tiền"
+        "access": "internal"
       }
     },
     {
       "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
       "source": "policy/refund-v4.pdf",
-      "score": 0.6272,
+      "score": 0.4394,
       "metadata": {
+        "source": "policy/refund-v4.pdf",
+        "department": "CS",
         "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
         "effective_date": "2026-02-01",
-        "source": "policy/refund-v4.pdf",
-        "access": "internal",
-        "department": "CS"
+        "access": "internal"
       }
     },
     {
       "text": "Chính sách này áp dụng cho tất cả các đơn hàng được đặt trên hệ thống nội bộ kể từ ngày 01/02/2026.\nCác đơn hàng đặt trước ngày có hiệu lực sẽ áp dụng theo chính sách hoàn tiền phiên bản 3.",
       "source": "policy/refund-v4.pdf",
-      "score": 0.5314,
+      "score": 0.3878,
       "metadata": {
         "section": "Điều 1: Phạm vi áp dụng",
-        "source": "policy/refund-v4.pdf",
         "access": "internal",
         "department": "CS",
+        "source": "policy/refund-v4.pdf",
         "effective_date": "2026-02-01"
       }
     }
@@ -58,51 +58,51 @@
     "source": [
       "policy/refund-v4.pdf"
     ],
-    "policy_version_note": "Đơn hàng đặt trước 01/02/2026 áp dụng chính sách v3 (không có trong tài liệu hiện tại).",
-    "explanation": "Đơn hàng được đặt vào ngày 31/01/2026, nhưng chính sách hoàn tiền mới chỉ có hiệu lực từ ngày 01/02/2026. Do đó, chính sách hoàn tiền không áp dụng cho đơn hàng này."
+    "policy_version_note": "",
+    "explanation": "Chính sách hoàn tiền không áp dụng vì đơn hàng được đặt trước ngày 01/02/2026."
   },
   "mcp_tools_used": [
     {
       "tool": "search_kb",
       "input": {
-        "query": "Khách hàng đặt đơn ngày 31/01/2026 và yêu cầu hoàn tiền ngày 07/02/2026. Sản phẩm lỗi nhà sản xuất, chưa kích hoạt, không phải Flash Sale. Được hoàn tiền không?",
+        "query": "Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
         "top_k": 3
       },
       "output": {
         "chunks": [
           {
-            "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
+            "text": "- Hoàn tiền qua phương thức thanh toán gốc: áp dụng trong 100% trường hợp đủ điều kiện.\n- Hoàn tiền qua credit nội bộ (store credit): khách hàng có thể chọn nhận store credit thay thế với giá trị 110% so với số tiền hoàn.",
             "source": "policy/refund-v4.pdf",
-            "score": 0.6411,
+            "score": 0.6471,
             "metadata": {
-              "effective_date": "2026-02-01",
-              "access": "internal",
+              "section": "Điều 5: Hình thức hoàn tiền",
               "source": "policy/refund-v4.pdf",
+              "effective_date": "2026-02-01",
               "department": "CS",
-              "section": "Điều 2: Điều kiện được hoàn tiền"
+              "access": "internal"
             }
           },
           {
             "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
             "source": "policy/refund-v4.pdf",
-            "score": 0.6272,
+            "score": 0.4394,
             "metadata": {
+              "source": "policy/refund-v4.pdf",
+              "department": "CS",
               "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
               "effective_date": "2026-02-01",
-              "source": "policy/refund-v4.pdf",
-              "access": "internal",
-              "department": "CS"
+              "access": "internal"
             }
           },
           {
             "text": "Chính sách này áp dụng cho tất cả các đơn hàng được đặt trên hệ thống nội bộ kể từ ngày 01/02/2026.\nCác đơn hàng đặt trước ngày có hiệu lực sẽ áp dụng theo chính sách hoàn tiền phiên bản 3.",
             "source": "policy/refund-v4.pdf",
-            "score": 0.5314,
+            "score": 0.3878,
             "metadata": {
               "section": "Điều 1: Phạm vi áp dụng",
-              "source": "policy/refund-v4.pdf",
               "access": "internal",
               "department": "CS",
+              "source": "policy/refund-v4.pdf",
               "effective_date": "2026-02-01"
             }
           }
@@ -113,28 +113,28 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T15:36:27.961972"
+      "timestamp": "2026-04-14T15:44:30.088099"
     }
   ],
-  "final_answer": "Khách hàng không được hoàn tiền trong trường hợp này. Mặc dù sản phẩm bị lỗi do nhà sản xuất và chưa kích hoạt, yêu cầu hoàn tiền được gửi sau 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng (31/01/2026 đến 07/02/2026 là 7 ngày). Do đó, không đáp ứng điều kiện hoàn tiền theo chính sách. [1], [2]",
+  "final_answer": "Store credit khi hoàn tiền có giá trị 110% so với số tiền gốc. Khách hàng có thể chọn nhận store credit thay thế trong trường hợp đủ điều kiện hoàn tiền [1].",
   "sources": [
     "policy/refund-v4.pdf"
   ],
-  "confidence": 0.72,
+  "confidence": 0.62,
   "history": [
-    "[supervisor] received task: Khách hàng đặt đơn ngày 31/01/2026 và yêu cầu hoàn tiền ngày 07/02/2026. Sản phẩ",
+    "[supervisor] received task: Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
     "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
     "[policy_tool_worker] called MCP search_kb",
     "[policy_tool_worker] policy_applies=False, exceptions=1",
-    "[synthesis_worker] answer generated, confidence=0.72, sources=['policy/refund-v4.pdf']",
-    "[graph] completed in 5081ms - Powered by LangGraph!"
+    "[synthesis_worker] answer generated, confidence=0.62, sources=['policy/refund-v4.pdf']",
+    "[graph] completed in 3702ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 5081,
-  "run_id": "run_20260414_153627_130293",
-  "question_id": "q12"
+  "latency_ms": 3702,
+  "run_id": "run_20260414_154429_556996",
+  "question_id": "q10"
 }

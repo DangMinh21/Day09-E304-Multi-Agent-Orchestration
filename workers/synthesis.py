@@ -17,190 +17,113 @@ Gọi độc lập để test:
 """
 
 import os
+import json
 from dotenv import load_dotenv
+
 load_dotenv()
 
 WORKER_NAME = "synthesis_worker"
 
-SYSTEM_PROMPT = """Bạn là trợ lý IT Helpdesk nội bộ.
+# Prompt được thiết kế để tận dụng tối đa kết quả từ Policy Tool
+SYSTEM_PROMPT = """Bạn là chuyên gia IT Helpdesk nội bộ. 
+Nhiệm vụ: Trả lời câu hỏi dựa trên Tài liệu và Phân tích chính sách được cung cấp.
 
-Quy tắc nghiêm ngặt:
-1. CHỈ trả lời dựa vào context được cung cấp. KHÔNG dùng kiến thức ngoài.
-2. Nếu context không đủ để trả lời → nói rõ "Không đủ thông tin trong tài liệu nội bộ".
-3. Trích dẫn nguồn cuối mỗi câu quan trọng: [tên_file].
-4. Trả lời súc tích, có cấu trúc. Không dài dòng.
-5. Nếu có exceptions/ngoại lệ → nêu rõ ràng trước khi kết luận.
+Quy trình tư duy:
+1. Kiểm tra mục 'PHÂN TÍCH CHÍNH SÁCH': Đây là nguồn tin cậy nhất về các quy định/exceptions.
+2. Kiểm tra 'TÀI LIỆU THAM KHẢO': Dùng để lấy chi tiết quy trình, tên file và thông tin bổ trợ.
+3. Trình bày: Nêu rõ ĐƯỢC hay KHÔNG ĐƯỢC trước, sau đó là điều kiện/ngoại lệ, cuối cùng là quy trình thực hiện.
+
+Yêu cầu định dạng:
+- Trích dẫn nguồn: [tên_file] ngay sau thông tin lấy từ file đó.
+- In đậm: Thời gian (SLA), Access Level, Email, hoặc kết luận quan trọng nhất.
+- Nếu không có thông tin: Trả lời "Hiện tại tài liệu nội bộ không đề cập đến [vấn đề X]".
 """
 
-
 def _call_llm(messages: list) -> str:
-    """
-    Gọi LLM để tổng hợp câu trả lời.
-    TODO Sprint 2: Implement với OpenAI hoặc Gemini.
-    """
-    # Option A: OpenAI
+    """Sử dụng GPT-4o-mini cho bước Synthesis để đảm bảo tốc độ và logic."""
     try:
         from openai import OpenAI
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=messages,
-            temperature=0.1,  # Low temperature để grounded
-            max_tokens=500,
+            temperature=0, # Giữ tính ổn định cao nhất
+            max_tokens=800,
         )
         return response.choices[0].message.content
-    except Exception:
-        pass
-
-    # Option B: Gemini
-    try:
-        import google.generativeai as genai
-        genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        combined = "\n".join([m["content"] for m in messages])
-        response = model.generate_content(combined)
-        return response.text
-    except Exception:
-        pass
-
-    # Fallback: trả về message báo lỗi (không hallucinate)
-    return "[SYNTHESIS ERROR] Không thể gọi LLM. Kiểm tra API key trong .env."
-
+    except Exception as e:
+        return f"[SYNTHESIS ERROR] {str(e)}"
 
 def _build_context(chunks: list, policy_result: dict) -> str:
-    """Xây dựng context string từ chunks và policy result."""
     parts = []
 
+    # 1. Đưa phân tích của Policy Tool lên đầu (Top priority)
+    if policy_result:
+        parts.append("=== PHÂN TÍCH CHÍNH SÁCH ===")
+        if "explanation" in policy_result:
+            parts.append(f"Kết luận từ chuyên gia: {policy_result['explanation']}")
+        
+        # Thêm thông tin từ MCP tools nếu có (Access levels, HR process...)
+        for key in ["access_details", "hr_penalty_details", "leave_process"]:
+            if key in policy_result:
+                parts.append(f"Chi tiết từ hệ thống ({key}): {json.dumps(policy_result[key], ensure_ascii=False)}")
+
+    # 2. Đưa các đoạn text raw xuống dưới để LLM trích dẫn nguồn
     if chunks:
-        parts.append("=== TÀI LIỆU THAM KHẢO ===")
+        parts.append("\n=== TÀI LIỆU THAM KHẢO (DÙNG ĐỂ TRÍCH DẪN) ===")
         for i, chunk in enumerate(chunks, 1):
-            source = chunk.get("source", "unknown")
-            text = chunk.get("text", "")
-            score = chunk.get("score", 0)
-            parts.append(f"[{i}] Nguồn: {source} (relevance: {score:.2f})\n{text}")
-
-    if policy_result and policy_result.get("exceptions_found"):
-        parts.append("\n=== POLICY EXCEPTIONS ===")
-        for ex in policy_result["exceptions_found"]:
-            parts.append(f"- {ex.get('rule', '')}")
-
-    if not parts:
-        return "(Không có context)"
+            parts.append(f"[{i}] Nguồn: {chunk.get('source')} | Nội dung: {chunk.get('text')}")
 
     return "\n\n".join(parts)
 
-
-def _estimate_confidence(chunks: list, answer: str, policy_result: dict) -> float:
-    """
-    Ước tính confidence dựa vào:
-    - Số lượng và quality của chunks
-    - Có exceptions không
-    - Answer có abstain không
-    """
-    if not chunks:
-        return 0.1  # Không có evidence → low confidence
-
-    if "Không đủ thông tin" in answer or "không có trong tài liệu" in answer.lower():
-        return 0.3  # Abstain → moderate-low
-
-    # Raw avg score từ ChromaDB thường nằm trong khoảng [0.4, 0.7]
-    # vì cosine similarity của text-embedding-3-small với tiếng Việt hiếm khi > 0.8
-    # → rescale về [0.5, 0.95] để confidence phản ánh thực tế hơn
-    avg_score = sum(c.get("score", 0) for c in chunks) / len(chunks)
-
-    # Normalize: map [0.3, 0.8] → [0.5, 0.95]
-    low, high = 0.3, 0.8
-    normalized = (avg_score - low) / (high - low)   # 0.0 → 1.0
-    scaled = 0.5 + normalized * 0.45                # 0.5 → 0.95
-
-    # Penalty nếu có exceptions (câu trả lời phức tạp hơn → ít chắc hơn)
-    exception_penalty = 0.05 * len(policy_result.get("exceptions_found", []))
-
-    confidence = min(0.95, scaled - exception_penalty)
-    return round(max(0.1, confidence), 2)
-
-
-def synthesize(task: str, chunks: list, policy_result: dict) -> dict:
-    """
-    Tổng hợp câu trả lời từ chunks và policy context.
-
-    Returns:
-        {"answer": str, "sources": list, "confidence": float}
-    """
-    context = _build_context(chunks, policy_result)
-
-    # Build messages
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {
-            "role": "user",
-            "content": f"""Câu hỏi: {task}
-
-{context}
-
-Hãy trả lời câu hỏi dựa vào tài liệu trên."""
-        }
-    ]
-
-    answer = _call_llm(messages)
-    sources = list({c.get("source", "unknown") for c in chunks})
-    confidence = _estimate_confidence(chunks, answer, policy_result)
-
-    return {
-        "answer": answer,
-        "sources": sources,
-        "confidence": confidence,
-    }
-
+def _estimate_confidence(chunks: list, policy_result: dict, answer: str) -> float:
+    """Logic tính điểm tin cậy thực tế hơn."""
+    if not chunks and not policy_result:
+        return 0.1
+    
+    # Điểm nền: Nếu Policy Tool đã phân tích xong thì tin cậy tối thiểu 0.7
+    base_conf = 0.7 if policy_result.get("explanation") else 0.4
+    
+    # Thưởng điểm nếu retrieved chunks có score cao
+    if chunks:
+        avg_score = sum(c.get("score", 0) for c in chunks) / len(chunks)
+        base_conf += (avg_score * 0.3) # Max +0.3
+    
+    # Phạt điểm nếu LLM báo không thấy thông tin
+    if "không đề cập" in answer or "Không đủ thông tin" in answer:
+        base_conf = 0.3
+        
+    return round(min(0.98, base_conf), 2)
 
 def run(state: dict) -> dict:
-    """
-    Worker entry point — gọi từ graph.py.
-    """
     task = state.get("task", "")
     chunks = state.get("retrieved_chunks", [])
     policy_result = state.get("policy_result", {})
 
     state.setdefault("workers_called", [])
-    state.setdefault("history", [])
     state["workers_called"].append(WORKER_NAME)
 
-    worker_io = {
-        "worker": WORKER_NAME,
-        "input": {
-            "task": task,
-            "chunks_count": len(chunks),
-            "has_policy": bool(policy_result),
-        },
-        "output": None,
-        "error": None,
-    }
+    context = _build_context(chunks, policy_result)
+    
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": f"Câu hỏi: {task}\n\n{context}"}
+    ]
 
-    try:
-        result = synthesize(task, chunks, policy_result)
-        state["final_answer"] = result["answer"]
-        state["sources"] = result["sources"]
-        state["confidence"] = result["confidence"]
-
-        worker_io["output"] = {
-            "answer_length": len(result["answer"]),
-            "sources": result["sources"],
-            "confidence": result["confidence"],
-        }
-        state["history"].append(
-            f"[{WORKER_NAME}] answer generated, confidence={result['confidence']}, "
-            f"sources={result['sources']}"
-        )
-
-    except Exception as e:
-        worker_io["error"] = {"code": "SYNTHESIS_FAILED", "reason": str(e)}
-        state["final_answer"] = f"SYNTHESIS_ERROR: {e}"
-        state["confidence"] = 0.0
-        state["history"].append(f"[{WORKER_NAME}] ERROR: {e}")
-
-    state.setdefault("worker_io_logs", []).append(worker_io)
+    # Synthesis thực tế
+    final_answer = _call_llm(messages)
+    
+    # Cập nhật state
+    state["final_answer"] = final_answer
+    state["sources"] = list({c.get("source") for c in chunks if c.get("source")})
+    state["confidence"] = _estimate_confidence(chunks, policy_result, final_answer)
+    
+    # Log lịch sử
+    state.setdefault("history", []).append(
+        f"[{WORKER_NAME}] Final answer synthesized. Confidence: {state['confidence']}"
+    )
+    
     return state
-
 
 # ─────────────────────────────────────────────
 # Test độc lập
