@@ -215,11 +215,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 .DS_Store
-<<<<<<< HEAD
+plans/*.md
 
 day08/
-
-plans/
-=======
-plans/*.md
->>>>>>> main

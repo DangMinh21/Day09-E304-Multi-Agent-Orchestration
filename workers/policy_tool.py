@@ -16,12 +16,80 @@ Gọi độc lập để test:
     python workers/policy_tool.py
 """
 
-import os
-import sys
 import json
-from typing import Optional
+import os
+import re
+from pathlib import Path
+from typing import Any, Optional
+import sys
 
 WORKER_NAME = "policy_tool_worker"
+
+_MCP_CONFIG_CACHE: Optional[dict[str, Any]] = None
+
+
+def _load_mcp_config() -> dict[str, Any]:
+    """
+    Nạp mcp_config.json nếu có. Fallback về config rỗng để không làm vỡ flow hiện tại.
+    """
+    global _MCP_CONFIG_CACHE
+    if _MCP_CONFIG_CACHE is not None:
+        return _MCP_CONFIG_CACHE
+
+    config_path = Path(__file__).resolve().parents[1] / "mcp_config.json"
+    if not config_path.exists():
+        _MCP_CONFIG_CACHE = {}
+        return {}
+
+    try:
+        with config_path.open("r", encoding="utf-8") as f:
+            loaded = json.load(f)
+            _MCP_CONFIG_CACHE = loaded if isinstance(loaded, dict) else {}
+    except Exception:
+        _MCP_CONFIG_CACHE = {}
+    return _MCP_CONFIG_CACHE if _MCP_CONFIG_CACHE is not None else {}
+
+
+def _enabled_tools(config: dict) -> set:
+    """Lấy danh sách tool đang được bật trong mcp_config.json."""
+    enabled = set()
+    for item in config.get("tools", []):
+        if item.get("enabled", True) and item.get("name"):
+            enabled.add(item["name"])
+    return enabled
+
+
+def _extract_leave_days(task: str) -> int:
+    """Parse số ngày nghỉ từ câu hỏi, fallback 1 nếu không parse được."""
+    m = re.search(r"(\d+)\s*(ngay|ngày|day|days)", task.lower())
+    if not m:
+        return 1
+    try:
+        return max(1, int(m.group(1)))
+    except ValueError:
+        return 1
+
+
+def _extract_access_level(task: str) -> int:
+    """Parse access level từ câu hỏi, fallback level 1."""
+    m = re.search(r"level\s*([1-3])", task.lower())
+    if m:
+        return int(m.group(1))
+    m2 = re.search(r"muc\s*([1-3])", task.lower())
+    if m2:
+        return int(m2.group(1))
+    return 1
+
+
+def _detect_leave_type(task_lower: str) -> str:
+    """Suy ra loại nghỉ phép từ câu hỏi."""
+    if "om" in task_lower or "ốm" in task_lower or "sick" in task_lower:
+        return "sick"
+    if "thai san" in task_lower or "thai sản" in task_lower or "maternity" in task_lower:
+        return "maternity"
+    if "le tet" in task_lower or "lễ tết" in task_lower or "holiday" in task_lower:
+        return "holiday"
+    return "annual"
 
 
 # ─────────────────────────────────────────────
@@ -38,15 +106,44 @@ def _call_mcp_tool(tool_name: str, tool_input: dict) -> dict:
     """
     from datetime import datetime
 
+    config = _load_mcp_config()
+    enabled = _enabled_tools(config)
+    if enabled and tool_name not in enabled:
+        return {
+            "tool": tool_name,
+            "input": tool_input,
+            "output": None,
+            "error": {
+                "code": "MCP_TOOL_DISABLED",
+                "reason": f"Tool '{tool_name}' đang bị tắt trong mcp_config.json",
+            },
+            "timestamp": datetime.now().isoformat(),
+        }
+
     try:
         # TODO Sprint 3: Thay bằng real MCP client nếu dùng HTTP server
-        from mcp_server import dispatch_tool
+        from mcp_server import dispatch_tool, list_tools
+
+        available_tools = {t.get("name") for t in list_tools()}
+        if tool_name not in available_tools:
+            return {
+                "tool": tool_name,
+                "input": tool_input,
+                "output": None,
+                "error": {
+                    "code": "MCP_TOOL_NOT_FOUND",
+                    "reason": f"Tool '{tool_name}' không có trong MCP server",
+                },
+                "timestamp": datetime.now().isoformat(),
+            }
+
         result = dispatch_tool(tool_name, tool_input)
+        result_error = result.get("error") if isinstance(result, dict) else None
         return {
             "tool": tool_name,
             "input": tool_input,
             "output": result,
-            "error": None,
+            "error": None if not result_error else {"code": "MCP_TOOL_ERROR", "reason": str(result_error)},
             "timestamp": datetime.now().isoformat(),
         }
     except Exception as e:
@@ -207,8 +304,12 @@ def run(state: dict) -> dict:
         Updated AgentState với policy_result và mcp_tools_used
     """
     task = state.get("task", "")
+    task_lower = task.lower()
     chunks = state.get("retrieved_chunks", [])
     needs_tool = state.get("needs_tool", False)
+    mcp_config = _load_mcp_config()
+    mcp_defaults = mcp_config.get("defaults", {}) if isinstance(mcp_config, dict) else {}
+    search_top_k = int(mcp_defaults.get("search_top_k", 3))
 
     state.setdefault("workers_called", [])
     state.setdefault("history", [])
@@ -222,18 +323,42 @@ def run(state: dict) -> dict:
             "task": task,
             "chunks_count": len(chunks),
             "needs_tool": needs_tool,
+            "mcp_config_loaded": bool(mcp_config),
         },
         "output": None,
         "error": None,
     }
 
     try:
+<<<<<<< HEAD
         # Step 1: Luôn gọi MCP search_kb để enrich context với policy docs
         # Dù retrieval_worker đã chạy trước, MCP search_kb tìm thêm
         # chunks chuyên về policy — quan trọng cho exception detection
         mcp_search = _call_mcp_tool("search_kb", {"query": task, "top_k": 3})
         state["mcp_tools_used"].append(mcp_search)
         state["history"].append(f"[{WORKER_NAME}] called MCP search_kb")
+=======
+        policy_like_keywords = [
+            "hoàn tiền",
+            "refund",
+            "flash sale",
+            "license",
+            "cấp quyền",
+            "access",
+            "level",
+            "nghỉ phép",
+            "leave",
+            "đi muộn",
+            "late",
+        ]
+        should_consult_tools = needs_tool or any(kw in task_lower for kw in policy_like_keywords)
+
+        # Step 1: Nếu chưa có chunks, gọi MCP search_kb
+        if not chunks and should_consult_tools:
+            mcp_result = _call_mcp_tool("search_kb", {"query": task, "top_k": search_top_k})
+            state["mcp_tools_used"].append(mcp_result)
+            state["history"].append(f"[{WORKER_NAME}] called MCP search_kb")
+>>>>>>> main
 
         # Merge chunks từ MCP vào chunks hiện có (tránh duplicate theo text)
         if mcp_search.get("output") and mcp_search["output"].get("chunks"):
@@ -268,10 +393,66 @@ def run(state: dict) -> dict:
         policy_result = analyze_policy(task, chunks)
         state["policy_result"] = policy_result
 
+<<<<<<< HEAD
+=======
+        # Step 3: Nếu cần thêm info từ MCP (e.g., ticket status), gọi get_ticket_info
+        if should_consult_tools and any(kw in task_lower for kw in ["ticket", "p1", "jira"]):
+            mcp_result = _call_mcp_tool("get_ticket_info", {"ticket_id": "P1-LATEST"})
+            state["mcp_tools_used"].append(mcp_result)
+            state["history"].append(f"[{WORKER_NAME}] called MCP get_ticket_info")
+
+        # Step 4: Leave policy process via MCP
+        if should_consult_tools and any(kw in task_lower for kw in ["nghỉ", "nghi", "leave"]):
+            leave_days = _extract_leave_days(task)
+            leave_type = _detect_leave_type(task_lower)
+            mcp_result = _call_mcp_tool(
+                "get_leave_process",
+                {
+                    "leave_days": leave_days,
+                    "leave_type": leave_type,
+                    "is_emergency": any(kw in task_lower for kw in ["khẩn cấp", "emergency"]),
+                },
+            )
+            state["mcp_tools_used"].append(mcp_result)
+            state["history"].append(f"[{WORKER_NAME}] called MCP get_leave_process")
+            if mcp_result.get("output"):
+                state["policy_result"]["leave_process"] = mcp_result["output"]
+
+        # Step 5: Access control check via MCP
+        if should_consult_tools and any(kw in task_lower for kw in ["access", "cấp quyền", "level"]):
+            requester_role = "contractor" if "contractor" in task_lower else mcp_defaults.get("requester_role", "employee")
+            mcp_result = _call_mcp_tool(
+                "check_access_permission",
+                {
+                    "access_level": _extract_access_level(task),
+                    "requester_role": requester_role,
+                    "is_emergency": any(kw in task_lower for kw in ["khẩn cấp", "emergency"]),
+                },
+            )
+            state["mcp_tools_used"].append(mcp_result)
+            state["history"].append(f"[{WORKER_NAME}] called MCP check_access_permission")
+            if mcp_result.get("output"):
+                state["policy_result"]["access_check"] = mcp_result["output"]
+
+        # Step 6: Late penalty guidance via MCP
+        if should_consult_tools and any(kw in task_lower for kw in ["đi muộn", "di muon", "late"]):
+            m = re.search(r"(\d+)\s*(phut|phút|min)", task_lower)
+            minutes_late = int(m.group(1)) if m else 10
+            mcp_result = _call_mcp_tool(
+                "get_late_penalty",
+                {"minutes_late": minutes_late, "late_count_this_month": 1},
+            )
+            state["mcp_tools_used"].append(mcp_result)
+            state["history"].append(f"[{WORKER_NAME}] called MCP get_late_penalty")
+            if mcp_result.get("output"):
+                state["policy_result"]["late_penalty"] = mcp_result["output"]
+
+>>>>>>> main
         worker_io["output"] = {
             "policy_applies": policy_result["policy_applies"],
             "exceptions_count": len(policy_result.get("exceptions_found", [])),
             "mcp_calls": len(state["mcp_tools_used"]),
+            "mcp_call_tools": [x.get("tool", "unknown") for x in state.get("mcp_tools_used", [])],
         }
         state["history"].append(
             f"[{WORKER_NAME}] policy_applies={policy_result['policy_applies']}, "
@@ -314,6 +495,11 @@ if __name__ == "__main__":
             "retrieved_chunks": [
                 {"text": "Yêu cầu trong 7 ngày làm việc, sản phẩm lỗi nhà sản xuất, chưa dùng.", "source": "policy_refund_v4.txt", "score": 0.85}
             ],
+        },
+        {
+            "task": "Xin nghỉ phép 3 ngày thì quy trình thế nào?",
+            "retrieved_chunks": [],
+            "needs_tool": True,
         },
     ]
 
