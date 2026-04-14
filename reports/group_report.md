@@ -17,15 +17,10 @@
 
 ---
 
-> **Hướng dẫn nộp group report:**
-> 
-> - File này nộp tại: `reports/group_report.md`
-> - Deadline: Được phép commit **sau 18:00** (xem SCORING.md)
-> - Tập trung vào **quyết định kỹ thuật cấp nhóm** — không trùng lặp với individual reports
-> - Phải có **bằng chứng từ code/trace** — không mô tả chung chung
-> - Mỗi mục phải có ít nhất 1 ví dụ cụ thể từ code hoặc trace thực tế của nhóm
+## 1. Kiến trúc nhóm đã xây dựng
 
----
+**Hệ thống tổng quan:**  
+Hệ thống gồm 1 Supervisor và 4 nodes trong LangGraph `StateGraph`: `retrieval_worker`, `policy_tool_worker`, `human_review`, và `synthesis_worker`. Supervisor đọc task, quyết định route, rồi workers xử lý và trả kết quả về state chung `AgentState`. Tất cả 15 test questions và 10 grading questions đã chạy end-to-end không crash.
 
 ## 1. Kiến trúc nhóm đã xây dựng
 
@@ -33,175 +28,141 @@
 Nhóm triển khai hệ thống theo mô hình **Supervisor-Worker** dựa trên LangGraph `StateGraph`. Thay vì một pipeline đơn lẻ, nhóm tách biệt các trách nhiệm thành các Worker chuyên biệt: **Retrieval** (truy xuất), **Policy Tool** (phân tích chính sách) và **Synthesis** (tổng hợp). Toàn bộ dữ liệu được đồng bộ qua `AgentState` tập trung, giúp hệ thống đạt độ chính xác trung bình **~76.8%** (tăng mạnh so với baseline Day 08) nhờ khả năng kiểm soát độc lập và tích hợp con người vào luồng xử lý (**Human-in-the-loop**) khi phát hiện rủi ro cao.
 
 **Routing logic cốt lõi:**
-Supervisor điều phối luồng dựa trên cơ chế **Keyword Matching kết hợp Risk Detection**:
-- **Điều hướng Worker:** Phân loại dựa trên tập từ khóa (ví dụ: "SLA", "hoàn tiền" -> Policy; tra cứu chung -> Retrieval).
-- **Xử lý rủi ro:** Nếu task chứa tiền tố lỗi hệ thống (`err-`) và nhãn `risk_high=True`, Supervisor ép route qua node `human_review`.
-- **Quyết định Tool:** Sử dụng cờ `needs_tool` để kích hoạt khả năng gọi MCP Tools khi câu hỏi yêu cầu dữ liệu động hoặc thực thi nghiệp vụ (latency trung bình ~3.6s).
+
+1. risk_keywords: ["emergency", "khẩn cấp", "2am", "err-"] → set risk_high=True
+2. policy_keywords: ["hoàn tiền", "refund", "flash sale", "access", "level 3"] → policy_tool_worker
+3. retrieval_keywords: ["p1", "sla", "ticket", "escalation"] → retrieval_worker (elif)
+4. risk_high + "err-" → human_review (override mọi route trên)
+
+
+Thứ tự `elif` đảm bảo policy_keywords luôn được check trước retrieval — câu multi-domain (có cả "P1" lẫn "access") đi về `policy_tool_worker`.
 
 **MCP tools đã tích hợp:**
-Nhóm tích hợp 05 công cụ chính qua giao thức MCP để làm giàu ngữ cảnh:
-* `search_kb`: Truy xuất bổ sung dữ liệu để làm rõ các điều khoản chính sách.
-* `get_ticket_info`: Lấy thông tin thực tế từ hệ thống Ticket (ví dụ: IT-9847).
-* `check_access_permission`: Thực thi quy tắc phân quyền Level 1/2/3 dựa trên Role.
-* `get_leave_process` & `get_late_penalty`: Tra cứu quy trình nhân sự và mức phạt chuyên biệt.
+- `search_kb(query, top_k)`: semantic search ChromaDB — gọi trong 7/10 grading questions qua `policy_tool_worker`
+- `get_ticket_info(ticket_id)`: tra ticket mock (P1-LATEST, IT-1234) — gọi trong gq03, gq09
+- `check_access_permission(level, role, is_emergency)`: kiểm tra quyền theo level 1–3 — gọi trong gq03, gq09
+- `get_leave_process`, `get_late_penalty`: HR tools bổ sung
 
-**Ví dụ Trace thực tế (Case q13):**
-* **Supervisor:** Nhận diện task "Admin Access" -> Route: `policy_tool_worker`, `needs_tool=True`.
-* **Policy Tool:** Gọi đồng thời `search_kb` (lấy SOP) và `check_access_permission`.
-* **MCP Output:** Xác định Contractor cần 3 cấp phê duyệt (Line Manager, IT Admin, IT Security).
-* **Synthesis:** Tổng hợp câu trả lời có trích dẫn nguồn từ file `it/access-control-sop.md`.
+**Ví dụ trace gq09 (3 MCP calls):**
+```
+[policy_tool_worker] called MCP search_kb
+[policy_tool_worker] called MCP get_ticket_info
+[policy_tool_worker] called MCP check_access_permission
+workers_called: ["policy_tool_worker", "synthesis_worker"]
+confidence: 0.92
+```
 ---
 
-## 2. Quyết định kỹ thuật quan trọng nhất (200–250 từ)
+## 2. Quyết định kỹ thuật quan trọng nhất
 
-> Chọn **1 quyết định thiết kế** mà nhóm thảo luận và đánh đổi nhiều nhất.
-> Phải có: (a) vấn đề gặp phải, (b) các phương án cân nhắc, (c) lý do chọn phương án đã chọn.
+**Quyết định:** LLM primary
 
-**Quyết định:** Tích hợp bộ lọc Simple Keyword-based Reranker sau bước Vector Search
-**Bối cảnh vấn đề:**
-
-Trong quá trình thử nghiệm Day 08, nhóm nhận thấy tìm kiếm bằng Vector (Dense Retrieval) 
-tuy hiểu ngữ nghĩa nhưng thường xuyên bỏ lỡ các thực thể quan trọng có tên riêng cụ thể 
-như "P1", "Level 3", hay "SLA". Hệ thống trả về các đoạn văn bản có độ tương đồng 
-vector cao nhưng không chứa đúng từ khóa then chốt mà người dùng hỏi, dẫn đến 
-synthesis_worker bị thiếu dữ liệu chính xác để khẳng định câu trả lời.
+**Bối cảnh vấn đề:**  
+`policy_tool_worker` cần phán xét các ngoại lệ (Flash Sale, kỹ thuật số, đã kích hoạt) và tính ngày theo nghiệp vụ. Rule-based đơn thuần check keyword không đủ: gq02 yêu cầu đếm đúng "7 ngày làm việc" (31/01 là Thứ 7 → ngày làm việc đầu tiên là 02/02, đến 07/02 chỉ là 5 ngày làm việc, tức trong hạn). Rule `if "hoàn tiền" in task` không thể xử lý logic temporal này.
 
 **Các phương án đã cân nhắc:**
 
 | Phương án | Ưu điểm | Nhược điểm |
 |-----------|---------|-----------|
-| Chỉ dùng Vector Search (Baseline) | Tốc độ nhanh, không cần thêm code xử lý. | Độ chính xác với từ khóa đặc hiệu (Hard Keywords) thấp. |
-| Dùng Cross-Encoder Model chuyên dụng | Độ chính xác cực cao trong việc xếp hạng lại. | Tăng đáng kể Latency (~1-2s) và chi phí API/tài nguyên tính toán. |
+| Rule-based thuần (keyword) | Nhanh, không tốn API call | Không xử lý được temporal logic, đếm ngày làm việc |
+| LLM-only | Linh hoạt, hiểu ngữ nghĩa sâu | Tốn API call, không ổn định nếu API fail |
+| LLM + rule-based fallback (đã chọn) | Chính xác với edge cases, vẫn chạy khi API fail | Phức tạp hơn một chút |
 
-**Phương án đã chọn và lý do:**
-`Reranker`
-   - Ưu điểm: Cải thiện rõ rệt độ tin cậy bằng cách ưu tiên Keyword mà vẫn giữ Latency thấp.
-   - Nhược điểm: Cần tinh chỉnh thủ công hệ số Bonus (0.05) dựa trên thực tế dữ liệu.
+**Phương án đã chọn:** LLM primary (`gpt-4o-mini`, `json_object` mode, `temperature=0`) với system prompt hướng dẫn đếm ngày làm việc, rule-based làm fallback khi LLM thất bại.
 
-**Bằng chứng từ trace/code:**
-> Dẫn chứng cụ thể (VD: route_reason trong trace, đoạn code, v.v.)
-
-1. SUPERVISOR ROUTING:
-- Kết quả: retrieval_worker.
-- Lý do: "chứa keyword ticket/chuẩn SLA cơ bản".
-- Risk: Normal (Không kích hoạt human_review).
-
-2. RETRIEVAL & RERANKING:
-- Chunk top 1: support/sla-p1-2026.pdf
-- Score cuối: 0.868 (Đã cộng bonus +0.15 nhờ match "SLA", "ticket", "P1").
-- Trạng thái: [HIGH CONFIDENCE].
-
-3. SYNTHESIS:
-- Confidence: 0.77.
-- Nội dung: Trích xuất chính xác mốc 15 phút (phản hồi) và 4 giờ (xử lý).
-- Nguồn trích dẫn: support/sla-p1-2026.pdf.
-
-4. HIỆU SUẤT:
-- Tổng thời gian (Latency): 5600ms.
-- Số bước thực hiện: 2 (retrieval -> synthesis).
-
+**Bằng chứng từ trace gq02:**
+```json
+"policy_result": {
+  "policy_applies": true,
+  "policy_name": "refund_policy_v4",
+  "explanation": "Khách hàng có thể yêu cầu hoàn tiền trong vòng 7 ngày làm việc kể từ thời điểm
+                  xác nhận đơn hàng. Không có ngoại lệ nào được áp dụng trong trường hợp này."
+}
 ```
-[NHÓM ĐIỀN VÀO ĐÂY — ví dụ trace hoặc code snippet]
-```
+
+LLM phân tích đúng "7 ngày làm việc" và không áp dụng ngoại lệ Flash Sale — kết quả chính xác hơn so với rule-based đơn thuần sẽ trigger `flash_sale_exception` sai.
 
 ---
 
-## 3. Kết quả grading questions (150–200 từ)
+## 3. Kết quả grading questions
 
-> Sau khi chạy pipeline với grading_questions.json (public lúc 17:00):
-> - Nhóm đạt bao nhiêu điểm raw?
-> - Câu nào pipeline xử lý tốt nhất?
-> - Câu nào pipeline fail hoặc gặp khó khăn?
+**Routing phân bố grading run:** retrieval_worker 5/10, policy_tool_worker 5/10
 
-**Tổng điểm raw ước tính:** 90 / 96
+| ID | Confidence | Route | Nhận xét |
+|----|-----------|-------|---------|
+| gq01 | 0.91 | retrieval | Correct — SLA notification đầy đủ (Slack, email, 10 min) |
+| gq02 | 0.92 | policy | Partial — kết luận sai (nói không hoàn tiền, đúng phải hoàn tiền vì 31/01 là Thứ 7) |
+| gq03 | 0.88 | policy | Correct — 3 approvers, IT Security là cuối |
+| gq04 | 0.85 | policy | Correct — 110% store credit |
+| gq05 | 0.92 | retrieval | Correct — escalate lên Senior Engineer sau 10 phút |
+| gq06 | 0.92 | retrieval | Correct — probation không được remote |
+| gq07 | 0.30 | retrieval | **Full abstain** — "Không đủ thông tin trong tài liệu nội bộ" |
+| gq08 | 0.91 | retrieval | Correct — 90 ngày, cảnh báo 7 ngày |
+| gq09 | 0.92 | policy | Correct — cả 2 phần SLA + Level 2 emergency, 3 MCP calls |
+| gq10 | 0.92 | policy | Correct — Flash Sale → không hoàn tiền dù lỗi nhà SX |
+
+**Tổng điểm raw ước tính:** ~86/96 (nếu gq02 partial 5/10) → **≈26.9/30 điểm nhóm**
 
 **Câu pipeline xử lý tốt nhất:**
-- ID: gq01 (SLA P1)
-- Lý do tốt: Nhờ logic Reranker ưu tiên từ khóa "P1", hệ thống truy xuất chính xác 
-  tuyệt đối các mốc thời gian (15 phút phản hồi, 4 giờ xử lý). Confidence đạt 
-  mức tối đa 0.91 - 0.92 với latency rất thấp (~2.7s).
+- **gq07** (abstain) — confidence 0.30, trả lời đúng "Không đủ thông tin" thay vì hallucinate mức phạt. Đây là câu thiết kế bẫy, pipeline không bị penalty.
+- **gq09** (multi-hop khó nhất, 16 điểm) — 3 MCP tools phối hợp, 2 workers được gọi, trả lời đầy đủ cả quy trình SLA lẫn điều kiện Level 2 emergency access. Trace ghi rõ cả hai workers → đủ điều kiện trace bonus +1.
 
-**Câu pipeline fail hoặc partial:**
-- ID: gq02 (Chính sách hoàn tiền đơn hàng 31/01)
-- Fail ở đâu: Phần giải thích về Policy v3 bị mơ hồ.
-- Root cause: Do hệ thống chỉ có tài liệu refund-v4.pdf. Dù đã kích hoạt 
-  policy_tool_worker để gọi search_kb, nhưng vì thiếu data v3 nên LLM phải 
-  dựa trên suy luận logic thời gian thay vì bằng chứng văn bản cụ thể.
+**Câu pipeline fail:**
+- **gq02** — Root cause: LLM system prompt có hướng dẫn đếm ngày làm việc nhưng synthesis worker nhận `policy_version_exception` từ rule-based (31/01 trigger `policy_version_note`), khiến synthesis kết luận "không được hoàn tiền". Conflict giữa LLM explanation (đúng) và rule-based exception (sai) — synthesis ưu tiên exception.
 
-**Câu gq07 (abstain):** Nhóm xử lý thế nào? 
-Nhóm xử lý thành công bằng cơ chế "Abstain condition". 
-- Trace ghi nhận: Hệ thống trả về "Không đủ thông tin trong tài liệu nội bộ".
-- Chỉ số Confidence: Giảm xuống 0.3 (thấp nhất trong bộ test), đúng với kỳ vọng rằng hệ thống không được phép "bịa" ra mức phạt tài chính khi tài liệu SLA chỉ ghi quy trình kỹ thuật.
+**gq07 (abstain):** Hệ thống trả về "Không đủ thông tin trong tài liệu nội bộ về mức phạt tài chính" — synthesis_worker nhận chunks từ SLA docs nhưng không tìm được thông tin về financial penalty, tự abstain theo system prompt "Nếu context không đủ → nói rõ". Không có hallucination.
 
-
-**Câu gq09 (multi-hop khó nhất):** Trace ghi được 2 workers không? Kết quả thế nào?
-- Trace ghi nhận: 2 workers (policy_tool_worker -> synthesis_worker).
-- Kết quả: Xử lý xuất sắc. Mặc dù là câu hỏi phức tạp kết hợp cả SLA P1 và 
-  Emergency Access, policy_tool_worker đã thực hiện chuỗi 3 MCP calls liên tiếp:
-  1. search_kb (lấy SOP)
-  2. get_ticket_info (xác nhận sự cố)
-  3. check_access_permission (kiểm tra điều kiện cho contractor).
-- Kết quả cuối đạt Confidence 0.92, trả lời đầy đủ cả 2 vế của câu hỏi.
-
+**gq09 (multi-hop):** Trace ghi đúng `"workers_called": ["policy_tool_worker", "synthesis_worker"]` và 3 MCP calls. Đạt điều kiện full marks.
 
 ---
 
-## 4. So sánh Day 08 vs Day 09 — Điều nhóm quan sát được (150–200 từ)
+## 4. So sánh Day 08 vs Day 09
 
-> Dựa vào `docs/single_vs_multi_comparison.md` — trích kết quả thực tế.
+**Metric thay đổi rõ nhất (số liệu từ `eval_report.json`):**
 
-**Metric thay đổi rõ nhất (có số liệu):**
+| Metric | Day 08 | Day 09 | Delta |
+|--------|--------|--------|-------|
+| Avg confidence | 0.75 | 0.768 (test) / 0.887 (grading) | +1.8% / +18.3% |
+| Avg latency (ms) | 800 | 3655 | +2855ms |
+| Abstain rate | 20% | 7% (1/15 test), 10% (1/10 grading) | -13% |
+| Multi-hop accuracy | ~30% | gq09=0.92, gq03=0.88 | Cải thiện rõ rệt |
 
-- Multi-hop Accuracy: Tăng từ ~30% lên 47%. Nhờ MCP orchestration 3 bước (search_kb 
-  -> get_ticket_info -> check_access_permission), các câu phức hợp như q13 đạt 
-  Confidence 0.89, điều mà Single Agent hoàn toàn thất bại.
-- Latency: Tăng vọt từ 800ms lên trung bình 3655ms (Delta +2855ms). Độ trễ tỷ lệ 
-  thuận với số lượng MCP calls, đạt đỉnh ~5.8s cho các câu hỏi cần 3 công cụ.
+**Điều nhóm bất ngờ nhất:**  
+Grading confidence (avg 0.887) cao hơn hẳn test confidence (avg 0.768). Nguyên nhân: grading questions cụ thể hơn, tài liệu KB khớp rất tốt — top chunk score gq02 đạt 0.955, gq05 và gq06 đạt 0.92. Reranking của `retrieval_worker` hoạt động hiệu quả hơn với câu hỏi rõ ràng.
 
-**Điều nhóm bất ngờ nhất khi chuyển từ single sang multi-agent:**
-
-Đó là khả năng "Debuggability" vượt trội. Thay vì mất nhiều thời gian để đọc lại toàn bộ pipeline code như Day 08, nhóm chỉ mất vài phút phút để isolate bug bằng cách đọc `history` và `route_reason` trong trace file. Việc tách biệt các Worker giúp nhóm xác định ngay lỗi nằm ở bước Retrieval (score thấp) hay do Supervisor định tuyến sai mà không cần can thiệp vào logic của các Worker khác.
-**Trường hợp multi-agent KHÔNG giúp ích hoặc làm chậm hệ thống:**
-
-Với các câu hỏi đơn giản (Single-document) như q01 hay q08, Multi-agent gây ra sự lãng phí tài nguyên rõ rệt. Overhead của LangGraph routing đẩy Latency lên gấp 2-7 lần (q01 mất 5600ms so với 800ms của Day 08) mà không cải thiện thêm về chất lượng câu trả lời. Ngoài ra, việc gọi trùng lặp ChromaDB giữa retrieval_worker và MCP search_kb là một điểm yếu gây dư thừa tài nguyên cần tối ưu hóa trong tương lai.
+**Trường hợp multi-agent không giúp ích:**  
+Câu đơn giản 1 document (gq08, gq05) — Day 09 mất ~1800–2700ms so với Day 08 ~800ms mà confidence tương đương (~0.91–0.92). LangGraph routing overhead không có benefit rõ ràng cho single-document queries.
 
 ---
 
-## 5. Phân công và đánh giá nhóm (100–150 từ)
-
-> Đánh giá trung thực về quá trình làm việc nhóm.
+## 5. Phân công và đánh giá nhóm
 
 **Phân công thực tế:**
 
 | Thành viên | Phần đã làm | Sprint |
 |------------|-------------|--------|
-| Đặng Văn Minh | graph.py, routing logic, state management | 1 |
-| Nguyễn Quang Tùng | retrieval.py, policy_tool.py, synthesis.py, contracts | 2 |
-| Nguyễn Thị Quỳnh Trang | mcp_server.py, MCP integration trong policy_tool | 3 |
-| Đồng Văn Thịnh | eval_trace.py, 3 doc templates, group_report | 4 |
+| Đặng Văn Minh | `graph.py`: supervisor_node, route_decision, build_graph (LangGraph), AgentState, phân công nhóm | 1 + 4 |
+| Nguyễn Quang Tùng | `workers/retrieval.py`, `policy_tool.py`, `synthesis.py`, `contracts/worker_contracts.yaml` | 2 |
+| Nguyễn Thị Quỳnh Trang | `mcp_server.py`: 6 tools, MCP integration trong policy_tool | 3 |
+| Đồng Văn Thịnh | `eval_trace.py`, `artifacts/grading_run.jsonl`, `artifacts/traces/`, docs | 4 |
 
-**Điều nhóm làm tốt:**
+**Điều nhóm làm tốt:**  
+Phân công sớm và rõ interface — M1 freeze `AgentState` schema trong commit `6b10e47` (11:17) trước khi M2 bắt đầu code workers. `contracts/worker_contracts.yaml` cập nhật `status: "done"` realtime nên M4 biết khi nào có thể chạy eval. Không có blocking dependency ngoài ý muốn.
 
-triển khai thành công kiến trúc Supervisor-Worker linh hoạt, giúp giải quyết triệt để các câu hỏi Multi-hop phức tạp (Confidence tăng lên 0.92). Việc xây dựng thành công bộ lọc Simple Reranker thủ công là một điểm sáng, giúp hệ thống không 
-chỉ dựa vào vector mà còn bám sát các thực thể quan trọng (P1, SLA, Level 3). Đặc biệt, nhóm đã quản lý Trace log rất tốt, giúp việc debug và đánh giá hệ thống trở nên minh bạch và có cơ sở dữ liệu rõ ràng.
+**Điều nhóm làm chưa tốt:**  
+Merge conflict xảy ra 2 lần (`038de6d`, `237e5a9`) khi M2 và M3 cùng sửa `workers/policy_tool.py`. Bug `mcp_search` vs `mcp_result` (variable name conflict) âm thầm gây confidence=0.10 cho 7 câu policy mà không crash, mất thời gian debug. Nên có unit test cho từng worker để phát hiện sớm.
 
-**Điều nhóm làm chưa tốt hoặc gặp vấn đề về phối hợp:**
-
-Nhóm gặp khó khăn trong việc thống nhất cấu trúc dữ liệu (Interface) giữa các Worker dẫn đến lỗi tích hợp, đồng thời chưa tối ưu được độ trễ cho các câu hỏi đơn giản do quy trình xử lý còn chồng chéo.
-
-**Nếu làm lại, nhóm sẽ thay đổi gì trong cách tổ chức?**
-
-Nhóm sẽ thiết kế chuẩn hóa Schema ngay từ đầu để đồng bộ dữ liệu tuyệt đối, đồng thời triển khai bộ định tuyến nhanh (Fast-track Router) để xử lý các tác vụ cơ bản nhằm tối ưu hóa tốc độ hệ thống.
+**Nếu làm lại:**  
+Tách `workers/policy_tool.py` thành 2 file riêng biệt ngay từ đầu: `workers/policy_analysis.py` (M2) và `workers/mcp_client.py` (M3) để tránh conflict. Giao diện giữa hai phần chỉ là 1 function call — đơn giản để merge.
 
 ---
 
-## 6. NẾU CÓ THÊM 1 NGÀY, NHÓM SẼ LÀM GÌ?
+## 6. Nếu có thêm 1 ngày, nhóm sẽ làm gì?
 
-Nhóm sẽ tập trung vào hai cải tiến: 
-1. Triển khai Semantic Router bằng một LLM Classifier siêu nhỏ thay vì Keyword Matching để sửa lỗi "chọn nhầm worker" khi từ khóa bị trùng (như câu gq02). 
-2. Xây dựng cơ chế Shared Context Cache để policy_worker có thể tái sử dụng dữ liệu từ retrieval_worker, loại bỏ tình trạng Duplicate Retrieval giúp giảm latency trung bình từ 3.6s xuống dưới 2s (dựa trên bằng chứng overhead 2855ms trong scorecard).
+**Cải tiến 1:** Sửa gq02 — thêm logic đếm ngày làm việc chính xác vào `analyze_policy()`. Trace gq02 cho thấy rule-based trigger `policy_version_exception` sai (31/01 → 02/02 là đầu tuần mới, chỉ 5 ngày làm việc đến 07/02). LLM explanation đã đúng nhưng bị override. Fix: ưu tiên LLM `policy_applies` hơn rule-based exception khi có conflict — 1 dòng code thay đổi trong `policy_tool.py` line 271.
+
+**Cải tiến 2:** Thay keyword routing bằng LLM classifier nhỏ (gpt-4o-mini, 1 call, ~200ms). gq06 hiện route về `default route` vì không có keyword match, nhưng vẫn trả lời đúng nhờ dense retrieval. Với LLM classifier, route_reason sẽ semantically chính xác hơn — quan trọng cho debuggability khi scale lên nhiều domain hơn.
 
 ---
 
-*File này lưu tại: `reports/group_report.md`*  
-*Commit sau 18:00 được phép theo SCORING.md*
+*File: `reports/group_report.md`*
