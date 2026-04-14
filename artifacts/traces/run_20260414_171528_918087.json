@@ -8,36 +8,36 @@
     {
       "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
       "source": "policy/refund-v4.pdf",
-      "score": 0.9547,
+      "score": 0.955,
       "metadata": {
         "access": "internal",
-        "section": "Điều 2: Điều kiện được hoàn tiền",
-        "department": "CS",
+        "source": "policy/refund-v4.pdf",
         "effective_date": "2026-02-01",
-        "source": "policy/refund-v4.pdf"
+        "department": "CS",
+        "section": "Điều 2: Điều kiện được hoàn tiền"
       }
     },
     {
       "text": "Bước 1: Khách hàng gửi yêu cầu qua hệ thống ticket nội bộ với category \"Refund Request\".\nBước 2: CS Agent xem xét trong vòng 1 ngày làm việc và xác nhận điều kiện đủ điều kiện.\nBước 3: Nếu đủ điều kiện, chuyển yêu cầu sang Finance Team để xử lý hoàn tiền.\nBước 4: Finance Team xử lý trong 3-5 ngày làm việc và thông báo kết quả cho khách hàng.",
       "source": "policy/refund-v4.pdf",
-      "score": 0.862,
+      "score": 0.8642,
       "metadata": {
         "source": "policy/refund-v4.pdf",
-        "effective_date": "2026-02-01",
         "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
         "department": "CS",
-        "access": "internal"
+        "access": "internal",
+        "effective_date": "2026-02-01"
       }
     },
     {
       "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
       "source": "policy/refund-v4.pdf",
-      "score": 0.8271,
+      "score": 0.8273,
       "metadata": {
-        "department": "CS",
         "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
         "effective_date": "2026-02-01",
         "access": "internal",
+        "department": "CS",
         "source": "policy/refund-v4.pdf"
       }
     }
@@ -59,7 +59,7 @@
       "policy/refund-v4.pdf"
     ],
     "policy_version_note": "",
-    "explanation": "Khách hàng có thể yêu cầu hoàn tiền trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng. Không có ngoại lệ nào được áp dụng trong trường hợp này."
+    "explanation": "Khách hàng có thể yêu cầu hoàn tiền trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng. Nếu đơn hàng được xác nhận vào ngày 31/01/2026 (Thứ 7), ngày làm việc tiếp theo là 02/02/2026 (Thứ 2). Trong khoảng thời gian từ 02/02 đến 07/02, có 5 ngày làm việc, do đó yêu cầu hoàn tiền vẫn trong hạn. Không có ngoại lệ nào được áp dụng trong trường hợp này."
   },
   "mcp_tools_used": [
     {
@@ -73,36 +73,36 @@
           {
             "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
             "source": "policy/refund-v4.pdf",
-            "score": 0.9547,
+            "score": 0.955,
             "metadata": {
               "access": "internal",
-              "section": "Điều 2: Điều kiện được hoàn tiền",
-              "department": "CS",
+              "source": "policy/refund-v4.pdf",
               "effective_date": "2026-02-01",
-              "source": "policy/refund-v4.pdf"
+              "department": "CS",
+              "section": "Điều 2: Điều kiện được hoàn tiền"
             }
           },
           {
             "text": "Bước 1: Khách hàng gửi yêu cầu qua hệ thống ticket nội bộ với category \"Refund Request\".\nBước 2: CS Agent xem xét trong vòng 1 ngày làm việc và xác nhận điều kiện đủ điều kiện.\nBước 3: Nếu đủ điều kiện, chuyển yêu cầu sang Finance Team để xử lý hoàn tiền.\nBước 4: Finance Team xử lý trong 3-5 ngày làm việc và thông báo kết quả cho khách hàng.",
             "source": "policy/refund-v4.pdf",
-            "score": 0.862,
+            "score": 0.8642,
             "metadata": {
               "source": "policy/refund-v4.pdf",
-              "effective_date": "2026-02-01",
               "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
               "department": "CS",
-              "access": "internal"
+              "access": "internal",
+              "effective_date": "2026-02-01"
             }
           },
           {
             "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
             "source": "policy/refund-v4.pdf",
-            "score": 0.8271,
+            "score": 0.8273,
             "metadata": {
-              "department": "CS",
               "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
               "effective_date": "2026-02-01",
               "access": "internal",
+              "department": "CS",
               "source": "policy/refund-v4.pdf"
             }
           }
@@ -113,28 +113,28 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T16:51:23.829593"
+      "timestamp": "2026-04-14T17:15:29.255373"
     }
   ],
-  "final_answer": "Khách hàng có thể yêu cầu hoàn tiền trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng, với điều kiện sản phẩm bị lỗi do nhà sản xuất và chưa được sử dụng hoặc mở seal [1]. \n\nNgoại lệ: Sản phẩm thuộc danh mục hàng kỹ thuật số, đơn hàng đã áp dụng mã giảm giá đặc biệt trong chương trình Flash Sale, hoặc sản phẩm đã được kích hoạt không được hoàn tiền [3].",
+  "final_answer": "Khách hàng có thể yêu cầu hoàn tiền trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng, với điều kiện sản phẩm bị lỗi do nhà sản xuất và chưa được sử dụng hoặc mở seal [1]. \n\nNgoại lệ không được hoàn tiền bao gồm sản phẩm thuộc danh mục hàng kỹ thuật số, đơn hàng đã áp dụng mã giảm giá đặc biệt trong chương trình Flash Sale, và sản phẩm đã được kích hoạt hoặc đăng ký tài khoản [3].",
   "sources": [
     "policy/refund-v4.pdf"
   ],
-  "confidence": 0.95,
+  "confidence": 0.8,
   "history": [
     "[supervisor] received task: Khách hàng có thể yêu cầu hoàn tiền trong bao nhiêu ngày?",
     "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
     "[policy_tool_worker] called MCP search_kb",
     "[policy_tool_worker] policy_applies=True, exceptions=1",
-    "[synthesis_worker] answer generated, confidence=0.95, sources=['policy/refund-v4.pdf']",
-    "[graph] completed in 4537ms - Powered by LangGraph!"
+    "[synthesis_worker] answer generated, confidence=0.8, sources=['policy/refund-v4.pdf']",
+    "[graph] completed in 5678ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 4537,
-  "run_id": "run_20260414_165123_100283",
+  "latency_ms": 5678,
+  "run_id": "run_20260414_171528_918087",
   "question_id": "q02"
 }

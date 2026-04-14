@@ -103,20 +103,18 @@ def _estimate_confidence(chunks: list, answer: str, policy_result: dict) -> floa
     if "Không đủ thông tin" in answer or "không có trong tài liệu" in answer.lower():
         return 0.3  # Abstain → moderate-low
 
-    # Raw avg score từ ChromaDB thường nằm trong khoảng [0.4, 0.7]
-    # vì cosine similarity của text-embedding-3-small với tiếng Việt hiếm khi > 0.8
-    # → rescale về [0.5, 0.95] để confidence phản ánh thực tế hơn
+    # Sau rerank, score có thể lên tới 0.9+ → cần range rộng hơn để tránh nhiều câu chạm trần
+    # map [0.3, 1.0] → [0.5, 0.92] để confidence phân tán tự nhiên hơn
     avg_score = sum(c.get("score", 0) for c in chunks) / len(chunks)
 
-    # Normalize: map [0.3, 0.8] → [0.5, 0.95]
-    low, high = 0.3, 0.8
+    low, high = 0.3, 1.0
     normalized = (avg_score - low) / (high - low)   # 0.0 → 1.0
-    scaled = 0.5 + normalized * 0.45                # 0.5 → 0.95
+    scaled = 0.5 + normalized * 0.42                # 0.5 → 0.92
 
     # Penalty nếu có exceptions (câu trả lời phức tạp hơn → ít chắc hơn)
     exception_penalty = 0.05 * len(policy_result.get("exceptions_found", []))
 
-    confidence = min(0.95, scaled - exception_penalty)
+    confidence = min(0.92, scaled - exception_penalty)
     return round(max(0.1, confidence), 2)
 
 

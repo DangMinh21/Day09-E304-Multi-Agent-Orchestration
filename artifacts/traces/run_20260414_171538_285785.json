@@ -10,11 +10,11 @@
       "source": "support/helpdesk-faq.md",
       "score": 1.178,
       "metadata": {
-        "department": "IT",
         "source": "support/helpdesk-faq.md",
-        "effective_date": "2026-01-20",
+        "section": "Section 1: Tài khoản và mật khẩu",
         "access": "internal",
-        "section": "Section 1: Tài khoản và mật khẩu"
+        "effective_date": "2026-01-20",
+        "department": "IT"
       }
     },
     {
@@ -22,11 +22,11 @@
       "source": "support/helpdesk-faq.md",
       "score": 0.5431,
       "metadata": {
-        "department": "IT",
         "source": "support/helpdesk-faq.md",
-        "section": "Section 2: VPN và kết nối từ xa",
+        "access": "internal",
+        "department": "IT",
         "effective_date": "2026-01-20",
-        "access": "internal"
+        "section": "Section 2: VPN và kết nối từ xa"
       }
     },
     {
@@ -34,11 +34,11 @@
       "source": "policy/refund-v4.pdf",
       "score": 0.4765,
       "metadata": {
-        "access": "internal",
-        "section": "Điều 2: Điều kiện được hoàn tiền",
-        "department": "CS",
         "source": "policy/refund-v4.pdf",
-        "effective_date": "2026-02-01"
+        "section": "Điều 2: Điều kiện được hoàn tiền",
+        "effective_date": "2026-02-01",
+        "access": "internal",
+        "department": "CS"
       }
     }
   ],
@@ -53,20 +53,20 @@
     "support/helpdesk-faq.md",
     "policy/refund-v4.pdf"
   ],
-  "confidence": 0.89,
+  "confidence": 0.76,
   "history": [
     "[supervisor] received task: Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?",
     "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
     "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-    "[synthesis_worker] answer generated, confidence=0.89, sources=['support/helpdesk-faq.md', 'policy/refund-v4.pdf']",
-    "[graph] completed in 1546ms - Powered by LangGraph!"
+    "[synthesis_worker] answer generated, confidence=0.76, sources=['support/helpdesk-faq.md', 'policy/refund-v4.pdf']",
+    "[graph] completed in 3046ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 1546,
-  "run_id": "run_20260414_165132_199326",
+  "latency_ms": 3046,
+  "run_id": "run_20260414_171538_285785",
   "question_id": "q04"
 }

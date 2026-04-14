@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-14T15:36:46.711768",
+  "generated_at": "2026-04-14T17:16:27.308751",
   "day08_single_agent": {
     "total_questions": 15,
     "avg_confidence": 0.75,
@@ -8,13 +8,13 @@
     "multi_hop_accuracy": "30%"
   },
   "day09_multi_agent": {
-    "total_traces": 30,
+    "total_traces": 15,
     "routing_distribution": {
-      "retrieval_worker": "16/30 (53%)",
-      "policy_tool_worker": "14/30 (46%)"
+      "retrieval_worker": "8/15 (53%)",
+      "policy_tool_worker": "7/15 (46%)"
     },
-    "avg_confidence": 0.672,
-    "avg_latency_ms": 3552,
+    "avg_confidence": 0.727,
+    "avg_latency_ms": 4155,
     "mcp_usage_rate": "7/15 (46%)",
     "hitl_rate": "1/15 (6%)",
     "top_sources": [
@@ -24,11 +24,11 @@
       ],
       [
         "policy/refund-v4.pdf",
-        5
+        6
       ],
       [
         "support/sla-p1-2026.pdf",
-        5
+        6
       ],
       [
         "hr/leave-policy-2026.pdf",
@@ -42,8 +42,8 @@
   },
   "analysis": {
     "routing_visibility": "Day 09 có route_reason cho từng câu → dễ debug hơn Day 08",
-    "latency_delta": "2752ms (Multi-agent chậm hơn do overhead routing)",
-    "accuracy_delta": "-7.8% cải thiện dựa trên confidence score",
+    "latency_delta": "3355ms (Multi-agent chậm hơn do overhead routing)",
+    "accuracy_delta": "-2.3% cải thiện dựa trên confidence score",
     "debuggability": "Multi-agent: có thể test từng worker độc lập. Single-agent: không thể.",
     "mcp_benefit": "Day 09 có thể extend capability qua MCP không cần sửa core. Day 08 phải hard-code."
   }
