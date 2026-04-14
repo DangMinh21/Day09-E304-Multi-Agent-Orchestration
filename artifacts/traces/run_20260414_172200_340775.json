@@ -10,11 +10,11 @@
       "source": "hr/leave-policy-2026.pdf",
       "score": 1.0227,
       "metadata": {
-        "effective_date": "2026-01-01",
-        "section": "Phần 4: Remote work policy",
         "department": "HR",
         "access": "internal",
-        "source": "hr/leave-policy-2026.pdf"
+        "section": "Phần 4: Remote work policy",
+        "source": "hr/leave-policy-2026.pdf",
+        "effective_date": "2026-01-01"
       }
     },
     {
@@ -22,11 +22,11 @@
       "source": "hr/leave-policy-2026.pdf",
       "score": 0.8384,
       "metadata": {
-        "source": "hr/leave-policy-2026.pdf",
-        "effective_date": "2026-01-01",
-        "department": "HR",
+        "access": "internal",
         "section": "Phần 1: Các loại nghỉ phép",
-        "access": "internal"
+        "effective_date": "2026-01-01",
+        "source": "hr/leave-policy-2026.pdf",
+        "department": "HR"
       }
     },
     {
@@ -34,11 +34,11 @@
       "source": "hr/leave-policy-2026.pdf",
       "score": 0.7561,
       "metadata": {
-        "access": "internal",
-        "section": "Phần 2: Quy trình xin nghỉ phép",
         "effective_date": "2026-01-01",
+        "department": "HR",
+        "section": "Phần 2: Quy trình xin nghỉ phép",
         "source": "hr/leave-policy-2026.pdf",
-        "department": "HR"
+        "access": "internal"
       }
     }
   ],
@@ -57,14 +57,14 @@
     "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
     "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
     "[synthesis_worker] answer generated, confidence=0.84, sources=['hr/leave-policy-2026.pdf']",
-    "[graph] completed in 2982ms - Powered by LangGraph!"
+    "[graph] completed in 1997ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 2982,
-  "run_id": "run_20260414_171541_332913",
+  "latency_ms": 1997,
+  "run_id": "run_20260414_172200_340775",
   "question_id": "q05"
 }

@@ -8,25 +8,25 @@
     {
       "text": "Ticket P1:\n- Phản hồi ban đầu (first response): 15 phút kể từ khi ticket được tạo.\n- Xử lý và khắc phục (resolution): 4 giờ.\n- Escalation: Tự động escalate lên Senior Engineer nếu không có phản hồi trong 10 phút.\n- Thông báo stakeholder: Ngay khi nhận ticket, update mỗi 30 phút cho đến khi resolve.\n\nTicket P2:\n- Phản hồi ban đầu: 2 giờ.\n- Xử lý và khắc phục: 1 ngày làm việc.\n- Escalation: Tự động escalate sau 90 phút không có phản hồi.\n\nTicket P3:\n- Phản hồi ban đầu: 1 ngày làm việc.\n- Xử lý và khắc phục: 5 ngày làm việc.\n\nTicket P4:\n- Phản hồi ban đầu: 3 ngày làm việc.\n- Xử lý và khắc phục: Theo sprint cycle (thông thường 2-4 tuần).",
       "source": "support/sla-p1-2026.pdf",
-      "score": 1.1605,
+      "score": 1.1606,
       "metadata": {
-        "department": "IT",
-        "access": "internal",
-        "section": "Phần 2: SLA theo mức độ ưu tiên",
         "source": "support/sla-p1-2026.pdf",
-        "effective_date": "2026-01-15"
+        "section": "Phần 2: SLA theo mức độ ưu tiên",
+        "effective_date": "2026-01-15",
+        "department": "IT",
+        "access": "internal"
       }
     },
     {
       "text": "P1 — CRITICAL (Khẩn cấp):\nĐịnh nghĩa: Sự cố ảnh hưởng toàn bộ hệ thống production, không có workaround.\nVí dụ: Database sập, API gateway down, toàn bộ người dùng không thể đăng nhập.\n\nP2 — HIGH (Nghiêm trọng):\nĐịnh nghĩa: Sự cố ảnh hưởng một phần hệ thống, có workaround tạm thời.\nVí dụ: Một số tính năng không hoạt động, ảnh hưởng một nhóm người dùng.\n\nP3 — MEDIUM (Trung bình):\nĐịnh nghĩa: Lỗi ảnh hưởng không đáng kể, người dùng vẫn làm việc được.\n\nP4 — LOW (Thấp):\nĐịnh nghĩa: Yêu cầu cải tiến, gợi ý, hoặc lỗi giao diện nhỏ.",
       "source": "support/sla-p1-2026.pdf",
-      "score": 0.8008,
+      "score": 0.8009,
       "metadata": {
+        "source": "support/sla-p1-2026.pdf",
+        "department": "IT",
         "section": "Phần 1: Định nghĩa mức độ ưu tiên",
         "access": "internal",
-        "department": "IT",
-        "effective_date": "2026-01-15",
-        "source": "support/sla-p1-2026.pdf"
+        "effective_date": "2026-01-15"
       }
     },
     {
@@ -34,11 +34,11 @@
       "source": "support/sla-p1-2026.pdf",
       "score": 0.7353,
       "metadata": {
+        "section": "Phần 3: Quy trình xử lý sự cố P1",
         "source": "support/sla-p1-2026.pdf",
-        "department": "IT",
         "access": "internal",
         "effective_date": "2026-01-15",
-        "section": "Phần 3: Quy trình xử lý sự cố P1"
+        "department": "IT"
       }
     }
   ],
@@ -57,14 +57,14 @@
     "[supervisor] route=retrieval_worker reason=route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
     "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
     "[synthesis_worker] answer generated, confidence=0.86, sources=['support/sla-p1-2026.pdf']",
-    "[graph] completed in 1915ms - Powered by LangGraph!"
+    "[graph] completed in 2160ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 1915,
-  "run_id": "run_20260414_171544_316089",
+  "latency_ms": 2160,
+  "run_id": "run_20260414_172202_339629",
   "question_id": "q06"
 }
