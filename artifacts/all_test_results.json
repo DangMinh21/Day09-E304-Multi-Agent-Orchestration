@@ -18,13 +18,12 @@
         {
           "text": "Ticket P1:\n- Phản hồi ban đầu (first response): 15 phút kể từ khi ticket được tạo.\n- Xử lý và khắc phục (resolution): 4 giờ.\n- Escalation: Tự động escalate lên Senior Engineer nếu không có phản hồi trong 10 phút.\n- Thông báo stakeholder: Ngay khi nhận ticket, update mỗi 30 phút cho đến khi resolve.\n\nTicket P2:\n- Phản hồi ban đầu: 2 giờ.\n- Xử lý và khắc phục: 1 ngày làm việc.\n- Escalation: Tự động escalate sau 90 phút không có phản hồi.\n\nTicket P3:\n- Phản hồi ban đầu: 1 ngày làm việc.\n- Xử lý và khắc phục: 5 ngày làm việc.\n\nTicket P4:\n- Phản hồi ban đầu: 3 ngày làm việc.\n- Xử lý và khắc phục: Theo sprint cycle (thông thường 2-4 tuần).",
           "source": "support/sla-p1-2026.pdf",
-          "score": 0.8681,
+          "score": 0.6181,
           "metadata": {
-            "department": "IT",
+            "access": "internal",
             "section": "Phần 2: SLA theo mức độ ưu tiên",
             "effective_date": "2026-01-15",
-            "source": "support/sla-p1-2026.pdf",
-            "access": "internal"
+            "department": "IT"
           }
         },
         {
@@ -32,23 +31,21 @@
           "source": "support/sla-p1-2026.pdf",
           "score": 0.7349,
           "metadata": {
-            "effective_date": "2026-01-15",
+            "section": "Phần 3: Quy trình xử lý sự cố P1",
+            "access": "internal",
             "source": "support/sla-p1-2026.pdf",
             "department": "IT",
-            "access": "internal",
-            "section": "Phần 3: Quy trình xử lý sự cố P1"
+            "effective_date": "2026-01-15"
           }
         },
         {
           "text": "Bước 1: Khách hàng gửi yêu cầu qua hệ thống ticket nội bộ với category \"Refund Request\".\nBước 2: CS Agent xem xét trong vòng 1 ngày làm việc và xác nhận điều kiện đủ điều kiện.\nBước 3: Nếu đủ điều kiện, chuyển yêu cầu sang Finance Team để xử lý hoàn tiền.\nBước 4: Finance Team xử lý trong 3-5 ngày làm việc và thông báo kết quả cho khách hàng.",
           "source": "policy/refund-v4.pdf",
-          "score": 0.6684,
+          "score": 0.4684,
           "metadata": {
             "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
             "access": "internal",
-            "effective_date": "2026-02-01",
-            "department": "CS",
-            "source": "policy/refund-v4.pdf"
+            "effective_date": "2026-02-01"
           }
         }
       ],
@@ -58,7 +55,7 @@
       ],
       "policy_result": {},
       "mcp_tools_used": [],
-      "final_answer": "SLA xử lý ticket P1 như sau:\n\n1. **Phản hồi ban đầu**: 15 phút kể từ khi ticket được tạo.\n2. **Xử lý và khắc phục**: 4 giờ.\n3. **Escalation**: Tự động escalate lên Senior Engineer nếu không có phản hồi trong 10 phút.\n4. **Thông báo stakeholder**: Ngay khi nhận ticket, update mỗi 30 phút cho đến khi resolve [1].",
+      "final_answer": "SLA xử lý ticket P1 là như sau:\n\n1. **Phản hồi ban đầu**: 15 phút kể từ khi ticket được tạo.\n2. **Xử lý và khắc phục**: 4 giờ.\n3. **Escalation**: Tự động escalate lên Senior Engineer nếu không có phản hồi trong 10 phút.\n4. **Thông báo stakeholder**: Ngay khi nhận ticket, update mỗi 30 phút cho đến khi resolve [1].",
       "sources": [
         "policy/refund-v4.pdf",
         "support/sla-p1-2026.pdf"
@@ -67,17 +64,17 @@
       "history": [
         "[supervisor] received task: SLA xử lý ticket P1 là bao lâu?",
         "[supervisor] route=retrieval_worker reason=route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.91, sources=['policy/refund-v4.pdf', 'support/sla-p1-2026.pdf']",
-        "[graph] completed in 3643ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['policy/refund-v4.pdf', 'support/sla-p1-2026.pdf']",
+        "[synthesis_worker] answer generated, confidence=0.7, sources=['policy/refund-v4.pdf', 'support/sla-p1-2026.pdf']",
+        "[graph] completed in 3849ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 3643,
-      "run_id": "run_20260414_163809_452284",
+      "latency_ms": 3849,
+      "run_id": "run_20260414_153553_400032",
       "question_id": "q01"
     }
   },
@@ -100,37 +97,37 @@
         {
           "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
           "source": "policy/refund-v4.pdf",
-          "score": 0.955,
+          "score": 0.605,
           "metadata": {
-            "department": "CS",
             "access": "internal",
+            "department": "CS",
             "section": "Điều 2: Điều kiện được hoàn tiền",
-            "effective_date": "2026-02-01",
-            "source": "policy/refund-v4.pdf"
+            "source": "policy/refund-v4.pdf",
+            "effective_date": "2026-02-01"
           }
         },
         {
           "text": "Bước 1: Khách hàng gửi yêu cầu qua hệ thống ticket nội bộ với category \"Refund Request\".\nBước 2: CS Agent xem xét trong vòng 1 ngày làm việc và xác nhận điều kiện đủ điều kiện.\nBước 3: Nếu đủ điều kiện, chuyển yêu cầu sang Finance Team để xử lý hoàn tiền.\nBước 4: Finance Team xử lý trong 3-5 ngày làm việc và thông báo kết quả cho khách hàng.",
           "source": "policy/refund-v4.pdf",
-          "score": 0.8642,
+          "score": 0.5273,
           "metadata": {
-            "source": "policy/refund-v4.pdf",
-            "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
             "access": "internal",
+            "effective_date": "2026-02-01",
+            "source": "policy/refund-v4.pdf",
             "department": "CS",
-            "effective_date": "2026-02-01"
+            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
           }
         },
         {
           "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
           "source": "policy/refund-v4.pdf",
-          "score": 0.8273,
+          "score": 0.5142,
           "metadata": {
-            "access": "internal",
-            "department": "CS",
-            "effective_date": "2026-02-01",
             "source": "policy/refund-v4.pdf",
-            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
+            "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
+            "department": "CS",
+            "access": "internal",
+            "effective_date": "2026-02-01"
           }
         }
       ],
@@ -165,37 +162,37 @@
               {
                 "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
                 "source": "policy/refund-v4.pdf",
-                "score": 0.955,
+                "score": 0.605,
                 "metadata": {
-                  "department": "CS",
                   "access": "internal",
+                  "department": "CS",
                   "section": "Điều 2: Điều kiện được hoàn tiền",
-                  "effective_date": "2026-02-01",
-                  "source": "policy/refund-v4.pdf"
+                  "source": "policy/refund-v4.pdf",
+                  "effective_date": "2026-02-01"
                 }
               },
               {
                 "text": "Bước 1: Khách hàng gửi yêu cầu qua hệ thống ticket nội bộ với category \"Refund Request\".\nBước 2: CS Agent xem xét trong vòng 1 ngày làm việc và xác nhận điều kiện đủ điều kiện.\nBước 3: Nếu đủ điều kiện, chuyển yêu cầu sang Finance Team để xử lý hoàn tiền.\nBước 4: Finance Team xử lý trong 3-5 ngày làm việc và thông báo kết quả cho khách hàng.",
                 "source": "policy/refund-v4.pdf",
-                "score": 0.8642,
+                "score": 0.5273,
                 "metadata": {
-                  "source": "policy/refund-v4.pdf",
-                  "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
                   "access": "internal",
+                  "effective_date": "2026-02-01",
+                  "source": "policy/refund-v4.pdf",
                   "department": "CS",
-                  "effective_date": "2026-02-01"
+                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
                 }
               },
               {
                 "text": "Hoàn tiền — Điều kiện áp dụng:\nYêu cầu được gửi trong vòng 7 ngày kể từ thời điểm xác nhận đơn hàng.\n\nNgoại lệ không được hoàn tiền:\n- Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription).\n- Đơn hàng đã áp dụng mã giảm giá đặc biệt theo chương trình khuyến mãi Flash Sale.\n- Sản phẩm đã được kích hoạt hoặc đăng ký tài khoản.",
                 "source": "policy/refund-v4.pdf",
-                "score": 0.8273,
+                "score": 0.5142,
                 "metadata": {
-                  "access": "internal",
-                  "department": "CS",
-                  "effective_date": "2026-02-01",
                   "source": "policy/refund-v4.pdf",
-                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
+                  "section": "Điều 4: Quy trình xử lý yêu cầu hoàn tiền",
+                  "department": "CS",
+                  "access": "internal",
+                  "effective_date": "2026-02-01"
                 }
               }
             ],
@@ -205,7 +202,7 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:13.878278"
+          "timestamp": "2026-04-14T15:35:57.812981"
         }
       ],
       "final_answer": "Khách hàng có thể yêu cầu hoàn tiền trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng, với điều kiện sản phẩm bị lỗi do nhà sản xuất và chưa được sử dụng hoặc mở seal [1]. \n\nNgoại lệ không được hoàn tiền bao gồm sản phẩm thuộc danh mục hàng kỹ thuật số, đơn hàng đã áp dụng mã giảm giá đặc biệt trong chương trình Flash Sale, và sản phẩm đã được kích hoạt hoặc đăng ký tài khoản [3].",
@@ -218,16 +215,16 @@
         "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
         "[policy_tool_worker] called MCP search_kb",
         "[policy_tool_worker] policy_applies=True, exceptions=1",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['policy/refund-v4.pdf']",
-        "[graph] completed in 5367ms - Powered by LangGraph!"
+        "[synthesis_worker] answer generated, confidence=0.67, sources=['policy/refund-v4.pdf']",
+        "[graph] completed in 5181ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 5367,
-      "run_id": "run_20260414_163813_095736",
+      "latency_ms": 5181,
+      "run_id": "run_20260414_153557_250050",
       "question_id": "q02"
     }
   },
@@ -252,11 +249,11 @@
           "source": "it/access-control-sop.md",
           "score": 0.8057,
           "metadata": {
-            "section": "Section 3: Quy trình yêu cầu cấp quyền",
+            "department": "IT Security",
             "access": "internal",
             "department": "IT Security",
             "effective_date": "2026-01-01",
-            "source": "it/access-control-sop.md"
+            "section": "Section 2: Phân cấp quyền truy cập"
           }
         },
         {
@@ -266,9 +263,7 @@
           "metadata": {
             "access": "internal",
             "department": "IT Security",
-            "effective_date": "2026-01-01",
-            "source": "it/access-control-sop.md",
-            "section": "Section 2: Phân cấp quyền truy cập"
+            "effective_date": "2026-01-01"
           }
         },
         {
@@ -276,8 +271,6 @@
           "source": "hr/leave-policy-2026.pdf",
           "score": 0.7275,
           "metadata": {
-            "department": "HR",
-            "source": "hr/leave-policy-2026.pdf",
             "access": "internal",
             "effective_date": "2026-01-01",
             "section": "Phần 2: Quy trình xin nghỉ phép"
@@ -297,7 +290,7 @@
           "it/access-control-sop.md"
         ],
         "policy_version_note": "",
-        "explanation": "Policy hoàn tiền không áp dụng trong trường hợp này vì không có thông tin nào liên quan đến hoàn tiền trong context đã cung cấp.",
+        "explanation": "Để cấp quyền Level 3, yêu cầu phải được phê duyệt bởi Line Manager, IT Admin và IT Security. Không có exceptions nào được áp dụng cho quy trình này.",
         "access_check": {
           "access_level": 3,
           "can_grant": true,
@@ -326,11 +319,11 @@
                 "source": "it/access-control-sop.md",
                 "score": 0.8057,
                 "metadata": {
-                  "section": "Section 3: Quy trình yêu cầu cấp quyền",
+                  "department": "IT Security",
                   "access": "internal",
                   "department": "IT Security",
                   "effective_date": "2026-01-01",
-                  "source": "it/access-control-sop.md"
+                  "section": "Section 2: Phân cấp quyền truy cập"
                 }
               },
               {
@@ -340,9 +333,7 @@
                 "metadata": {
                   "access": "internal",
                   "department": "IT Security",
-                  "effective_date": "2026-01-01",
-                  "source": "it/access-control-sop.md",
-                  "section": "Section 2: Phân cấp quyền truy cập"
+                  "effective_date": "2026-01-01"
                 }
               },
               {
@@ -350,8 +341,6 @@
                 "source": "hr/leave-policy-2026.pdf",
                 "score": 0.7275,
                 "metadata": {
-                  "department": "HR",
-                  "source": "hr/leave-policy-2026.pdf",
                   "access": "internal",
                   "effective_date": "2026-01-01",
                   "section": "Phần 2: Quy trình xin nghỉ phép"
@@ -365,7 +354,7 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:18.871183"
+          "timestamp": "2026-04-14T15:36:03.013219"
         },
         {
           "tool": "check_access_permission",
@@ -388,10 +377,10 @@
             "source": "access_control_sop.txt"
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:20.350816"
+          "timestamp": "2026-04-14T15:36:04.621696"
         }
       ],
-      "final_answer": "Để cấp quyền Level 3, yêu cầu phải được phê duyệt bởi Line Manager, IT Admin và IT Security. [1] [2]",
+      "final_answer": "Để cấp quyền Level 3, cần có sự phê duyệt của Line Manager, IT Admin và IT Security [1].",
       "sources": [
         "hr/leave-policy-2026.pdf",
         "it/access-control-sop.md"
@@ -402,17 +391,17 @@
         "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
         "[policy_tool_worker] called MCP search_kb",
         "[policy_tool_worker] called MCP check_access_permission",
-        "[policy_tool_worker] policy_applies=False, exceptions=0",
-        "[synthesis_worker] answer generated, confidence=0.92, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
-        "[graph] completed in 3237ms - Powered by LangGraph!"
+        "[policy_tool_worker] policy_applies=True, exceptions=0",
+        "[synthesis_worker] answer generated, confidence=0.69, sources=['it/access-control-sop.md', 'hr/leave-policy-2026.pdf']",
+        "[graph] completed in 3309ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 3237,
-      "run_id": "run_20260414_163818_463299",
+      "latency_ms": 3309,
+      "run_id": "run_20260414_153602_432696",
       "question_id": "q03"
     }
   },
@@ -437,11 +426,11 @@
           "source": "support/helpdesk-faq.md",
           "score": 1.1779,
           "metadata": {
-            "access": "internal",
-            "section": "Section 1: Tài khoản và mật khẩu",
+            "department": "IT",
             "source": "support/helpdesk-faq.md",
+            "access": "internal",
             "effective_date": "2026-01-20",
-            "department": "IT"
+            "section": "Section 1: Tài khoản và mật khẩu"
           }
         },
         {
@@ -449,52 +438,52 @@
           "source": "support/helpdesk-faq.md",
           "score": 0.543,
           "metadata": {
-            "source": "support/helpdesk-faq.md",
-            "effective_date": "2026-01-20",
-            "section": "Section 2: VPN và kết nối từ xa",
             "access": "internal",
-            "department": "IT"
+            "department": "IT Security",
+            "effective_date": "2026-01-01",
+            "source": "it/access-control-sop.md",
+            "section": "Section 6: Audit và review định kỳ"
           }
         },
         {
-          "text": "Khách hàng được quyền yêu cầu hoàn tiền khi đáp ứng đủ các điều kiện sau:\n- Sản phẩm bị lỗi do nhà sản xuất, không phải do người dùng.\n- Yêu cầu được gửi trong vòng 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng.\n- Đơn hàng chưa được sử dụng hoặc chưa bị mở seal.",
-          "source": "policy/refund-v4.pdf",
-          "score": 0.4764,
+          "text": "Q: Hộp thư đến đầy, phải làm gì?\nA: Xóa email cũ hoặc yêu cầu tăng dung lượng qua ticket IT-ACCESS. Dung lượng tiêu chuẩn là 50GB.\n\nQ: Tôi không nhận được email từ bên ngoài?\nA: Kiểm tra thư mục Spam trước. Nếu vẫn không có, tạo ticket P2 kèm địa chỉ email gửi và thời gian gửi.",
+          "source": "support/helpdesk-faq.md",
+          "score": 0.4027,
           "metadata": {
-            "source": "policy/refund-v4.pdf",
+            "effective_date": "2026-01-20",
+            "section": "Section 5: Email và lịch",
             "access": "internal",
-            "section": "Điều 2: Điều kiện được hoàn tiền",
-            "department": "CS",
-            "effective_date": "2026-02-01"
+            "source": "support/helpdesk-faq.md",
+            "department": "IT"
           }
         }
       ],
       "retrieved_sources": [
-        "policy/refund-v4.pdf",
+        "it/access-control-sop.md",
         "support/helpdesk-faq.md"
       ],
       "policy_result": {},
       "mcp_tools_used": [],
       "final_answer": "Tài khoản bị khóa sau 5 lần đăng nhập sai liên tiếp. Để mở khóa, bạn có thể liên hệ IT Helpdesk hoặc tự reset qua portal SSO [1].",
       "sources": [
-        "policy/refund-v4.pdf",
+        "it/access-control-sop.md",
         "support/helpdesk-faq.md"
       ],
       "confidence": 0.89,
       "history": [
         "[supervisor] received task: Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?",
         "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.89, sources=['policy/refund-v4.pdf', 'support/helpdesk-faq.md']",
-        "[graph] completed in 1639ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'support/helpdesk-faq.md']",
+        "[synthesis_worker] answer generated, confidence=0.68, sources=['it/access-control-sop.md', 'support/helpdesk-faq.md']",
+        "[graph] completed in 1360ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 1639,
-      "run_id": "run_20260414_163821_701804",
+      "latency_ms": 1360,
+      "run_id": "run_20260414_153605_743130",
       "question_id": "q04"
     }
   },
@@ -519,10 +508,10 @@
           "source": "hr/leave-policy-2026.pdf",
           "score": 1.0226,
           "metadata": {
+            "source": "hr/leave-policy-2026.pdf",
             "access": "internal",
             "source": "hr/leave-policy-2026.pdf",
             "section": "Phần 4: Remote work policy",
-            "department": "HR",
             "effective_date": "2026-01-01"
           }
         },
@@ -532,10 +521,10 @@
           "score": 0.8384,
           "metadata": {
             "effective_date": "2026-01-01",
-            "department": "HR",
-            "access": "internal",
+            "section": "Phần 1: Các loại nghỉ phép",
             "source": "hr/leave-policy-2026.pdf",
-            "section": "Phần 1: Các loại nghỉ phép"
+            "access": "internal",
+            "department": "HR"
           }
         },
         {
@@ -543,11 +532,11 @@
           "source": "hr/leave-policy-2026.pdf",
           "score": 0.7561,
           "metadata": {
-            "effective_date": "2026-01-01",
-            "department": "HR",
-            "section": "Phần 2: Quy trình xin nghỉ phép",
-            "source": "hr/leave-policy-2026.pdf",
-            "access": "internal"
+            "department": "IT Security",
+            "access": "internal",
+            "section": "Section 2: Phân cấp quyền truy cập",
+            "source": "it/access-control-sop.md",
+            "effective_date": "2026-01-01"
           }
         }
       ],
@@ -556,7 +545,7 @@
       ],
       "policy_result": {},
       "mcp_tools_used": [],
-      "final_answer": "Nhân viên được làm remote tối đa 2 ngày mỗi tuần sau khi hoàn thành probation period. Lịch remote phải được Team Lead phê duyệt qua HR Portal. Ngày onsite bắt buộc là Thứ 3 và Thứ 5 theo lịch team [1].",
+      "final_answer": "Nhân viên sau probation period có thể làm remote tối đa 2 ngày/tuần. Lịch remote phải được Team Lead phê duyệt qua HR Portal. Ngày onsite bắt buộc là Thứ 3 và Thứ 5 theo lịch team [1].",
       "sources": [
         "hr/leave-policy-2026.pdf"
       ],
@@ -564,17 +553,17 @@
       "history": [
         "[supervisor] received task: Nhân viên được làm remote tối đa mấy ngày mỗi tuần?",
         "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['hr/leave-policy-2026.pdf']",
-        "[graph] completed in 2265ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
+        "[synthesis_worker] answer generated, confidence=0.75, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
+        "[graph] completed in 4202ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 2265,
-      "run_id": "run_20260414_163823_341828",
+      "latency_ms": 4202,
+      "run_id": "run_20260414_153607_104655",
       "question_id": "q05"
     }
   },
@@ -599,10 +588,10 @@
           "source": "support/sla-p1-2026.pdf",
           "score": 1.1605,
           "metadata": {
-            "effective_date": "2026-01-15",
             "department": "IT",
-            "source": "support/sla-p1-2026.pdf",
             "access": "internal",
+            "source": "support/sla-p1-2026.pdf",
+            "effective_date": "2026-01-15",
             "section": "Phần 2: SLA theo mức độ ưu tiên"
           }
         },
@@ -611,11 +600,11 @@
           "source": "support/sla-p1-2026.pdf",
           "score": 0.8008,
           "metadata": {
-            "section": "Phần 1: Định nghĩa mức độ ưu tiên",
-            "department": "IT",
             "effective_date": "2026-01-15",
+            "section": "Phần 3: Quy trình xử lý sự cố P1",
             "source": "support/sla-p1-2026.pdf",
-            "access": "internal"
+            "access": "internal",
+            "department": "IT"
           }
         },
         {
@@ -623,11 +612,11 @@
           "source": "support/sla-p1-2026.pdf",
           "score": 0.7353,
           "metadata": {
-            "access": "internal",
-            "section": "Phần 3: Quy trình xử lý sự cố P1",
-            "department": "IT",
+            "section": "Phần 4: Công cụ và kênh liên lạc",
             "effective_date": "2026-01-15",
-            "source": "support/sla-p1-2026.pdf"
+            "source": "support/sla-p1-2026.pdf",
+            "access": "internal",
+            "department": "IT"
           }
         }
       ],
@@ -644,17 +633,17 @@
       "history": [
         "[supervisor] received task: Ticket P1 không được phản hồi sau 10 phút. Hệ thống tự động làm gì?",
         "[supervisor] route=retrieval_worker reason=route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['support/sla-p1-2026.pdf']",
-        "[graph] completed in 1370ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['support/sla-p1-2026.pdf']",
+        "[synthesis_worker] answer generated, confidence=0.69, sources=['support/sla-p1-2026.pdf']",
+        "[graph] completed in 2039ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 1370,
-      "run_id": "run_20260414_163825_607600",
+      "latency_ms": 2039,
+      "run_id": "run_20260414_153611_307653",
       "question_id": "q06"
     }
   },
@@ -679,23 +668,11 @@
           "source": "policy/refund-v4.pdf",
           "score": 1.0301,
           "metadata": {
+            "effective_date": "2026-02-01",
+            "access": "internal",
             "source": "policy/refund-v4.pdf",
-            "access": "internal",
-            "effective_date": "2026-02-01",
-            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
-            "department": "CS"
-          }
-        },
-        {
-          "text": "- Hoàn tiền qua phương thức thanh toán gốc: áp dụng trong 100% trường hợp đủ điều kiện.\n- Hoàn tiền qua credit nội bộ (store credit): khách hàng có thể chọn nhận store credit thay thế với giá trị 110% so với số tiền hoàn.",
-          "source": "policy/refund-v4.pdf",
-          "score": 0.6093,
-          "metadata": {
-            "access": "internal",
-            "effective_date": "2026-02-01",
             "department": "CS",
-            "section": "Điều 5: Hình thức hoàn tiền",
-            "source": "policy/refund-v4.pdf"
+            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
           }
         },
         {
@@ -704,10 +681,22 @@
           "score": 0.505,
           "metadata": {
             "department": "IT",
-            "section": "Section 3: Phần mềm và license",
-            "effective_date": "2026-01-20",
             "access": "internal",
-            "source": "support/helpdesk-faq.md"
+            "effective_date": "2026-01-20",
+            "source": "support/helpdesk-faq.md",
+            "section": "Section 3: Phần mềm và license"
+          }
+        },
+        {
+          "text": "- Hoàn tiền qua phương thức thanh toán gốc: áp dụng trong 100% trường hợp đủ điều kiện.\n- Hoàn tiền qua credit nội bộ (store credit): khách hàng có thể chọn nhận store credit thay thế với giá trị 110% so với số tiền hoàn.",
+          "source": "policy/refund-v4.pdf",
+          "score": 0.4094,
+          "metadata": {
+            "access": "internal",
+            "source": "policy/refund-v4.pdf",
+            "department": "CS",
+            "effective_date": "2026-02-01",
+            "section": "Điều 5: Hình thức hoàn tiền"
           }
         }
       ],
@@ -740,7 +729,7 @@
           "support/helpdesk-faq.md"
         ],
         "policy_version_note": "",
-        "explanation": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền theo chính sách vì thuộc danh mục hàng kỹ thuật số, do đó policy hoàn tiền không áp dụng."
+        "explanation": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền theo chính sách vì thuộc danh mục hàng kỹ thuật số."
       },
       "mcp_tools_used": [
         {
@@ -756,23 +745,11 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 1.0301,
                 "metadata": {
+                  "effective_date": "2026-02-01",
+                  "access": "internal",
                   "source": "policy/refund-v4.pdf",
-                  "access": "internal",
-                  "effective_date": "2026-02-01",
-                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
-                  "department": "CS"
-                }
-              },
-              {
-                "text": "- Hoàn tiền qua phương thức thanh toán gốc: áp dụng trong 100% trường hợp đủ điều kiện.\n- Hoàn tiền qua credit nội bộ (store credit): khách hàng có thể chọn nhận store credit thay thế với giá trị 110% so với số tiền hoàn.",
-                "source": "policy/refund-v4.pdf",
-                "score": 0.6093,
-                "metadata": {
-                  "access": "internal",
-                  "effective_date": "2026-02-01",
                   "department": "CS",
-                  "section": "Điều 5: Hình thức hoàn tiền",
-                  "source": "policy/refund-v4.pdf"
+                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
                 }
               },
               {
@@ -781,10 +758,22 @@
                 "score": 0.505,
                 "metadata": {
                   "department": "IT",
-                  "section": "Section 3: Phần mềm và license",
-                  "effective_date": "2026-01-20",
                   "access": "internal",
-                  "source": "support/helpdesk-faq.md"
+                  "effective_date": "2026-01-20",
+                  "source": "support/helpdesk-faq.md",
+                  "section": "Section 3: Phần mềm và license"
+                }
+              },
+              {
+                "text": "- Hoàn tiền qua phương thức thanh toán gốc: áp dụng trong 100% trường hợp đủ điều kiện.\n- Hoàn tiền qua credit nội bộ (store credit): khách hàng có thể chọn nhận store credit thay thế với giá trị 110% so với số tiền hoàn.",
+                "source": "policy/refund-v4.pdf",
+                "score": 0.4094,
+                "metadata": {
+                  "access": "internal",
+                  "source": "policy/refund-v4.pdf",
+                  "department": "CS",
+                  "effective_date": "2026-02-01",
+                  "section": "Điều 5: Hình thức hoàn tiền"
                 }
               }
             ],
@@ -795,7 +784,7 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:27.324359"
+          "timestamp": "2026-04-14T15:36:13.828272"
         }
       ],
       "final_answer": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền. Điều này được quy định trong chính sách hoàn tiền, cụ thể là sản phẩm thuộc danh mục hàng kỹ thuật số không đủ điều kiện hoàn tiền. [1]",
@@ -809,16 +798,16 @@
         "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
         "[policy_tool_worker] called MCP search_kb",
         "[policy_tool_worker] policy_applies=False, exceptions=3",
-        "[synthesis_worker] answer generated, confidence=0.72, sources=['policy/refund-v4.pdf', 'support/helpdesk-faq.md']",
-        "[graph] completed in 3374ms - Powered by LangGraph!"
+        "[synthesis_worker] answer generated, confidence=0.51, sources=['policy/refund-v4.pdf', 'support/helpdesk-faq.md']",
+        "[graph] completed in 3392ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 3374,
-      "run_id": "run_20260414_163826_979319",
+      "latency_ms": 3392,
+      "run_id": "run_20260414_153613_347495",
       "question_id": "q07"
     }
   },
@@ -844,10 +833,10 @@
           "score": 0.7747,
           "metadata": {
             "effective_date": "2026-01-15",
+            "section": "Phần 3: Quy trình xử lý sự cố P1",
+            "source": "support/sla-p1-2026.pdf",
             "department": "IT",
-            "access": "internal",
-            "section": "Phần 2: SLA theo mức độ ưu tiên",
-            "source": "support/sla-p1-2026.pdf"
+            "access": "internal"
           }
         },
         {
@@ -858,8 +847,10 @@
             "section": "Phần 3: Quy trình xử lý sự cố P1",
             "source": "support/sla-p1-2026.pdf",
             "effective_date": "2026-01-15",
+            "section": "Phần 2: SLA theo mức độ ưu tiên",
             "access": "internal",
-            "department": "IT"
+            "department": "IT",
+            "source": "support/sla-p1-2026.pdf"
           }
         },
         {
@@ -867,11 +858,11 @@
           "source": "it/access-control-sop.md",
           "score": 0.7373,
           "metadata": {
-            "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
-            "effective_date": "2026-01-01",
-            "department": "IT Security",
-            "source": "it/access-control-sop.md",
-            "access": "internal"
+            "access": "internal",
+            "section": "Phần 1: Định nghĩa mức độ ưu tiên",
+            "effective_date": "2026-01-15",
+            "source": "support/sla-p1-2026.pdf",
+            "department": "IT"
           }
         }
       ],
@@ -890,17 +881,17 @@
       "history": [
         "[supervisor] received task: Quy trình xử lý sự cố P1 gồm mấy bước và bước đầu tiên là gì?",
         "[supervisor] route=retrieval_worker reason=route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.91, sources=['support/sla-p1-2026.pdf', 'it/access-control-sop.md']",
-        "[graph] completed in 1654ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['support/sla-p1-2026.pdf']",
+        "[synthesis_worker] answer generated, confidence=0.67, sources=['support/sla-p1-2026.pdf']",
+        "[graph] completed in 1841ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 1654,
-      "run_id": "run_20260414_163830_355001",
+      "latency_ms": 1841,
+      "run_id": "run_20260414_153616_741268",
       "question_id": "q08"
     }
   },
@@ -923,59 +914,57 @@
           "source": "it/access-control-sop.md",
           "score": 0.5006,
           "metadata": {
-            "source": "it/access-control-sop.md",
             "access": "internal",
+            "section": "Section 3: Quy trình yêu cầu cấp quyền",
+            "effective_date": "2026-01-01",
+            "source": "it/access-control-sop.md",
+            "department": "IT Security"
+          }
+        },
+        {
+          "text": "IT Security thực hiện access review mỗi 6 tháng.\nMọi bất thường phải được báo cáo lên CISO trong vòng 24 giờ.",
+          "source": "it/access-control-sop.md",
+          "score": 0.383,
+          "metadata": {
+            "section": "Section 6: Audit và review định kỳ",
             "department": "IT Security",
             "effective_date": "2026-01-01",
-            "section": "Section 3: Quy trình yêu cầu cấp quyền"
+            "source": "it/access-control-sop.md",
+            "access": "internal"
           }
         },
         {
           "text": "Q: Tôi quên mật khẩu, phải làm gì?\nA: Truy cập https://sso.company.internal/reset hoặc liên hệ Helpdesk qua ext. 9000. Mật khẩu mới sẽ được gửi qua email công ty trong vòng 5 phút.\n\nQ: Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?\nA: Tài khoản bị khóa sau 5 lần đăng nhập sai liên tiếp. Để mở khóa, liên hệ IT Helpdesk hoặc tự reset qua portal SSO.\n\nQ: Mật khẩu cần thay đổi định kỳ không?\nA: Có. Mật khẩu phải được thay đổi mỗi 90 ngày. Hệ thống sẽ nhắc nhở 7 ngày trước khi hết hạn.",
           "source": "support/helpdesk-faq.md",
-          "score": 0.474,
+          "score": 0.374,
           "metadata": {
+            "access": "internal",
             "department": "IT",
+            "section": "Section 1: Tài khoản và mật khẩu",
             "effective_date": "2026-01-20",
-            "source": "support/helpdesk-faq.md",
-            "access": "internal",
-            "section": "Section 1: Tài khoản và mật khẩu"
-          }
-        },
-        {
-          "text": "P1 — CRITICAL (Khẩn cấp):\nĐịnh nghĩa: Sự cố ảnh hưởng toàn bộ hệ thống production, không có workaround.\nVí dụ: Database sập, API gateway down, toàn bộ người dùng không thể đăng nhập.\n\nP2 — HIGH (Nghiêm trọng):\nĐịnh nghĩa: Sự cố ảnh hưởng một phần hệ thống, có workaround tạm thời.\nVí dụ: Một số tính năng không hoạt động, ảnh hưởng một nhóm người dùng.\n\nP3 — MEDIUM (Trung bình):\nĐịnh nghĩa: Lỗi ảnh hưởng không đáng kể, người dùng vẫn làm việc được.\n\nP4 — LOW (Thấp):\nĐịnh nghĩa: Yêu cầu cải tiến, gợi ý, hoặc lỗi giao diện nhỏ.",
-          "source": "support/sla-p1-2026.pdf",
-          "score": 0.4654,
-          "metadata": {
-            "access": "internal",
-            "section": "Phần 1: Định nghĩa mức độ ưu tiên",
-            "effective_date": "2026-01-15",
-            "source": "support/sla-p1-2026.pdf",
-            "department": "IT"
+            "source": "support/helpdesk-faq.md"
           }
         }
       ],
       "retrieved_sources": [
-        "support/helpdesk-faq.md",
-        "support/sla-p1-2026.pdf",
-        "it/access-control-sop.md"
+        "it/access-control-sop.md",
+        "support/helpdesk-faq.md"
       ],
       "policy_result": {},
       "mcp_tools_used": [],
       "final_answer": "Không đủ thông tin trong tài liệu nội bộ để xác định lỗi ERR-403-AUTH và cách xử lý.",
       "sources": [
-        "support/helpdesk-faq.md",
-        "support/sla-p1-2026.pdf",
-        "it/access-control-sop.md"
+        "it/access-control-sop.md",
+        "support/helpdesk-faq.md"
       ],
       "confidence": 0.3,
       "history": [
         "[supervisor] received task: ERR-403-AUTH là lỗi gì và cách xử lý?",
         "[supervisor] route=human_review reason=ép buộc human_review: rủi ro cao + mã lỗi không xác định (err-) | risk_flag: High",
         "[human_review] HITL triggered — awaiting human input",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.3, sources=['support/helpdesk-faq.md', 'support/sla-p1-2026.pdf', 'it/access-control-sop.md']",
-        "[graph] completed in 1438ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'support/helpdesk-faq.md']",
+        "[synthesis_worker] answer generated, confidence=0.3, sources=['it/access-control-sop.md', 'support/helpdesk-faq.md']",
+        "[graph] completed in 1810ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "human_review",
@@ -983,8 +972,8 @@
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 1438,
-      "run_id": "run_20260414_163832_010087",
+      "latency_ms": 1810,
+      "run_id": "run_20260414_153618_582972",
       "question_id": "q09"
     }
   },
@@ -1009,11 +998,11 @@
           "source": "policy/refund-v4.pdf",
           "score": 1.0971,
           "metadata": {
-            "source": "policy/refund-v4.pdf",
-            "effective_date": "2026-02-01",
             "section": "Điều 5: Hình thức hoàn tiền",
+            "department": "CS",
+            "effective_date": "2026-02-01",
             "access": "internal",
-            "department": "CS"
+            "source": "policy/refund-v4.pdf"
           }
         },
         {
@@ -1021,11 +1010,11 @@
           "source": "policy/refund-v4.pdf",
           "score": 0.5894,
           "metadata": {
-            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
-            "effective_date": "2026-02-01",
-            "source": "policy/refund-v4.pdf",
             "department": "CS",
-            "access": "internal"
+            "effective_date": "2026-02-01",
+            "access": "internal",
+            "source": "policy/refund-v4.pdf",
+            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
           }
         },
         {
@@ -1033,11 +1022,11 @@
           "source": "policy/refund-v4.pdf",
           "score": 0.5378,
           "metadata": {
+            "department": "CS",
+            "source": "policy/refund-v4.pdf",
             "effective_date": "2026-02-01",
             "section": "Điều 1: Phạm vi áp dụng",
-            "access": "internal",
-            "department": "CS",
-            "source": "policy/refund-v4.pdf"
+            "access": "internal"
           }
         }
       ],
@@ -1074,11 +1063,11 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 1.0971,
                 "metadata": {
-                  "source": "policy/refund-v4.pdf",
-                  "effective_date": "2026-02-01",
                   "section": "Điều 5: Hình thức hoàn tiền",
+                  "department": "CS",
+                  "effective_date": "2026-02-01",
                   "access": "internal",
-                  "department": "CS"
+                  "source": "policy/refund-v4.pdf"
                 }
               },
               {
@@ -1086,11 +1075,11 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 0.5894,
                 "metadata": {
-                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
-                  "effective_date": "2026-02-01",
-                  "source": "policy/refund-v4.pdf",
                   "department": "CS",
-                  "access": "internal"
+                  "effective_date": "2026-02-01",
+                  "access": "internal",
+                  "source": "policy/refund-v4.pdf",
+                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
                 }
               },
               {
@@ -1098,11 +1087,11 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 0.5378,
                 "metadata": {
+                  "department": "CS",
+                  "source": "policy/refund-v4.pdf",
                   "effective_date": "2026-02-01",
                   "section": "Điều 1: Phạm vi áp dụng",
-                  "access": "internal",
-                  "department": "CS",
-                  "source": "policy/refund-v4.pdf"
+                  "access": "internal"
                 }
               }
             ],
@@ -1112,7 +1101,7 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:33.826945"
+          "timestamp": "2026-04-14T15:36:21.184505"
         }
       ],
       "final_answer": "Store credit khi hoàn tiền có giá trị 110% so với số tiền gốc. Khách hàng có thể chọn nhận store credit thay thế trong trường hợp đủ điều kiện hoàn tiền [1].",
@@ -1125,16 +1114,16 @@
         "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
         "[policy_tool_worker] called MCP search_kb",
         "[policy_tool_worker] policy_applies=False, exceptions=1",
-        "[synthesis_worker] answer generated, confidence=0.85, sources=['policy/refund-v4.pdf']",
-        "[graph] completed in 3551ms - Powered by LangGraph!"
+        "[synthesis_worker] answer generated, confidence=0.62, sources=['policy/refund-v4.pdf']",
+        "[graph] completed in 3648ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 3551,
-      "run_id": "run_20260414_163833_448643",
+      "latency_ms": 3648,
+      "run_id": "run_20260414_153620_394606",
       "question_id": "q10"
     }
   },
@@ -1159,11 +1148,11 @@
           "source": "support/sla-p1-2026.pdf",
           "score": 1.0813,
           "metadata": {
-            "department": "IT",
             "source": "support/sla-p1-2026.pdf",
+            "access": "internal",
+            "department": "IT",
             "effective_date": "2026-01-15",
-            "section": "Phần 2: SLA theo mức độ ưu tiên",
-            "access": "internal"
+            "section": "Phần 3: Quy trình xử lý sự cố P1"
           }
         },
         {
@@ -1171,11 +1160,11 @@
           "source": "support/sla-p1-2026.pdf",
           "score": 0.9615,
           "metadata": {
-            "effective_date": "2026-01-15",
-            "source": "support/sla-p1-2026.pdf",
-            "section": "Phần 3: Quy trình xử lý sự cố P1",
             "access": "internal",
-            "department": "IT"
+            "effective_date": "2026-01-15",
+            "department": "IT",
+            "section": "Phần 2: SLA theo mức độ ưu tiên",
+            "source": "support/sla-p1-2026.pdf"
           }
         },
         {
@@ -1183,11 +1172,11 @@
           "source": "it/access-control-sop.md",
           "score": 0.8273,
           "metadata": {
-            "effective_date": "2026-01-01",
-            "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
-            "source": "it/access-control-sop.md",
-            "department": "IT Security",
-            "access": "internal"
+            "department": "IT",
+            "section": "Phần 4: Công cụ và kênh liên lạc",
+            "source": "support/sla-p1-2026.pdf",
+            "access": "internal",
+            "effective_date": "2026-01-15"
           }
         }
       ],
@@ -1197,7 +1186,7 @@
       ],
       "policy_result": {},
       "mcp_tools_used": [],
-      "final_answer": "1. **Ai sẽ nhận thông báo đầu tiên và qua kênh nào?**\n   - On-call engineer sẽ nhận thông báo đầu tiên qua Slack #incident-p1 và email incident@company.internal ngay lập tức sau khi ticket được tạo [2].\n\n2. **Escalation xảy ra lúc mấy giờ?**\n   - Escalation sẽ xảy ra sau 10 phút nếu không có phản hồi từ on-call engineer. Nếu ticket được tạo lúc 22:47, escalation sẽ xảy ra lúc 22:57 [1].",
+      "final_answer": "1. **Ai sẽ nhận thông báo đầu tiên và qua kênh nào?**\n   - On-call engineer sẽ nhận thông báo đầu tiên qua kênh Slack #incident-p1 và email incident@company.internal ngay lập tức sau khi ticket được tạo [1].\n\n2. **Escalation xảy ra lúc mấy giờ?**\n   - Escalation sẽ xảy ra tự động lên Senior Engineer nếu không có phản hồi trong 10 phút. Nếu ticket P1 được tạo lúc 22:47, thì escalation sẽ xảy ra lúc 22:57 [2].",
       "sources": [
         "support/sla-p1-2026.pdf",
         "it/access-control-sop.md"
@@ -1206,17 +1195,17 @@
       "history": [
         "[supervisor] received task: Ticket P1 được tạo lúc 22:47. Ai sẽ nhận thông báo đầu tiên và qua kênh nào? Esc",
         "[supervisor] route=retrieval_worker reason=route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['support/sla-p1-2026.pdf', 'it/access-control-sop.md']",
-        "[graph] completed in 3119ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['support/sla-p1-2026.pdf']",
+        "[synthesis_worker] answer generated, confidence=0.75, sources=['support/sla-p1-2026.pdf']",
+        "[graph] completed in 3085ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 3119,
-      "run_id": "run_20260414_163837_000860",
+      "latency_ms": 3085,
+      "run_id": "run_20260414_153624_044319",
       "question_id": "q11"
     }
   },
@@ -1241,11 +1230,11 @@
           "source": "policy/refund-v4.pdf",
           "score": 1.4911,
           "metadata": {
-            "department": "CS",
+            "effective_date": "2026-02-01",
             "access": "internal",
-            "section": "Điều 2: Điều kiện được hoàn tiền",
             "source": "policy/refund-v4.pdf",
-            "effective_date": "2026-02-01"
+            "department": "CS",
+            "section": "Điều 2: Điều kiện được hoàn tiền"
           }
         },
         {
@@ -1253,11 +1242,12 @@
           "source": "policy/refund-v4.pdf",
           "score": 1.3272,
           "metadata": {
-            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
             "department": "CS",
-            "access": "internal",
+            "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
+            "effective_date": "2026-02-01",
             "source": "policy/refund-v4.pdf",
-            "effective_date": "2026-02-01"
+            "access": "internal",
+            "department": "CS"
           }
         },
         {
@@ -1265,11 +1255,12 @@
           "source": "policy/refund-v4.pdf",
           "score": 0.8814,
           "metadata": {
-            "source": "policy/refund-v4.pdf",
             "section": "Điều 1: Phạm vi áp dụng",
+            "source": "policy/refund-v4.pdf",
             "access": "internal",
+            "effective_date": "2026-02-01",
             "department": "CS",
-            "effective_date": "2026-02-01"
+            "source": "policy/refund-v4.pdf"
           }
         }
       ],
@@ -1295,7 +1286,7 @@
           "policy/refund-v4.pdf"
         ],
         "policy_version_note": "Đơn hàng đặt trước 01/02/2026 áp dụng chính sách v3 (không có trong tài liệu hiện tại).",
-        "explanation": "Chính sách hoàn tiền không áp dụng vì đơn hàng được đặt vào ngày 31/01/2026, trước khi chính sách mới có hiệu lực từ ngày 01/02/2026."
+        "explanation": "Đơn hàng được đặt vào ngày 31/01/2026, nhưng chính sách hoàn tiền mới chỉ có hiệu lực từ ngày 01/02/2026. Do đó, chính sách hoàn tiền không áp dụng cho đơn hàng này."
       },
       "mcp_tools_used": [
         {
@@ -1311,11 +1302,11 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 1.4911,
                 "metadata": {
-                  "department": "CS",
+                  "effective_date": "2026-02-01",
                   "access": "internal",
-                  "section": "Điều 2: Điều kiện được hoàn tiền",
                   "source": "policy/refund-v4.pdf",
-                  "effective_date": "2026-02-01"
+                  "department": "CS",
+                  "section": "Điều 2: Điều kiện được hoàn tiền"
                 }
               },
               {
@@ -1323,11 +1314,12 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 1.3272,
                 "metadata": {
-                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
                   "department": "CS",
-                  "access": "internal",
+                  "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
+                  "effective_date": "2026-02-01",
                   "source": "policy/refund-v4.pdf",
-                  "effective_date": "2026-02-01"
+                  "access": "internal",
+                  "department": "CS"
                 }
               },
               {
@@ -1335,11 +1327,12 @@
                 "source": "policy/refund-v4.pdf",
                 "score": 0.8814,
                 "metadata": {
-                  "source": "policy/refund-v4.pdf",
                   "section": "Điều 1: Phạm vi áp dụng",
+                  "source": "policy/refund-v4.pdf",
                   "access": "internal",
+                  "effective_date": "2026-02-01",
                   "department": "CS",
-                  "effective_date": "2026-02-01"
+                  "source": "policy/refund-v4.pdf"
                 }
               }
             ],
@@ -1349,10 +1342,10 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:40.468452"
+          "timestamp": "2026-04-14T15:36:27.961972"
         }
       ],
-      "final_answer": "Khách hàng không được hoàn tiền trong trường hợp này. Mặc dù sản phẩm bị lỗi do nhà sản xuất và chưa kích hoạt, nhưng yêu cầu hoàn tiền được gửi sau 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng (đặt ngày 31/01/2026, yêu cầu ngày 07/02/2026). Điều này không đáp ứng điều kiện hoàn tiền theo chính sách [1][2]. \n\nNgoài ra, đơn hàng này được đặt trước ngày 01/02/2026, do đó áp dụng chính sách hoàn tiền phiên bản 3, nhưng không có tài liệu để xác định điều kiện cụ thể [3]. \n\nKết luận: Không đủ thông tin trong tài liệu nội bộ để xác định chính xác chính sách hoàn tiền phiên bản 3, nhưng yêu cầu hoàn tiền không hợp lệ theo chính sách hiện hành.",
+      "final_answer": "Khách hàng không được hoàn tiền trong trường hợp này. Mặc dù sản phẩm bị lỗi do nhà sản xuất và chưa kích hoạt, yêu cầu hoàn tiền được gửi sau 7 ngày làm việc kể từ thời điểm xác nhận đơn hàng (31/01/2026 đến 07/02/2026 là 7 ngày). Do đó, không đáp ứng điều kiện hoàn tiền theo chính sách. [1], [2]",
       "sources": [
         "policy/refund-v4.pdf"
       ],
@@ -1361,17 +1354,17 @@
         "[supervisor] received task: Khách hàng đặt đơn ngày 31/01/2026 và yêu cầu hoàn tiền ngày 07/02/2026. Sản phẩ",
         "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
         "[policy_tool_worker] called MCP search_kb",
-        "[policy_tool_worker] policy_applies=False, exceptions=2",
-        "[synthesis_worker] answer generated, confidence=0.3, sources=['policy/refund-v4.pdf']",
-        "[graph] completed in 5234ms - Powered by LangGraph!"
+        "[policy_tool_worker] policy_applies=False, exceptions=1",
+        "[synthesis_worker] answer generated, confidence=0.72, sources=['policy/refund-v4.pdf']",
+        "[graph] completed in 5081ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 5234,
-      "run_id": "run_20260414_163840_120810",
+      "latency_ms": 5081,
+      "run_id": "run_20260414_153627_130293",
       "question_id": "q12"
     }
   },
@@ -1397,11 +1390,11 @@
           "source": "it/access-control-sop.md",
           "score": 1.2203,
           "metadata": {
-            "effective_date": "2026-01-01",
+            "section": "Section 3: Quy trình yêu cầu cấp quyền",
+            "source": "it/access-control-sop.md",
             "department": "IT Security",
-            "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
-            "access": "internal",
-            "source": "it/access-control-sop.md"
+            "effective_date": "2026-01-01",
+            "access": "internal"
           }
         },
         {
@@ -1412,8 +1405,8 @@
             "effective_date": "2026-01-01",
             "source": "it/access-control-sop.md",
             "department": "IT Security",
-            "section": "Section 3: Quy trình yêu cầu cấp quyền",
-            "access": "internal"
+            "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
+            "source": "it/access-control-sop.md"
           }
         },
         {
@@ -1421,11 +1414,11 @@
           "source": "it/access-control-sop.md",
           "score": 0.767,
           "metadata": {
-            "access": "internal",
-            "section": "Section 2: Phân cấp quyền truy cập",
-            "effective_date": "2026-01-01",
             "source": "it/access-control-sop.md",
-            "department": "IT Security"
+            "department": "IT Security",
+            "access": "internal",
+            "effective_date": "2026-01-01",
+            "section": "Section 2: Phân cấp quyền truy cập"
           }
         }
       ],
@@ -1440,7 +1433,7 @@
           "it/access-control-sop.md"
         ],
         "policy_version_note": "",
-        "explanation": "Quy trình cấp quyền tạm thời trong trường hợp khẩn cấp không áp dụng chính sách hoàn tiền, vì đây là một quy trình cấp quyền tạm thời để khắc phục sự cố P1 và không liên quan đến hoàn tiền.",
+        "explanation": "Quy trình cấp quyền tạm thời cho sự cố P1 cho phép On-call IT Admin cấp quyền Level 3 tạm thời sau khi được Tech Lead phê duyệt. Điều này nằm trong quy trình escalation khẩn cấp và không yêu cầu ticket chính thức ngay lập tức, nhưng phải được ghi log vào hệ thống Security Audit.",
         "access_check": {
           "access_level": 3,
           "can_grant": true,
@@ -1469,11 +1462,11 @@
                 "source": "it/access-control-sop.md",
                 "score": 1.2203,
                 "metadata": {
-                  "effective_date": "2026-01-01",
+                  "section": "Section 3: Quy trình yêu cầu cấp quyền",
+                  "source": "it/access-control-sop.md",
                   "department": "IT Security",
-                  "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
-                  "access": "internal",
-                  "source": "it/access-control-sop.md"
+                  "effective_date": "2026-01-01",
+                  "access": "internal"
                 }
               },
               {
@@ -1484,8 +1477,8 @@
                   "effective_date": "2026-01-01",
                   "source": "it/access-control-sop.md",
                   "department": "IT Security",
-                  "section": "Section 3: Quy trình yêu cầu cấp quyền",
-                  "access": "internal"
+                  "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
+                  "source": "it/access-control-sop.md"
                 }
               },
               {
@@ -1493,11 +1486,11 @@
                 "source": "it/access-control-sop.md",
                 "score": 0.767,
                 "metadata": {
-                  "access": "internal",
-                  "section": "Section 2: Phân cấp quyền truy cập",
-                  "effective_date": "2026-01-01",
                   "source": "it/access-control-sop.md",
-                  "department": "IT Security"
+                  "department": "IT Security",
+                  "access": "internal",
+                  "effective_date": "2026-01-01",
+                  "section": "Section 2: Phân cấp quyền truy cập"
                 }
               }
             ],
@@ -1507,7 +1500,7 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:45.704032"
+          "timestamp": "2026-04-14T15:36:32.757552"
         },
         {
           "tool": "get_ticket_info",
@@ -1531,7 +1524,7 @@
             ]
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:47.399759"
+          "timestamp": "2026-04-14T15:36:35.076139"
         },
         {
           "tool": "check_access_permission",
@@ -1554,10 +1547,10 @@
             "source": "access_control_sop.txt"
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:47.399795"
+          "timestamp": "2026-04-14T15:36:35.076203"
         }
       ],
-      "final_answer": "Để cấp quyền Admin Access (Level 3) tạm thời cho Contractor trong trường hợp khẩn cấp (sự cố P1), quy trình như sau:\n\n1. **Phê duyệt**: On-call IT Admin có thể cấp quyền tạm thời (tối đa 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. **Thời gian**: Quyền tạm thời chỉ có hiệu lực trong 24 giờ. Sau thời gian này, phải có ticket chính thức hoặc quyền sẽ bị thu hồi tự động.\n3. **Ghi log**: Tất cả quyền tạm thời phải được ghi log vào hệ thống Security Audit.\n\nLưu ý: Quy trình này chỉ áp dụng trong trường hợp khẩn cấp và không theo quy trình thông thường [1].",
+      "final_answer": "Để cấp quyền Admin Access (Level 3) tạm thời cho Contractor trong trường hợp khẩn cấp P1, quy trình như sau:\n\n1. On-call IT Admin có thể cấp quyền tạm thời (tối đa 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền sẽ bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.\n\nLưu ý: Quy trình này là ngoại lệ cho quy trình cấp quyền thông thường [2].",
       "sources": [
         "it/access-control-sop.md"
       ],
@@ -1568,17 +1561,17 @@
         "[policy_tool_worker] called MCP search_kb",
         "[policy_tool_worker] called MCP get_ticket_info",
         "[policy_tool_worker] called MCP check_access_permission",
-        "[policy_tool_worker] policy_applies=False, exceptions=0",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['it/access-control-sop.md']",
-        "[graph] completed in 5241ms - Powered by LangGraph!"
+        "[policy_tool_worker] policy_applies=True, exceptions=0",
+        "[synthesis_worker] answer generated, confidence=0.79, sources=['it/access-control-sop.md']",
+        "[graph] completed in 4911ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 5241,
-      "run_id": "run_20260414_163845_355801",
+      "latency_ms": 4911,
+      "run_id": "run_20260414_153632_212542",
       "question_id": "q13"
     }
   },
@@ -1603,11 +1596,12 @@
           "source": "hr/leave-policy-2026.pdf",
           "score": 1.2447,
           "metadata": {
-            "section": "Phần 4: Remote work policy",
-            "source": "hr/leave-policy-2026.pdf",
             "access": "internal",
+            "section": "Phần 4: Remote work policy",
+            "effective_date": "2026-01-01",
+            "source": "hr/leave-policy-2026.pdf",
             "department": "HR",
-            "effective_date": "2026-01-01"
+            "access": "internal"
           }
         },
         {
@@ -1615,11 +1609,11 @@
           "source": "it/access-control-sop.md",
           "score": 0.825,
           "metadata": {
-            "department": "IT Security",
-            "access": "internal",
-            "source": "it/access-control-sop.md",
             "effective_date": "2026-01-01",
-            "section": "Section 5: Thu hồi quyền truy cập"
+            "source": "hr/leave-policy-2026.pdf",
+            "department": "HR",
+            "access": "internal",
+            "section": "Phần 2: Quy trình xin nghỉ phép"
           }
         },
         {
@@ -1627,11 +1621,11 @@
           "source": "it/access-control-sop.md",
           "score": 0.8013,
           "metadata": {
-            "department": "IT Security",
+            "access": "internal",
+            "section": "Section 5: Thu hồi quyền truy cập",
             "source": "it/access-control-sop.md",
-            "section": "Section 2: Phân cấp quyền truy cập",
-            "effective_date": "2026-01-01",
-            "access": "internal"
+            "department": "IT Security",
+            "effective_date": "2026-01-01"
           }
         }
       ],
@@ -1641,7 +1635,7 @@
       ],
       "policy_result": {},
       "mcp_tools_used": [],
-      "final_answer": "Nhân viên vừa vào thử việc (trong probation period) không đủ điều kiện để làm remote. Theo quy định, chỉ nhân viên đã qua probation period mới có thể làm remote tối đa 2 ngày/tuần và phải được Team Lead phê duyệt lịch remote qua HR Portal [1].",
+      "final_answer": "Nhân viên trong probation period không đủ điều kiện để làm remote. Theo quy định, chỉ nhân viên sau probation period mới có thể làm remote tối đa 2 ngày/tuần và cần có sự phê duyệt từ Team Lead qua HR Portal [1].",
       "sources": [
         "hr/leave-policy-2026.pdf",
         "it/access-control-sop.md"
@@ -1650,17 +1644,17 @@
       "history": [
         "[supervisor] received task: Nhân viên vừa vào thử việc (trong probation period) muốn làm remote vì lý do cá ",
         "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
-        "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
-        "[graph] completed in 2098ms - Powered by LangGraph!"
+        "[retrieval_worker] retrieved 3 chunks from ['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
+        "[synthesis_worker] answer generated, confidence=0.75, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
+        "[graph] completed in 2100ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "retrieval_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "retrieval_worker",
-      "latency_ms": 2098,
-      "run_id": "run_20260414_163850_598154",
+      "latency_ms": 2100,
+      "run_id": "run_20260414_153637_125272",
       "question_id": "q14"
     }
   },
@@ -1682,39 +1676,40 @@
       "hitl_triggered": false,
       "retrieved_chunks": [
         {
-          "text": "Escalation chỉ áp dụng khi cần thay đổi quyền hệ thống ngoài quy trình thông thường.\nVí dụ: Khẩn cấp trong sự cố P1, cần cấp quyền tạm thời để fix incident.\n\nQuy trình escalation khẩn cấp:\n1. On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.",
-          "source": "it/access-control-sop.md",
-          "score": 1.0684,
+          "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
+          "source": "support/sla-p1-2026.pdf",
+          "score": 0.627,
           "metadata": {
-            "effective_date": "2026-01-01",
+            "effective_date": "2026-01-15",
+            "section": "Phần 3: Quy trình xử lý sự cố P1",
+            "source": "support/sla-p1-2026.pdf",
             "access": "internal",
-            "department": "IT Security",
-            "source": "it/access-control-sop.md",
-            "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống"
+            "department": "IT"
           }
         },
         {
           "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
           "source": "it/access-control-sop.md",
-          "score": 0.9117,
+          "score": 0.618,
           "metadata": {
-            "section": "Section 3: Quy trình yêu cầu cấp quyền",
-            "source": "it/access-control-sop.md",
             "department": "IT Security",
+            "access": "internal",
+            "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
             "effective_date": "2026-01-01",
-            "access": "internal"
+            "source": "it/access-control-sop.md"
           }
         },
         {
-          "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
-          "source": "support/sla-p1-2026.pdf",
-          "score": 0.8267,
+          "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
+          "source": "it/access-control-sop.md",
+          "score": 0.6109,
           "metadata": {
+            "source": "it/access-control-sop.md",
             "access": "internal",
-            "section": "Phần 3: Quy trình xử lý sự cố P1",
-            "effective_date": "2026-01-15",
-            "source": "support/sla-p1-2026.pdf",
-            "department": "IT"
+            "department": "IT Security",
+            "effective_date": "2026-01-01",
+            "source": "it/access-control-sop.md",
+            "section": "Section 3: Quy trình yêu cầu cấp quyền"
           }
         }
       ],
@@ -1757,39 +1752,40 @@
           "output": {
             "chunks": [
               {
-                "text": "Escalation chỉ áp dụng khi cần thay đổi quyền hệ thống ngoài quy trình thông thường.\nVí dụ: Khẩn cấp trong sự cố P1, cần cấp quyền tạm thời để fix incident.\n\nQuy trình escalation khẩn cấp:\n1. On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit.",
-                "source": "it/access-control-sop.md",
-                "score": 1.0684,
+                "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
+                "source": "support/sla-p1-2026.pdf",
+                "score": 0.627,
                 "metadata": {
-                  "effective_date": "2026-01-01",
+                  "effective_date": "2026-01-15",
+                  "section": "Phần 3: Quy trình xử lý sự cố P1",
+                  "source": "support/sla-p1-2026.pdf",
                   "access": "internal",
-                  "department": "IT Security",
-                  "source": "it/access-control-sop.md",
-                  "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống"
+                  "department": "IT"
                 }
               },
               {
                 "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
                 "source": "it/access-control-sop.md",
-                "score": 0.9117,
+                "score": 0.618,
                 "metadata": {
-                  "section": "Section 3: Quy trình yêu cầu cấp quyền",
-                  "source": "it/access-control-sop.md",
                   "department": "IT Security",
+                  "access": "internal",
+                  "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
                   "effective_date": "2026-01-01",
-                  "access": "internal"
+                  "source": "it/access-control-sop.md"
                 }
               },
               {
-                "text": "Bước 1: Tiếp nhận\nOn-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n\nBước 2: Thông báo\nGửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n\nBước 3: Triage và phân công\nLead Engineer phân công engineer xử lý trong 10 phút.\n\nBước 4: Xử lý\nEngineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n\nBước 5: Resolution\nSau khi khắc phục, viết incident report trong vòng 24 giờ.",
-                "source": "support/sla-p1-2026.pdf",
-                "score": 0.8267,
+                "text": "Bước 1: Nhân viên tạo Access Request ticket trên Jira (project IT-ACCESS).\nBước 2: Line Manager phê duyệt yêu cầu trong 1 ngày làm việc.\nBước 3: IT Admin kiểm tra compliance và cấp quyền.\nBước 4: IT Security review với Level 3 và Level 4.\nBước 5: Nhân viên nhận thông báo qua email khi quyền được cấp.",
+                "source": "it/access-control-sop.md",
+                "score": 0.6109,
                 "metadata": {
+                  "source": "it/access-control-sop.md",
                   "access": "internal",
-                  "section": "Phần 3: Quy trình xử lý sự cố P1",
-                  "effective_date": "2026-01-15",
-                  "source": "support/sla-p1-2026.pdf",
-                  "department": "IT"
+                  "department": "IT Security",
+                  "effective_date": "2026-01-01",
+                  "source": "it/access-control-sop.md",
+                  "section": "Section 3: Quy trình yêu cầu cấp quyền"
                 }
               }
             ],
@@ -1800,7 +1796,7 @@
             "total_found": 3
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:52.912548"
+          "timestamp": "2026-04-14T15:36:40.096727"
         },
         {
           "tool": "get_ticket_info",
@@ -1824,7 +1820,7 @@
             ]
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:55.039448"
+          "timestamp": "2026-04-14T15:36:41.584073"
         },
         {
           "tool": "check_access_permission",
@@ -1848,10 +1844,10 @@
             "source": "access_control_sop.txt"
           },
           "error": null,
-          "timestamp": "2026-04-14T16:38:55.039501"
+          "timestamp": "2026-04-14T15:36:41.584143"
         }
       ],
-      "final_answer": "**Quy trình cấp Level 2 access tạm thời cho contractor:**\n\n1. On-call IT Admin cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền sẽ bị thu hồi tự động.\n3. Ghi log mọi quyền tạm thời vào hệ thống Security Audit. [1]\n\n**Quy trình notify stakeholders theo SLA cho Ticket P1:**\n\n1. On-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n2. Gửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức. [3]",
+      "final_answer": "Để xử lý Ticket P1 lúc 2am, cần thực hiện hai quy trình sau:\n\n### 1. Quy trình thông báo theo SLA:\n- **Bước 1: Tiếp nhận**: On-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n- **Bước 2: Thông báo**: Gửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức.\n- **Bước 3: Triage và phân công**: Lead Engineer phân công engineer xử lý trong 10 phút.\n- **Bước 4: Xử lý**: Engineer cập nhật tiến độ lên ticket mỗi 30 phút. Nếu cần hỗ trợ thêm, escalate ngay.\n- **Bước 5: Resolution**: Sau khi khắc phục, viết incident report trong vòng 24 giờ. [1]\n\n### 2. Quy trình cấp Level 2 access tạm thời cho contractor:\n- **Bước 1**: On-call IT Admin có thể cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n- **Bước 2**: Sau 24 giờ, phải có ticket chính thức hoặc quyền bị thu hồi tự động.\n- **Bước 3**: Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit. [2]\n\nLưu ý: Quy trình cấp quyền tạm thời chỉ áp dụng trong trường hợp khẩn cấp như sự cố P1.",
       "sources": [
         "support/sla-p1-2026.pdf",
         "it/access-control-sop.md"
@@ -1863,17 +1859,17 @@
         "[policy_tool_worker] called MCP search_kb",
         "[policy_tool_worker] called MCP get_ticket_info",
         "[policy_tool_worker] called MCP check_access_permission",
-        "[policy_tool_worker] policy_applies=True, exceptions=0",
-        "[synthesis_worker] answer generated, confidence=0.95, sources=['support/sla-p1-2026.pdf', 'it/access-control-sop.md']",
-        "[graph] completed in 5259ms - Powered by LangGraph!"
+        "[policy_tool_worker] policy_applies=False, exceptions=0",
+        "[synthesis_worker] answer generated, confidence=0.79, sources=['it/access-control-sop.md', 'support/sla-p1-2026.pdf']",
+        "[graph] completed in 7471ms - Powered by LangGraph!"
       ],
       "workers_called": [
         "policy_tool_worker",
         "synthesis_worker"
       ],
       "supervisor_route": "policy_tool_worker",
-      "latency_ms": 5259,
-      "run_id": "run_20260414_163852_697160",
+      "latency_ms": 7471,
+      "run_id": "run_20260414_153639_226794",
       "question_id": "q15"
     }
   }
