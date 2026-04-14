@@ -330,6 +330,14 @@ def run(state: dict) -> dict:
     }
 
     try:
+<<<<<<< HEAD
+        # Step 1: Luôn gọi MCP search_kb để enrich context với policy docs
+        # Dù retrieval_worker đã chạy trước, MCP search_kb tìm thêm
+        # chunks chuyên về policy — quan trọng cho exception detection
+        mcp_search = _call_mcp_tool("search_kb", {"query": task, "top_k": 3})
+        state["mcp_tools_used"].append(mcp_search)
+        state["history"].append(f"[{WORKER_NAME}] called MCP search_kb")
+=======
         policy_like_keywords = [
             "hoàn tiền",
             "refund",
@@ -350,15 +358,43 @@ def run(state: dict) -> dict:
             mcp_result = _call_mcp_tool("search_kb", {"query": task, "top_k": search_top_k})
             state["mcp_tools_used"].append(mcp_result)
             state["history"].append(f"[{WORKER_NAME}] called MCP search_kb")
+>>>>>>> main
 
-            if mcp_result.get("output") and mcp_result["output"].get("chunks"):
-                chunks = mcp_result["output"]["chunks"]
-                state["retrieved_chunks"] = chunks
+        # Merge chunks từ MCP vào chunks hiện có (tránh duplicate theo text)
+        if mcp_search.get("output") and mcp_search["output"].get("chunks"):
+            existing_texts = {c.get("text") for c in chunks}
+            for c in mcp_search["output"]["chunks"]:
+                if c.get("text") not in existing_texts:
+                    chunks.append(c)
+                    existing_texts.add(c.get("text"))
+            state["retrieved_chunks"] = chunks
 
-        # Step 2: Phân tích policy
+        # Step 2: Nếu task liên quan đến cấp quyền → gọi MCP check_access_permission
+        # để lấy thông tin approver chính xác từ MCP thay vì chỉ dựa vào text chunks
+        task_lower = task.lower()
+        if any(kw in task_lower for kw in ["cấp quyền", "access", "level", "permission"]):
+            # Xác định access level từ task (mặc định 3 nếu không rõ)
+            level = 3
+            if "level 1" in task_lower:
+                level = 1
+            elif "level 2" in task_lower:
+                level = 2
+
+            is_emergency = any(kw in task_lower for kw in ["khẩn cấp", "emergency", "2am", "p1"])
+            mcp_access = _call_mcp_tool("check_access_permission", {
+                "access_level": level,
+                "requester_role": "contractor",   # default role khi không rõ
+                "is_emergency": is_emergency,
+            })
+            state["mcp_tools_used"].append(mcp_access)
+            state["history"].append(f"[{WORKER_NAME}] called MCP check_access_permission level={level}")
+
+        # Step 3: Phân tích policy dựa trên chunks đã được enrich từ MCP
         policy_result = analyze_policy(task, chunks)
         state["policy_result"] = policy_result
 
+<<<<<<< HEAD
+=======
         # Step 3: Nếu cần thêm info từ MCP (e.g., ticket status), gọi get_ticket_info
         if should_consult_tools and any(kw in task_lower for kw in ["ticket", "p1", "jira"]):
             mcp_result = _call_mcp_tool("get_ticket_info", {"ticket_id": "P1-LATEST"})
@@ -411,6 +447,7 @@ def run(state: dict) -> dict:
             if mcp_result.get("output"):
                 state["policy_result"]["late_penalty"] = mcp_result["output"]
 
+>>>>>>> main
         worker_io["output"] = {
             "policy_applies": policy_result["policy_applies"],
             "exceptions_count": len(policy_result.get("exceptions_found", [])),
