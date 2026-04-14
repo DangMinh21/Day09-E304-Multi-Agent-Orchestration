@@ -10,11 +10,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.5661,
       "metadata": {
-        "department": "IT Security",
-        "access": "internal",
         "section": "Section 2: Phân cấp quyền truy cập",
-        "effective_date": "2026-01-01",
-        "source": "it/access-control-sop.md"
+        "department": "IT Security",
+        "source": "it/access-control-sop.md",
+        "access": "internal",
+        "effective_date": "2026-01-01"
       }
     },
     {
@@ -22,10 +22,10 @@
       "source": "it/access-control-sop.md",
       "score": 0.5057,
       "metadata": {
+        "department": "IT Security",
         "section": "Section 3: Quy trình yêu cầu cấp quyền",
         "source": "it/access-control-sop.md",
         "access": "internal",
-        "department": "IT Security",
         "effective_date": "2026-01-01"
       }
     },
@@ -35,10 +35,10 @@
       "score": 0.4775,
       "metadata": {
         "access": "internal",
-        "effective_date": "2026-01-01",
         "section": "Phần 2: Quy trình xin nghỉ phép",
+        "source": "hr/leave-policy-2026.pdf",
         "department": "HR",
-        "source": "hr/leave-policy-2026.pdf"
+        "effective_date": "2026-01-01"
       }
     }
   ],
@@ -84,11 +84,11 @@
             "source": "it/access-control-sop.md",
             "score": 0.5661,
             "metadata": {
-              "department": "IT Security",
-              "access": "internal",
               "section": "Section 2: Phân cấp quyền truy cập",
-              "effective_date": "2026-01-01",
-              "source": "it/access-control-sop.md"
+              "department": "IT Security",
+              "source": "it/access-control-sop.md",
+              "access": "internal",
+              "effective_date": "2026-01-01"
             }
           },
           {
@@ -96,10 +96,10 @@
             "source": "it/access-control-sop.md",
             "score": 0.5057,
             "metadata": {
+              "department": "IT Security",
               "section": "Section 3: Quy trình yêu cầu cấp quyền",
               "source": "it/access-control-sop.md",
               "access": "internal",
-              "department": "IT Security",
               "effective_date": "2026-01-01"
             }
           },
@@ -109,10 +109,10 @@
             "score": 0.4775,
             "metadata": {
               "access": "internal",
-              "effective_date": "2026-01-01",
               "section": "Phần 2: Quy trình xin nghỉ phép",
+              "source": "hr/leave-policy-2026.pdf",
               "department": "HR",
-              "source": "hr/leave-policy-2026.pdf"
+              "effective_date": "2026-01-01"
             }
           }
         ],
@@ -123,7 +123,7 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T15:36:03.013219"
+      "timestamp": "2026-04-14T15:44:10.754819"
     },
     {
       "tool": "check_access_permission",
@@ -146,10 +146,10 @@
         "source": "access_control_sop.txt"
       },
       "error": null,
-      "timestamp": "2026-04-14T15:36:04.621696"
+      "timestamp": "2026-04-14T15:44:12.668976"
     }
   ],
-  "final_answer": "Để cấp quyền Level 3, cần có sự phê duyệt của Line Manager, IT Admin và IT Security [1].",
+  "final_answer": "Để cấp quyền Level 3, cần có sự phê duyệt từ Line Manager, IT Admin và IT Security [1].",
   "sources": [
     "it/access-control-sop.md",
     "hr/leave-policy-2026.pdf"
@@ -162,14 +162,14 @@
     "[policy_tool_worker] called MCP check_access_permission",
     "[policy_tool_worker] policy_applies=True, exceptions=0",
     "[synthesis_worker] answer generated, confidence=0.69, sources=['it/access-control-sop.md', 'hr/leave-policy-2026.pdf']",
-    "[graph] completed in 3309ms - Powered by LangGraph!"
+    "[graph] completed in 3880ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 3309,
-  "run_id": "run_20260414_153602_432696",
+  "latency_ms": 3880,
+  "run_id": "run_20260414_154409_740381",
   "question_id": "q03"
 }

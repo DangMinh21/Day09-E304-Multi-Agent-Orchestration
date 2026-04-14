@@ -10,11 +10,11 @@
       "source": "hr/leave-policy-2026.pdf",
       "score": 0.7447,
       "metadata": {
-        "section": "Phần 4: Remote work policy",
-        "effective_date": "2026-01-01",
         "source": "hr/leave-policy-2026.pdf",
         "department": "HR",
-        "access": "internal"
+        "effective_date": "2026-01-01",
+        "access": "internal",
+        "section": "Phần 4: Remote work policy"
       }
     },
     {
@@ -22,10 +22,10 @@
       "source": "hr/leave-policy-2026.pdf",
       "score": 0.4971,
       "metadata": {
-        "effective_date": "2026-01-01",
+        "access": "internal",
         "source": "hr/leave-policy-2026.pdf",
         "department": "HR",
-        "access": "internal",
+        "effective_date": "2026-01-01",
         "section": "Phần 2: Quy trình xin nghỉ phép"
       }
     },
@@ -34,39 +34,39 @@
       "source": "it/access-control-sop.md",
       "score": 0.475,
       "metadata": {
-        "access": "internal",
-        "section": "Section 5: Thu hồi quyền truy cập",
-        "source": "it/access-control-sop.md",
         "department": "IT Security",
-        "effective_date": "2026-01-01"
+        "source": "it/access-control-sop.md",
+        "effective_date": "2026-01-01",
+        "access": "internal",
+        "section": "Section 5: Thu hồi quyền truy cập"
       }
     }
   ],
   "retrieved_sources": [
-    "hr/leave-policy-2026.pdf",
-    "it/access-control-sop.md"
+    "it/access-control-sop.md",
+    "hr/leave-policy-2026.pdf"
   ],
   "policy_result": {},
   "mcp_tools_used": [],
-  "final_answer": "Nhân viên trong probation period không đủ điều kiện để làm remote. Theo quy định, chỉ nhân viên sau probation period mới có thể làm remote tối đa 2 ngày/tuần và cần có sự phê duyệt từ Team Lead qua HR Portal [1].",
+  "final_answer": "Nhân viên trong probation period không đủ điều kiện để làm remote. Theo quy định, chỉ nhân viên sau probation period mới có thể làm remote tối đa 2 ngày/tuần và cần sự phê duyệt của Team Lead qua HR Portal [1].",
   "sources": [
-    "hr/leave-policy-2026.pdf",
-    "it/access-control-sop.md"
+    "it/access-control-sop.md",
+    "hr/leave-policy-2026.pdf"
   ],
   "confidence": 0.75,
   "history": [
     "[supervisor] received task: Nhân viên vừa vào thử việc (trong probation period) muốn làm remote vì lý do cá ",
     "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
-    "[retrieval_worker] retrieved 3 chunks from ['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
-    "[synthesis_worker] answer generated, confidence=0.75, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
-    "[graph] completed in 2100ms - Powered by LangGraph!"
+    "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'hr/leave-policy-2026.pdf']",
+    "[synthesis_worker] answer generated, confidence=0.75, sources=['it/access-control-sop.md', 'hr/leave-policy-2026.pdf']",
+    "[graph] completed in 1905ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 2100,
-  "run_id": "run_20260414_153637_125272",
+  "latency_ms": 1905,
+  "run_id": "run_20260414_154446_499557",
   "question_id": "q14"
 }
