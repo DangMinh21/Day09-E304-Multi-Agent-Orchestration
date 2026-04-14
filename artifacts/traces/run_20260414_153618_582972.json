@@ -1,6 +1,6 @@
 {
   "task": "ERR-403-AUTH là lỗi gì và cách xử lý?",
-  "route_reason": "unknown error code + risk_high → human review | human approved → retrieval",
+  "route_reason": "ép buộc human_review: rủi ro cao + mã lỗi không xác định (err-) | risk_flag: High | human approved → retrieval",
   "risk_high": true,
   "needs_tool": false,
   "hitl_triggered": true,
@@ -10,11 +10,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.4006,
       "metadata": {
-        "department": "IT Security",
         "access": "internal",
+        "section": "Section 3: Quy trình yêu cầu cấp quyền",
         "effective_date": "2026-01-01",
         "source": "it/access-control-sop.md",
-        "section": "Section 3: Quy trình yêu cầu cấp quyền"
+        "department": "IT Security"
       }
     },
     {
@@ -22,23 +22,23 @@
       "source": "it/access-control-sop.md",
       "score": 0.383,
       "metadata": {
-        "effective_date": "2026-01-01",
         "section": "Section 6: Audit và review định kỳ",
+        "department": "IT Security",
+        "effective_date": "2026-01-01",
         "source": "it/access-control-sop.md",
-        "access": "internal",
-        "department": "IT Security"
+        "access": "internal"
       }
     },
     {
       "text": "Q: Tôi quên mật khẩu, phải làm gì?\nA: Truy cập https://sso.company.internal/reset hoặc liên hệ Helpdesk qua ext. 9000. Mật khẩu mới sẽ được gửi qua email công ty trong vòng 5 phút.\n\nQ: Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?\nA: Tài khoản bị khóa sau 5 lần đăng nhập sai liên tiếp. Để mở khóa, liên hệ IT Helpdesk hoặc tự reset qua portal SSO.\n\nQ: Mật khẩu cần thay đổi định kỳ không?\nA: Có. Mật khẩu phải được thay đổi mỗi 90 ngày. Hệ thống sẽ nhắc nhở 7 ngày trước khi hết hạn.",
       "source": "support/helpdesk-faq.md",
-      "score": 0.3739,
+      "score": 0.374,
       "metadata": {
-        "effective_date": "2026-01-20",
-        "source": "support/helpdesk-faq.md",
-        "section": "Section 1: Tài khoản và mật khẩu",
         "access": "internal",
-        "department": "IT"
+        "department": "IT",
+        "section": "Section 1: Tài khoản và mật khẩu",
+        "effective_date": "2026-01-20",
+        "source": "support/helpdesk-faq.md"
       }
     }
   ],
@@ -48,7 +48,7 @@
   ],
   "policy_result": {},
   "mcp_tools_used": [],
-  "final_answer": "Không đủ thông tin trong tài liệu nội bộ để xác định lỗi ERR-403-AUTH và cách xử lý.",
+  "final_answer": "Không đủ thông tin trong tài liệu nội bộ.",
   "sources": [
     "it/access-control-sop.md",
     "support/helpdesk-faq.md"
@@ -56,11 +56,11 @@
   "confidence": 0.3,
   "history": [
     "[supervisor] received task: ERR-403-AUTH là lỗi gì và cách xử lý?",
-    "[supervisor] route=human_review reason=unknown error code + risk_high → human review",
+    "[supervisor] route=human_review reason=ép buộc human_review: rủi ro cao + mã lỗi không xác định (err-) | risk_flag: High",
     "[human_review] HITL triggered — awaiting human input",
     "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'support/helpdesk-faq.md']",
     "[synthesis_worker] answer generated, confidence=0.3, sources=['it/access-control-sop.md', 'support/helpdesk-faq.md']",
-    "[graph] completed in 1781ms"
+    "[graph] completed in 1810ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "human_review",
@@ -68,41 +68,7 @@
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 1781,
-  "run_id": "run_20260414_150835",
-  "worker_io_logs": [
-    {
-      "worker": "retrieval_worker",
-      "input": {
-        "task": "ERR-403-AUTH là lỗi gì và cách xử lý?",
-        "top_k": 3
-      },
-      "output": {
-        "chunks_count": 3,
-        "sources": [
-          "it/access-control-sop.md",
-          "support/helpdesk-faq.md"
-        ]
-      },
-      "error": null
-    },
-    {
-      "worker": "synthesis_worker",
-      "input": {
-        "task": "ERR-403-AUTH là lỗi gì và cách xử lý?",
-        "chunks_count": 3,
-        "has_policy": false
-      },
-      "output": {
-        "answer_length": 84,
-        "sources": [
-          "it/access-control-sop.md",
-          "support/helpdesk-faq.md"
-        ],
-        "confidence": 0.3
-      },
-      "error": null
-    }
-  ],
+  "latency_ms": 1810,
+  "run_id": "run_20260414_153618_582972",
   "question_id": "q09"
 }

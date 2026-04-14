@@ -1,6 +1,6 @@
 {
   "task": "Sản phẩm kỹ thuật số (license key) có được hoàn tiền không?",
-  "route_reason": "task contains policy/access keyword",
+  "route_reason": "route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
   "risk_high": false,
   "needs_tool": true,
   "hitl_triggered": false,
@@ -11,8 +11,8 @@
       "score": 0.5801,
       "metadata": {
         "effective_date": "2026-02-01",
-        "source": "policy/refund-v4.pdf",
         "access": "internal",
+        "source": "policy/refund-v4.pdf",
         "department": "CS",
         "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
       }
@@ -22,11 +22,11 @@
       "source": "support/helpdesk-faq.md",
       "score": 0.4551,
       "metadata": {
-        "source": "support/helpdesk-faq.md",
-        "section": "Section 3: Phần mềm và license",
+        "department": "IT",
         "access": "internal",
         "effective_date": "2026-01-20",
-        "department": "IT"
+        "source": "support/helpdesk-faq.md",
+        "section": "Section 3: Phần mềm và license"
       }
     },
     {
@@ -34,15 +34,18 @@
       "source": "policy/refund-v4.pdf",
       "score": 0.4094,
       "metadata": {
-        "section": "Điều 5: Hình thức hoàn tiền",
-        "effective_date": "2026-02-01",
         "access": "internal",
         "source": "policy/refund-v4.pdf",
-        "department": "CS"
+        "department": "CS",
+        "effective_date": "2026-02-01",
+        "section": "Điều 5: Hình thức hoàn tiền"
       }
     }
   ],
-  "retrieved_sources": [],
+  "retrieved_sources": [
+    "policy/refund-v4.pdf",
+    "support/helpdesk-faq.md"
+  ],
   "policy_result": {
     "policy_applies": false,
     "policy_name": "refund_policy_v4",
@@ -68,7 +71,7 @@
       "support/helpdesk-faq.md"
     ],
     "policy_version_note": "",
-    "explanation": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền theo chính sách hoàn tiền vì nó thuộc danh mục hàng kỹ thuật số, là một trong những ngoại lệ không được hoàn tiền."
+    "explanation": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền theo chính sách vì thuộc danh mục hàng kỹ thuật số, do đó policy hoàn tiền không áp dụng."
   },
   "mcp_tools_used": [
     {
@@ -85,8 +88,8 @@
             "score": 0.5801,
             "metadata": {
               "effective_date": "2026-02-01",
-              "source": "policy/refund-v4.pdf",
               "access": "internal",
+              "source": "policy/refund-v4.pdf",
               "department": "CS",
               "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
             }
@@ -96,11 +99,11 @@
             "source": "support/helpdesk-faq.md",
             "score": 0.4551,
             "metadata": {
-              "source": "support/helpdesk-faq.md",
-              "section": "Section 3: Phần mềm và license",
+              "department": "IT",
               "access": "internal",
               "effective_date": "2026-01-20",
-              "department": "IT"
+              "source": "support/helpdesk-faq.md",
+              "section": "Section 3: Phần mềm và license"
             }
           },
           {
@@ -108,11 +111,11 @@
             "source": "policy/refund-v4.pdf",
             "score": 0.4094,
             "metadata": {
-              "section": "Điều 5: Hình thức hoàn tiền",
-              "effective_date": "2026-02-01",
               "access": "internal",
               "source": "policy/refund-v4.pdf",
-              "department": "CS"
+              "department": "CS",
+              "effective_date": "2026-02-01",
+              "section": "Điều 5: Hình thức hoàn tiền"
             }
           }
         ],
@@ -123,10 +126,10 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T15:08:26.619270"
+      "timestamp": "2026-04-14T15:36:13.828272"
     }
   ],
-  "final_answer": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền. Điều này được quy định trong chính sách hoàn tiền, cụ thể là sản phẩm thuộc danh mục hàng kỹ thuật số không đủ điều kiện hoàn tiền. [1]",
+  "final_answer": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền. Điều này được quy định rõ trong chính sách hoàn tiền: \"Sản phẩm thuộc danh mục hàng kỹ thuật số (license key, subscription) không được hoàn tiền\" [1].",
   "sources": [
     "policy/refund-v4.pdf",
     "support/helpdesk-faq.md"
@@ -134,51 +137,18 @@
   "confidence": 0.51,
   "history": [
     "[supervisor] received task: Sản phẩm kỹ thuật số (license key) có được hoàn tiền không?",
-    "[supervisor] route=policy_tool_worker reason=task contains policy/access keyword",
+    "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
     "[policy_tool_worker] called MCP search_kb",
     "[policy_tool_worker] policy_applies=False, exceptions=3",
     "[synthesis_worker] answer generated, confidence=0.51, sources=['policy/refund-v4.pdf', 'support/helpdesk-faq.md']",
-    "[graph] completed in 4884ms"
+    "[graph] completed in 3392ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 4884,
-  "run_id": "run_20260414_150826",
-  "worker_io_logs": [
-    {
-      "worker": "policy_tool_worker",
-      "input": {
-        "task": "Sản phẩm kỹ thuật số (license key) có được hoàn tiền không?",
-        "chunks_count": 0,
-        "needs_tool": true
-      },
-      "output": {
-        "policy_applies": false,
-        "exceptions_count": 3,
-        "mcp_calls": 1
-      },
-      "error": null
-    },
-    {
-      "worker": "synthesis_worker",
-      "input": {
-        "task": "Sản phẩm kỹ thuật số (license key) có được hoàn tiền không?",
-        "chunks_count": 3,
-        "has_policy": true
-      },
-      "output": {
-        "answer_length": 192,
-        "sources": [
-          "policy/refund-v4.pdf",
-          "support/helpdesk-faq.md"
-        ],
-        "confidence": 0.51
-      },
-      "error": null
-    }
-  ],
+  "latency_ms": 3392,
+  "run_id": "run_20260414_153613_347495",
   "question_id": "q07"
 }
