@@ -45,8 +45,8 @@ def _call_llm(messages: list) -> str:
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=messages,
-            temperature=0.1,  # Low temperature để grounded
-            max_tokens=500,
+            temperature=0.1,
+            max_tokens=1200,
         )
         return response.choices[0].message.content
     except Exception:

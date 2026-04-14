@@ -209,11 +209,18 @@ def analyze_policy(task: str, chunks: list) -> dict:
     policy_applies = len(exceptions_found) == 0
 
     # Determine which policy version applies (temporal scoping)
-    # Nếu task đề cập đơn hàng trước 01/02/2026 → flag lại vì docs không có policy v3
+    # Đơn đặt trước 01/02/2026 → áp dụng policy v3, không có trong docs → phải abstain
     policy_name = "refund_policy_v4"
     policy_version_note = ""
-    if "31/01" in task_lower or "30/01" in task_lower or "trước 01/02" in task_lower:
+    if "31/01" in task_lower or "30/01" in task_lower or "trước 01/02" in task_lower or "29/01" in task_lower:
         policy_version_note = "Đơn hàng đặt trước 01/02/2026 áp dụng chính sách v3 (không có trong tài liệu hiện tại)."
+        # Force policy_applies = False và thêm exception để synthesis biết phải abstain
+        exceptions_found.append({
+            "type": "policy_version_exception",
+            "rule": "Đơn hàng đặt trước 01/02/2026 áp dụng policy v3 — không có tài liệu, cần abstain.",
+            "source": "policy_refund_v4.txt",
+        })
+        policy_applies = False
 
     # --- LLM-based analysis (primary) với rule-based làm fallback ---
     # Mặc định explanation từ rule-based, sẽ bị ghi đè nếu LLM thành công
@@ -239,9 +246,10 @@ def analyze_policy(task: str, chunks: list) -> dict:
                         "1. Policy hoàn tiền có áp dụng không (policy_applies: true/false)\n"
                         "2. Có exceptions nào không (flash_sale, digital_product, activated)\n"
                         "Lưu ý quan trọng về tính ngày:\n"
-                        "- '7 ngày làm việc' KHÔNG tính ngày cuối tuần (Thứ 7, Chủ nhật)\n"
-                        "- Ví dụ: đặt 31/01 (Thứ 6), yêu cầu 07/02 (Thứ 6) = 5 ngày làm việc → trong hạn\n"
-                        "- Phải tính chính xác số ngày làm việc trước khi kết luận\n"
+                        "- '7 ngày làm việc' KHÔNG tính Thứ 7 và Chủ nhật\n"
+                        "- 31/01/2026 là Thứ 7. Ngày làm việc tiếp theo là 02/02 (Thứ 2)\n"
+                        "- 31/01 → 07/02: các ngày làm việc là 02,03,04,05,06/02 = 5 ngày làm việc → TRONG HẠN\n"
+                        "- Nếu task đề cập ngày cụ thể, hãy đếm chính xác ngày làm việc\n"
                         "Trả về JSON hợp lệ với đúng 3 key: "
                         "{\"policy_applies\": bool, \"exceptions\": [str], \"explanation\": str}"
                     )
