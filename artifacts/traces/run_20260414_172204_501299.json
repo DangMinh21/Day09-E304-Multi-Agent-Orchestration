@@ -11,10 +11,10 @@
       "score": 1.0301,
       "metadata": {
         "effective_date": "2026-02-01",
+        "source": "policy/refund-v4.pdf",
         "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
         "access": "internal",
-        "department": "CS",
-        "source": "policy/refund-v4.pdf"
+        "department": "CS"
       }
     },
     {
@@ -23,10 +23,10 @@
       "score": 0.6093,
       "metadata": {
         "effective_date": "2026-02-01",
-        "access": "internal",
         "department": "CS",
-        "source": "policy/refund-v4.pdf",
-        "section": "Điều 5: Hình thức hoàn tiền"
+        "section": "Điều 5: Hình thức hoàn tiền",
+        "access": "internal",
+        "source": "policy/refund-v4.pdf"
       }
     },
     {
@@ -34,17 +34,17 @@
       "source": "support/helpdesk-faq.md",
       "score": 0.505,
       "metadata": {
-        "department": "IT",
         "access": "internal",
-        "effective_date": "2026-01-20",
+        "source": "support/helpdesk-faq.md",
         "section": "Section 3: Phần mềm và license",
-        "source": "support/helpdesk-faq.md"
+        "effective_date": "2026-01-20",
+        "department": "IT"
       }
     }
   ],
   "retrieved_sources": [
-    "support/helpdesk-faq.md",
-    "policy/refund-v4.pdf"
+    "policy/refund-v4.pdf",
+    "support/helpdesk-faq.md"
   ],
   "policy_result": {
     "policy_applies": false,
@@ -67,8 +67,8 @@
       }
     ],
     "source": [
-      "support/helpdesk-faq.md",
-      "policy/refund-v4.pdf"
+      "policy/refund-v4.pdf",
+      "support/helpdesk-faq.md"
     ],
     "policy_version_note": "",
     "explanation": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền theo chính sách vì thuộc danh mục hàng kỹ thuật số, do đó policy hoàn tiền không áp dụng."
@@ -88,10 +88,10 @@
             "score": 1.0301,
             "metadata": {
               "effective_date": "2026-02-01",
+              "source": "policy/refund-v4.pdf",
               "section": "Điều 3: Điều kiện áp dụng và ngoại lệ",
               "access": "internal",
-              "department": "CS",
-              "source": "policy/refund-v4.pdf"
+              "department": "CS"
             }
           },
           {
@@ -100,10 +100,10 @@
             "score": 0.6093,
             "metadata": {
               "effective_date": "2026-02-01",
-              "access": "internal",
               "department": "CS",
-              "source": "policy/refund-v4.pdf",
-              "section": "Điều 5: Hình thức hoàn tiền"
+              "section": "Điều 5: Hình thức hoàn tiền",
+              "access": "internal",
+              "source": "policy/refund-v4.pdf"
             }
           },
           {
@@ -111,28 +111,28 @@
             "source": "support/helpdesk-faq.md",
             "score": 0.505,
             "metadata": {
-              "department": "IT",
               "access": "internal",
-              "effective_date": "2026-01-20",
+              "source": "support/helpdesk-faq.md",
               "section": "Section 3: Phần mềm và license",
-              "source": "support/helpdesk-faq.md"
+              "effective_date": "2026-01-20",
+              "department": "IT"
             }
           }
         ],
         "sources": [
-          "support/helpdesk-faq.md",
-          "policy/refund-v4.pdf"
+          "policy/refund-v4.pdf",
+          "support/helpdesk-faq.md"
         ],
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T17:15:46.570604"
+      "timestamp": "2026-04-14T17:22:04.833828"
     }
   ],
-  "final_answer": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền. Điều này được quy định rõ trong chính sách hoàn tiền, ngoại lệ không được hoàn tiền cho sản phẩm thuộc danh mục hàng kỹ thuật số. [1]",
+  "final_answer": "Sản phẩm kỹ thuật số (license key) không được hoàn tiền. Điều này được quy định trong chính sách hoàn tiền, cụ thể là sản phẩm thuộc danh mục hàng kỹ thuật số không đủ điều kiện hoàn tiền [1].",
   "sources": [
-    "support/helpdesk-faq.md",
-    "policy/refund-v4.pdf"
+    "policy/refund-v4.pdf",
+    "support/helpdesk-faq.md"
   ],
   "confidence": 0.6,
   "history": [
@@ -140,15 +140,15 @@
     "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
     "[policy_tool_worker] called MCP search_kb",
     "[policy_tool_worker] policy_applies=False, exceptions=3",
-    "[synthesis_worker] answer generated, confidence=0.6, sources=['support/helpdesk-faq.md', 'policy/refund-v4.pdf']",
-    "[graph] completed in 4068ms - Powered by LangGraph!"
+    "[synthesis_worker] answer generated, confidence=0.6, sources=['policy/refund-v4.pdf', 'support/helpdesk-faq.md']",
+    "[graph] completed in 4178ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 4068,
-  "run_id": "run_20260414_171546_232532",
+  "latency_ms": 4178,
+  "run_id": "run_20260414_172204_501299",
   "question_id": "q07"
 }

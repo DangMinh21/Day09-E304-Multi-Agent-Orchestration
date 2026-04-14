@@ -10,11 +10,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.8057,
       "metadata": {
-        "effective_date": "2026-01-01",
-        "access": "internal",
         "source": "it/access-control-sop.md",
+        "effective_date": "2026-01-01",
         "section": "Section 3: Quy trình yêu cầu cấp quyền",
-        "department": "IT Security"
+        "department": "IT Security",
+        "access": "internal"
       }
     },
     {
@@ -22,11 +22,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.7661,
       "metadata": {
-        "access": "internal",
-        "effective_date": "2026-01-01",
-        "source": "it/access-control-sop.md",
         "department": "IT Security",
-        "section": "Section 2: Phân cấp quyền truy cập"
+        "source": "it/access-control-sop.md",
+        "section": "Section 2: Phân cấp quyền truy cập",
+        "effective_date": "2026-01-01",
+        "access": "internal"
       }
     },
     {
@@ -84,11 +84,11 @@
             "source": "it/access-control-sop.md",
             "score": 0.8057,
             "metadata": {
-              "effective_date": "2026-01-01",
-              "access": "internal",
               "source": "it/access-control-sop.md",
+              "effective_date": "2026-01-01",
               "section": "Section 3: Quy trình yêu cầu cấp quyền",
-              "department": "IT Security"
+              "department": "IT Security",
+              "access": "internal"
             }
           },
           {
@@ -96,11 +96,11 @@
             "source": "it/access-control-sop.md",
             "score": 0.7661,
             "metadata": {
-              "access": "internal",
-              "effective_date": "2026-01-01",
-              "source": "it/access-control-sop.md",
               "department": "IT Security",
-              "section": "Section 2: Phân cấp quyền truy cập"
+              "source": "it/access-control-sop.md",
+              "section": "Section 2: Phân cấp quyền truy cập",
+              "effective_date": "2026-01-01",
+              "access": "internal"
             }
           },
           {
@@ -123,7 +123,7 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T17:15:35.058983"
+      "timestamp": "2026-04-14T17:21:55.152148"
     },
     {
       "tool": "check_access_permission",
@@ -146,7 +146,7 @@
         "source": "access_control_sop.txt"
       },
       "error": null,
-      "timestamp": "2026-04-14T17:15:37.023320"
+      "timestamp": "2026-04-14T17:21:56.672312"
     }
   ],
   "final_answer": "Để cấp quyền Level 3, yêu cầu phải được phê duyệt bởi Line Manager, IT Admin và IT Security. [1]",
@@ -162,14 +162,14 @@
     "[policy_tool_worker] called MCP check_access_permission",
     "[policy_tool_worker] policy_applies=False, exceptions=0",
     "[synthesis_worker] answer generated, confidence=0.78, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
-    "[graph] completed in 3688ms - Powered by LangGraph!"
+    "[graph] completed in 3579ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 3688,
-  "run_id": "run_20260414_171534_597171",
+  "latency_ms": 3579,
+  "run_id": "run_20260414_172154_820022",
   "question_id": "q03"
 }

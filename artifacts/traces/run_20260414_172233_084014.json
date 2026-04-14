@@ -10,10 +10,10 @@
       "source": "it/access-control-sop.md",
       "score": 1.068,
       "metadata": {
-        "access": "internal",
-        "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
         "department": "IT Security",
         "source": "it/access-control-sop.md",
+        "access": "internal",
+        "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
         "effective_date": "2026-01-01"
       }
     },
@@ -22,11 +22,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.9109,
       "metadata": {
-        "effective_date": "2026-01-01",
+        "access": "internal",
         "department": "IT Security",
-        "source": "it/access-control-sop.md",
         "section": "Section 3: Quy trình yêu cầu cấp quyền",
-        "access": "internal"
+        "source": "it/access-control-sop.md",
+        "effective_date": "2026-01-01"
       }
     },
     {
@@ -34,11 +34,11 @@
       "source": "support/sla-p1-2026.pdf",
       "score": 0.827,
       "metadata": {
-        "source": "support/sla-p1-2026.pdf",
-        "access": "internal",
-        "section": "Phần 3: Quy trình xử lý sự cố P1",
         "department": "IT",
-        "effective_date": "2026-01-15"
+        "section": "Phần 3: Quy trình xử lý sự cố P1",
+        "effective_date": "2026-01-15",
+        "access": "internal",
+        "source": "support/sla-p1-2026.pdf"
       }
     }
   ],
@@ -55,7 +55,7 @@
       "it/access-control-sop.md"
     ],
     "policy_version_note": "",
-    "explanation": "Policy hoàn tiền áp dụng vì không có thông tin nào cho thấy ticket này liên quan đến việc hoàn tiền. Quy trình escalation khẩn cấp được thực hiện để cấp quyền tạm thời cho contractor nhằm xử lý sự cố P1, không có exceptions nào như flash sale, digital product hay activated được đề cập trong ngữ cảnh.",
+    "explanation": "Policy hoàn tiền áp dụng vì ticket P1 yêu cầu cấp quyền tạm thời cho contractor trong trường hợp khẩn cấp. Không có exceptions nào được đề cập trong quy trình này.",
     "access_check": {
       "access_level": 2,
       "can_grant": true,
@@ -85,10 +85,10 @@
             "source": "it/access-control-sop.md",
             "score": 1.068,
             "metadata": {
-              "access": "internal",
-              "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
               "department": "IT Security",
               "source": "it/access-control-sop.md",
+              "access": "internal",
+              "section": "Section 4: Escalation khi cần thay đổi quyền hệ thống",
               "effective_date": "2026-01-01"
             }
           },
@@ -97,11 +97,11 @@
             "source": "it/access-control-sop.md",
             "score": 0.9109,
             "metadata": {
-              "effective_date": "2026-01-01",
+              "access": "internal",
               "department": "IT Security",
-              "source": "it/access-control-sop.md",
               "section": "Section 3: Quy trình yêu cầu cấp quyền",
-              "access": "internal"
+              "source": "it/access-control-sop.md",
+              "effective_date": "2026-01-01"
             }
           },
           {
@@ -109,11 +109,11 @@
             "source": "support/sla-p1-2026.pdf",
             "score": 0.827,
             "metadata": {
-              "source": "support/sla-p1-2026.pdf",
-              "access": "internal",
-              "section": "Phần 3: Quy trình xử lý sự cố P1",
               "department": "IT",
-              "effective_date": "2026-01-15"
+              "section": "Phần 3: Quy trình xử lý sự cố P1",
+              "effective_date": "2026-01-15",
+              "access": "internal",
+              "source": "support/sla-p1-2026.pdf"
             }
           }
         ],
@@ -124,7 +124,7 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T17:16:19.728668"
+      "timestamp": "2026-04-14T17:22:33.440517"
     },
     {
       "tool": "get_ticket_info",
@@ -148,7 +148,7 @@
         ]
       },
       "error": null,
-      "timestamp": "2026-04-14T17:16:22.233304"
+      "timestamp": "2026-04-14T17:22:35.006651"
     },
     {
       "tool": "check_access_permission",
@@ -172,10 +172,10 @@
         "source": "access_control_sop.txt"
       },
       "error": null,
-      "timestamp": "2026-04-14T17:16:22.233354"
+      "timestamp": "2026-04-14T17:22:35.006764"
     }
   ],
-  "final_answer": "### Quy trình cấp Level 2 access tạm thời cho contractor:\n\n1. **Phê duyệt**: On-call IT Admin cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời [1].\n2. **Ghi log**: Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit [1].\n3. **Ticket chính thức**: Sau 24 giờ, phải có ticket chính thức hoặc quyền sẽ bị thu hồi tự động [1].\n\n### Quy trình notify stakeholders theo SLA cho Ticket P1:\n\n1. **Tiếp nhận**: On-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút [3].\n2. **Thông báo**: Gửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức [3].\n3. **Triage và phân công**: Lead Engineer phân công engineer xử lý trong 10 phút [3].\n\nLưu ý: Quy trình cấp quyền tạm thời là ngoại lệ trong trường hợp khẩn cấp và không theo quy trình thông thường [1].",
+  "final_answer": "**Quy trình cấp Level 2 access tạm thời cho contractor:**\n\n1. On-call IT Admin cấp quyền tạm thời (max 24 giờ) sau khi được Tech Lead phê duyệt bằng lời.\n2. Sau 24 giờ, phải có ticket chính thức hoặc quyền sẽ bị thu hồi tự động.\n3. Mọi quyền tạm thời phải được ghi log vào hệ thống Security Audit. [1]\n\n**Quy trình notify stakeholders theo SLA cho Ticket P1:**\n\n1. On-call engineer nhận alert hoặc ticket, xác nhận severity trong 5 phút.\n2. Gửi thông báo tới Slack #incident-p1 và email incident@company.internal ngay lập tức. [3] \n\nLưu ý: Quy trình cấp quyền tạm thời là ngoại lệ và không theo quy trình thông thường.",
   "sources": [
     "support/sla-p1-2026.pdf",
     "it/access-control-sop.md"
@@ -189,14 +189,14 @@
     "[policy_tool_worker] called MCP check_access_permission",
     "[policy_tool_worker] policy_applies=True, exceptions=0",
     "[synthesis_worker] answer generated, confidence=0.88, sources=['support/sla-p1-2026.pdf', 'it/access-control-sop.md']",
-    "[graph] completed in 8239ms - Powered by LangGraph!"
+    "[graph] completed in 5418ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 8239,
-  "run_id": "run_20260414_171619_055134",
+  "latency_ms": 5418,
+  "run_id": "run_20260414_172233_084014",
   "question_id": "q15"
 }

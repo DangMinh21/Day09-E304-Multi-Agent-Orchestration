@@ -8,24 +8,24 @@
     {
       "text": "4.1 Điều kiện remote:\n- Nhân viên sau probation period có thể làm remote tối đa 2 ngày/tuần.\n- Team Lead phải phê duyệt lịch remote qua HR Portal.\n- Ngày onsite bắt buộc: Thứ 3 và Thứ 5 theo lịch team.\n\n4.2 Yêu cầu kỹ thuật khi remote:\n- Kết nối VPN bắt buộc khi làm việc với hệ thống nội bộ.\n- Camera bật trong các cuộc họp team.",
       "source": "hr/leave-policy-2026.pdf",
-      "score": 1.2447,
+      "score": 1.2448,
       "metadata": {
         "access": "internal",
-        "effective_date": "2026-01-01",
-        "source": "hr/leave-policy-2026.pdf",
+        "department": "HR",
         "section": "Phần 4: Remote work policy",
-        "department": "HR"
+        "source": "hr/leave-policy-2026.pdf",
+        "effective_date": "2026-01-01"
       }
     },
     {
       "text": "Quyền phải được thu hồi trong các trường hợp:\n- Nhân viên nghỉ việc: Thu hồi ngay trong ngày cuối.\n- Hết hạn contract: Thu hồi đúng ngày hết hạn.\n- Chuyển bộ phận: Điều chỉnh trong 3 ngày làm việc.",
       "source": "it/access-control-sop.md",
-      "score": 0.825,
+      "score": 0.8251,
       "metadata": {
-        "department": "IT Security",
-        "access": "internal",
         "effective_date": "2026-01-01",
+        "department": "IT Security",
         "section": "Section 5: Thu hồi quyền truy cập",
+        "access": "internal",
         "source": "it/access-control-sop.md"
       }
     },
@@ -34,11 +34,11 @@
       "source": "it/access-control-sop.md",
       "score": 0.8013,
       "metadata": {
+        "effective_date": "2026-01-01",
+        "access": "internal",
         "department": "IT Security",
         "section": "Section 2: Phân cấp quyền truy cập",
-        "source": "it/access-control-sop.md",
-        "access": "internal",
-        "effective_date": "2026-01-01"
+        "source": "it/access-control-sop.md"
       }
     }
   ],
@@ -48,7 +48,7 @@
   ],
   "policy_result": {},
   "mcp_tools_used": [],
-  "final_answer": "Nhân viên trong thời gian thử việc (probation period) không đủ điều kiện để làm remote. Điều kiện làm remote chỉ áp dụng cho nhân viên đã qua probation period, với các yêu cầu sau:\n\n1. Nhân viên có thể làm remote tối đa 2 ngày/tuần.\n2. Lịch remote phải được Team Lead phê duyệt qua HR Portal.\n3. Ngày onsite bắt buộc là Thứ 3 và Thứ 5 theo lịch team [1]. \n\nDo đó, nhân viên thử việc không thể thực hiện yêu cầu này.",
+  "final_answer": "Nhân viên trong thời gian thử việc (probation period) không đủ điều kiện để làm remote. Theo quy định, chỉ nhân viên đã qua probation period mới có thể làm remote tối đa 2 ngày/tuần, và cần có sự phê duyệt từ Team Lead qua HR Portal [1].",
   "sources": [
     "hr/leave-policy-2026.pdf",
     "it/access-control-sop.md"
@@ -59,14 +59,14 @@
     "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
     "[retrieval_worker] HIGH CONFIDENCE: retrieved 3 chunks",
     "[synthesis_worker] answer generated, confidence=0.89, sources=['hr/leave-policy-2026.pdf', 'it/access-control-sop.md']",
-    "[graph] completed in 3346ms - Powered by LangGraph!"
+    "[graph] completed in 2488ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 3346,
-  "run_id": "run_20260414_171615_707951",
+  "latency_ms": 2488,
+  "run_id": "run_20260414_172230_593615",
   "question_id": "q14"
 }
