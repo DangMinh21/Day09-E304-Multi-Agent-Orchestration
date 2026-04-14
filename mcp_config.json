@@ -1,0 +1,43 @@
+{
+  "server": {
+    "name": "internal-policy-mcp",
+    "transport": "in_process",
+    "entrypoint": "mcp_server.dispatch_tool"
+  },
+  "defaults": {
+    "search_top_k": 3,
+    "requester_role": "employee"
+  },
+  "tools": [
+    {
+      "name": "search_kb",
+      "enabled": true,
+      "purpose": "Search internal knowledge base chunks"
+    },
+    {
+      "name": "get_ticket_info",
+      "enabled": true,
+      "purpose": "Get ticket details from mock ITSM"
+    },
+    {
+      "name": "check_access_permission",
+      "enabled": true,
+      "purpose": "Check temporary/elevated access approvals"
+    },
+    {
+      "name": "create_ticket",
+      "enabled": true,
+      "purpose": "Create a mock IT ticket"
+    },
+    {
+      "name": "get_leave_process",
+      "enabled": true,
+      "purpose": "Return leave request process and requirements"
+    },
+    {
+      "name": "get_late_penalty",
+      "enabled": true,
+      "purpose": "Return late-arrival penalty guidance (mock)"
+    }
+  ]
+}
