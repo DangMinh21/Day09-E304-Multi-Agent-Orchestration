@@ -1,6 +1,6 @@
 {
   "task": "Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?",
-  "route_reason": "default route",
+  "route_reason": "default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
   "risk_high": false,
   "needs_tool": false,
   "hitl_triggered": false,
@@ -13,8 +13,8 @@
         "department": "IT",
         "source": "support/helpdesk-faq.md",
         "access": "internal",
-        "section": "Section 1: Tài khoản và mật khẩu",
-        "effective_date": "2026-01-20"
+        "effective_date": "2026-01-20",
+        "section": "Section 1: Tài khoản và mật khẩu"
       }
     },
     {
@@ -23,9 +23,9 @@
       "score": 0.4564,
       "metadata": {
         "access": "internal",
-        "source": "it/access-control-sop.md",
-        "effective_date": "2026-01-01",
         "department": "IT Security",
+        "effective_date": "2026-01-01",
+        "source": "it/access-control-sop.md",
         "section": "Section 6: Audit và review định kỳ"
       }
     },
@@ -34,73 +34,39 @@
       "source": "support/helpdesk-faq.md",
       "score": 0.4027,
       "metadata": {
-        "source": "support/helpdesk-faq.md",
-        "access": "internal",
         "effective_date": "2026-01-20",
         "section": "Section 5: Email và lịch",
+        "access": "internal",
+        "source": "support/helpdesk-faq.md",
         "department": "IT"
       }
     }
   ],
   "retrieved_sources": [
-    "support/helpdesk-faq.md",
-    "it/access-control-sop.md"
+    "it/access-control-sop.md",
+    "support/helpdesk-faq.md"
   ],
   "policy_result": {},
   "mcp_tools_used": [],
   "final_answer": "Tài khoản bị khóa sau 5 lần đăng nhập sai liên tiếp. Để mở khóa, bạn có thể liên hệ IT Helpdesk hoặc tự reset qua portal SSO [1].",
   "sources": [
-    "support/helpdesk-faq.md",
-    "it/access-control-sop.md"
+    "it/access-control-sop.md",
+    "support/helpdesk-faq.md"
   ],
   "confidence": 0.68,
   "history": [
     "[supervisor] received task: Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?",
-    "[supervisor] route=retrieval_worker reason=default route",
-    "[retrieval_worker] retrieved 3 chunks from ['support/helpdesk-faq.md', 'it/access-control-sop.md']",
-    "[synthesis_worker] answer generated, confidence=0.68, sources=['support/helpdesk-faq.md', 'it/access-control-sop.md']",
-    "[graph] completed in 1951ms"
+    "[supervisor] route=retrieval_worker reason=default route - không có từ khóa đặc biệt, dùng truy xuất tài liệu mặc định | risk_flag: Normal",
+    "[retrieval_worker] retrieved 3 chunks from ['it/access-control-sop.md', 'support/helpdesk-faq.md']",
+    "[synthesis_worker] answer generated, confidence=0.68, sources=['it/access-control-sop.md', 'support/helpdesk-faq.md']",
+    "[graph] completed in 1360ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 1951,
-  "run_id": "run_20260414_150819",
-  "worker_io_logs": [
-    {
-      "worker": "retrieval_worker",
-      "input": {
-        "task": "Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?",
-        "top_k": 3
-      },
-      "output": {
-        "chunks_count": 3,
-        "sources": [
-          "support/helpdesk-faq.md",
-          "it/access-control-sop.md"
-        ]
-      },
-      "error": null
-    },
-    {
-      "worker": "synthesis_worker",
-      "input": {
-        "task": "Tài khoản bị khóa sau bao nhiêu lần đăng nhập sai?",
-        "chunks_count": 3,
-        "has_policy": false
-      },
-      "output": {
-        "answer_length": 129,
-        "sources": [
-          "support/helpdesk-faq.md",
-          "it/access-control-sop.md"
-        ],
-        "confidence": 0.68
-      },
-      "error": null
-    }
-  ],
+  "latency_ms": 1360,
+  "run_id": "run_20260414_153605_743130",
   "question_id": "q04"
 }

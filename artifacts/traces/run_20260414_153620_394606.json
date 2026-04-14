@@ -1,6 +1,6 @@
 {
   "task": "Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
-  "route_reason": "task contains policy/access keyword",
+  "route_reason": "route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
   "risk_high": false,
   "needs_tool": true,
   "hitl_triggered": false,
@@ -10,11 +10,11 @@
       "source": "policy/refund-v4.pdf",
       "score": 0.6471,
       "metadata": {
-        "source": "policy/refund-v4.pdf",
-        "access": "internal",
         "section": "Điều 5: Hình thức hoàn tiền",
+        "department": "CS",
         "effective_date": "2026-02-01",
-        "department": "CS"
+        "access": "internal",
+        "source": "policy/refund-v4.pdf"
       }
     },
     {
@@ -22,10 +22,10 @@
       "source": "policy/refund-v4.pdf",
       "score": 0.4394,
       "metadata": {
+        "department": "CS",
+        "effective_date": "2026-02-01",
         "access": "internal",
         "source": "policy/refund-v4.pdf",
-        "effective_date": "2026-02-01",
-        "department": "CS",
         "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
       }
     },
@@ -35,36 +35,23 @@
       "score": 0.3878,
       "metadata": {
         "department": "CS",
-        "access": "internal",
-        "effective_date": "2026-02-01",
         "source": "policy/refund-v4.pdf",
-        "section": "Điều 1: Phạm vi áp dụng"
+        "effective_date": "2026-02-01",
+        "section": "Điều 1: Phạm vi áp dụng",
+        "access": "internal"
       }
     }
   ],
-  "retrieved_sources": [],
+  "retrieved_sources": [
+    "policy/refund-v4.pdf"
+  ],
   "policy_result": {
-    "policy_applies": true,
+    "policy_applies": false,
     "policy_name": "refund_policy_v4",
     "exceptions_found": [
       {
         "type": "flash_sale_exception",
         "rule": "Đơn hàng Flash Sale không được hoàn tiền (Điều 3, chính sách v4).",
-        "source": "policy_refund_v4.txt"
-      },
-      {
-        "type": "flash_sale",
-        "rule": "Detected by LLM: flash_sale",
-        "source": "policy_refund_v4.txt"
-      },
-      {
-        "type": "digital_product",
-        "rule": "Detected by LLM: digital_product",
-        "source": "policy_refund_v4.txt"
-      },
-      {
-        "type": "activated",
-        "rule": "Detected by LLM: activated",
         "source": "policy_refund_v4.txt"
       }
     ],
@@ -72,7 +59,7 @@
       "policy/refund-v4.pdf"
     ],
     "policy_version_note": "",
-    "explanation": "Chính sách hoàn tiền áp dụng cho tất cả các đơn hàng đủ điều kiện, nhưng có một số ngoại lệ như hàng kỹ thuật số, đơn hàng trong chương trình Flash Sale, và sản phẩm đã được kích hoạt."
+    "explanation": "Chính sách hoàn tiền không áp dụng vì đơn hàng được đặt trước ngày 01/02/2026."
   },
   "mcp_tools_used": [
     {
@@ -88,11 +75,11 @@
             "source": "policy/refund-v4.pdf",
             "score": 0.6471,
             "metadata": {
-              "source": "policy/refund-v4.pdf",
-              "access": "internal",
               "section": "Điều 5: Hình thức hoàn tiền",
+              "department": "CS",
               "effective_date": "2026-02-01",
-              "department": "CS"
+              "access": "internal",
+              "source": "policy/refund-v4.pdf"
             }
           },
           {
@@ -100,10 +87,10 @@
             "source": "policy/refund-v4.pdf",
             "score": 0.4394,
             "metadata": {
+              "department": "CS",
+              "effective_date": "2026-02-01",
               "access": "internal",
               "source": "policy/refund-v4.pdf",
-              "effective_date": "2026-02-01",
-              "department": "CS",
               "section": "Điều 3: Điều kiện áp dụng và ngoại lệ"
             }
           },
@@ -113,10 +100,10 @@
             "score": 0.3878,
             "metadata": {
               "department": "CS",
-              "access": "internal",
-              "effective_date": "2026-02-01",
               "source": "policy/refund-v4.pdf",
-              "section": "Điều 1: Phạm vi áp dụng"
+              "effective_date": "2026-02-01",
+              "section": "Điều 1: Phạm vi áp dụng",
+              "access": "internal"
             }
           }
         ],
@@ -126,60 +113,28 @@
         "total_found": 3
       },
       "error": null,
-      "timestamp": "2026-04-14T15:08:37.453073"
+      "timestamp": "2026-04-14T15:36:21.184505"
     }
   ],
   "final_answer": "Store credit khi hoàn tiền có giá trị 110% so với số tiền gốc. Khách hàng có thể chọn nhận store credit thay thế trong trường hợp đủ điều kiện hoàn tiền [1].",
   "sources": [
     "policy/refund-v4.pdf"
   ],
-  "confidence": 0.47,
+  "confidence": 0.62,
   "history": [
     "[supervisor] received task: Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
-    "[supervisor] route=policy_tool_worker reason=task contains policy/access keyword",
+    "[supervisor] route=policy_tool_worker reason=route to policy_tool_worker: chứa keyword về policy/quyền hạn | risk_flag: Normal",
     "[policy_tool_worker] called MCP search_kb",
-    "[policy_tool_worker] policy_applies=True, exceptions=4",
-    "[synthesis_worker] answer generated, confidence=0.47, sources=['policy/refund-v4.pdf']",
-    "[graph] completed in 4780ms"
+    "[policy_tool_worker] policy_applies=False, exceptions=1",
+    "[synthesis_worker] answer generated, confidence=0.62, sources=['policy/refund-v4.pdf']",
+    "[graph] completed in 3648ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "policy_tool_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "policy_tool_worker",
-  "latency_ms": 4780,
-  "run_id": "run_20260414_150837",
-  "worker_io_logs": [
-    {
-      "worker": "policy_tool_worker",
-      "input": {
-        "task": "Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
-        "chunks_count": 0,
-        "needs_tool": true
-      },
-      "output": {
-        "policy_applies": true,
-        "exceptions_count": 4,
-        "mcp_calls": 1
-      },
-      "error": null
-    },
-    {
-      "worker": "synthesis_worker",
-      "input": {
-        "task": "Store credit khi hoàn tiền có giá trị bao nhiêu so với tiền gốc?",
-        "chunks_count": 3,
-        "has_policy": true
-      },
-      "output": {
-        "answer_length": 157,
-        "sources": [
-          "policy/refund-v4.pdf"
-        ],
-        "confidence": 0.47
-      },
-      "error": null
-    }
-  ],
+  "latency_ms": 3648,
+  "run_id": "run_20260414_153620_394606",
   "question_id": "q10"
 }

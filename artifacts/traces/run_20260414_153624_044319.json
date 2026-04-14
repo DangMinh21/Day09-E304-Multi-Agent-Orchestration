@@ -1,6 +1,6 @@
 {
   "task": "Ticket P1 được tạo lúc 22:47. Ai sẽ nhận thông báo đầu tiên và qua kênh nào? Escalation xảy ra lúc mấy giờ?",
-  "route_reason": "default route",
+  "route_reason": "route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
   "risk_high": false,
   "needs_tool": false,
   "hitl_triggered": false,
@@ -10,11 +10,11 @@
       "source": "support/sla-p1-2026.pdf",
       "score": 0.6114,
       "metadata": {
-        "section": "Phần 3: Quy trình xử lý sự cố P1",
         "source": "support/sla-p1-2026.pdf",
         "access": "internal",
         "department": "IT",
-        "effective_date": "2026-01-15"
+        "effective_date": "2026-01-15",
+        "section": "Phần 3: Quy trình xử lý sự cố P1"
       }
     },
     {
@@ -22,11 +22,11 @@
       "source": "support/sla-p1-2026.pdf",
       "score": 0.5813,
       "metadata": {
-        "source": "support/sla-p1-2026.pdf",
         "access": "internal",
-        "section": "Phần 2: SLA theo mức độ ưu tiên",
         "effective_date": "2026-01-15",
-        "department": "IT"
+        "department": "IT",
+        "section": "Phần 2: SLA theo mức độ ưu tiên",
+        "source": "support/sla-p1-2026.pdf"
       }
     },
     {
@@ -35,10 +35,10 @@
       "score": 0.5528,
       "metadata": {
         "department": "IT",
+        "section": "Phần 4: Công cụ và kênh liên lạc",
         "source": "support/sla-p1-2026.pdf",
-        "effective_date": "2026-01-15",
         "access": "internal",
-        "section": "Phần 4: Công cụ và kênh liên lạc"
+        "effective_date": "2026-01-15"
       }
     }
   ],
@@ -47,56 +47,24 @@
   ],
   "policy_result": {},
   "mcp_tools_used": [],
-  "final_answer": "1. Ai sẽ nhận thông báo đầu tiên và qua kênh nào?\n   - On-call engineer sẽ nhận thông báo đầu tiên qua kênh Slack #incident-p1 và email incident@company.internal ngay lập tức sau khi ticket được tạo [1].\n\n2. Escalation xảy ra lúc mấy giờ?\n   - Escalation sẽ xảy ra tự động lên Senior Engineer nếu không có phản hồi trong 10 phút. Nếu ticket P1 được tạo lúc 22:47, escalation sẽ xảy ra lúc 22:57 [2].",
+  "final_answer": "1. **Ai sẽ nhận thông báo đầu tiên và qua kênh nào?**\n   - On-call engineer sẽ nhận thông báo đầu tiên qua kênh Slack #incident-p1 và email incident@company.internal ngay lập tức sau khi ticket được tạo [1].\n\n2. **Escalation xảy ra lúc mấy giờ?**\n   - Escalation sẽ xảy ra tự động lên Senior Engineer nếu không có phản hồi trong 10 phút. Nếu ticket P1 được tạo lúc 22:47, thì escalation sẽ xảy ra lúc 22:57 [2].",
   "sources": [
     "support/sla-p1-2026.pdf"
   ],
   "confidence": 0.75,
   "history": [
     "[supervisor] received task: Ticket P1 được tạo lúc 22:47. Ai sẽ nhận thông báo đầu tiên và qua kênh nào? Esc",
-    "[supervisor] route=retrieval_worker reason=default route",
+    "[supervisor] route=retrieval_worker reason=route to retrieval_worker: chứa keyword ticket/chuẩn SLA cơ bản | risk_flag: Normal",
     "[retrieval_worker] retrieved 3 chunks from ['support/sla-p1-2026.pdf']",
     "[synthesis_worker] answer generated, confidence=0.75, sources=['support/sla-p1-2026.pdf']",
-    "[graph] completed in 2972ms"
+    "[graph] completed in 3085ms - Powered by LangGraph!"
   ],
   "workers_called": [
     "retrieval_worker",
     "synthesis_worker"
   ],
   "supervisor_route": "retrieval_worker",
-  "latency_ms": 2972,
-  "run_id": "run_20260414_150841",
-  "worker_io_logs": [
-    {
-      "worker": "retrieval_worker",
-      "input": {
-        "task": "Ticket P1 được tạo lúc 22:47. Ai sẽ nhận thông báo đầu tiên và qua kênh nào? Escalation xảy ra lúc mấy giờ?",
-        "top_k": 3
-      },
-      "output": {
-        "chunks_count": 3,
-        "sources": [
-          "support/sla-p1-2026.pdf"
-        ]
-      },
-      "error": null
-    },
-    {
-      "worker": "synthesis_worker",
-      "input": {
-        "task": "Ticket P1 được tạo lúc 22:47. Ai sẽ nhận thông báo đầu tiên và qua kênh nào? Escalation xảy ra lúc mấy giờ?",
-        "chunks_count": 3,
-        "has_policy": false
-      },
-      "output": {
-        "answer_length": 399,
-        "sources": [
-          "support/sla-p1-2026.pdf"
-        ],
-        "confidence": 0.75
-      },
-      "error": null
-    }
-  ],
+  "latency_ms": 3085,
+  "run_id": "run_20260414_153624_044319",
   "question_id": "q11"
 }
